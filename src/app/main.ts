@@ -1,10 +1,10 @@
-import { Guerreiro } from "./personagens/classes/guerreiro.ts";
-import { Humano } from "./racas/humano.ts";
+import { Guerreiro } from "../personagens/classes/guerreiro.ts";
+import { Humano } from "../racas/humano.ts";
 
-import { Inventario } from "./inventario/inventario.ts";
-import { Equipamento } from "./inventario/equipamento.ts";
+import { Inventario } from "../inventario/inventario.ts";
+import { Equipamento } from "../inventario/equipamento.ts";
 
-import { Atributos } from "./personagens/atributos/atributos.ts";
+import { Atributos } from "../personagens/atributos/atributos.ts";
 
 
 const guerreiro = new Guerreiro(

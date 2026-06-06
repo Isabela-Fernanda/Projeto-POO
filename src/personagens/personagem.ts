@@ -2,7 +2,7 @@ import { Raca } from "../racas/raca.ts";
 import { Atributos } from "./atributos/atributos.ts";
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
-import { Pericia } from "../pericia.ts";
+import { Pericia } from "../habilidades/pericia.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
 import { CalculadoraDano } from "../combate/calcularDano.ts";
 
