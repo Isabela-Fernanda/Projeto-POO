@@ -8,27 +8,8 @@ export class Atributos {
         public carisma: number
     ){}
 
-    calcularForca(bonusRacial: number): number{
-        return this.forca + bonusRacial;
-    }
-    calcularDestreza(bonusRacial: number): number {
-        return this.destreza + bonusRacial;
-    }
-    calcularConstituicao(bonusRacial: number): number {
-        return this.constituicao + bonusRacial;
-    }
-    calcularInteligencia(bonusRacial: number): number {
-        return this.inteligencia + bonusRacial;
-    }
-    calcularSabedoria(bonusRacial: number): number {
-        return this.sabedoria + bonusRacial;
-    }
-    calcularCarisma(bonusRacial: number): number {
-        return this.carisma + bonusRacial;
-    }
-
     getForca(): number {
-        return this.forca;
+        return (this.forca);
     }
     getDestreza(): number {
         return this.destreza;

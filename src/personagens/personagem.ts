@@ -69,7 +69,7 @@ export abstract class Personagem {
     }
 
     getForca(): number {
-        return this.atributos.getForca();
+        return (this.atributos.getForca() + this.raca.getBonusForca());
     }
 
     getDefesa(): number {
