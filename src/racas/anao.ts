@@ -8,7 +8,26 @@ export class Anao extends Raca {
 
     constructor() {
         super(
-            "Anao", 0, -2, 4, 0, 2, 0
+            "Anao", 
         );
+    }
+
+    getBonusForca(): number {
+        return 0;
+    }
+    getBonusDestreza(): number {
+        return -2;
+    }
+    getBonusConstituicao(): number {
+        return 4;
+    }
+    getBonusInteligencia(): number {
+        return 0;
+    }
+    getBonusSabedoria(): number {
+        return 2;
+    }
+    getBonusCarisma(): number {
+        return 0;
     }
 }

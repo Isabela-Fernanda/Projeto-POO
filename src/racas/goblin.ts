@@ -8,7 +8,26 @@ export class Goblin extends Raca {
 
     constructor() {
         super(
-            "Goblin", 0, 4, 0, 0, 2, -2
+            "Goblin"
         );
+    }
+
+    getBonusForca(): number {
+        return 0;
+    }
+    getBonusDestreza(): number {
+        return 4;
+    }
+    getBonusConstituicao(): number {
+        return 0;
+    }
+    getBonusInteligencia(): number {
+        return 0;
+    }
+    getBonusSabedoria(): number {
+        return 2;
+    }
+    getBonusCarisma(): number {
+        return -2;
     }
 }

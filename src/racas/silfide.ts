@@ -8,7 +8,26 @@ export class Silfide extends Raca {
 
     constructor() {
         super(
-            "Silfide", -4, 2, 0, 0, 0, 4
+            "Silfide"
         );
+    }
+
+    getBonusForca(): number {
+        return -4;
+    }
+    getBonusDestreza(): number {
+        return 2;
+    }
+    getBonusConstituicao(): number {
+        return 0;
+    }
+    getBonusInteligencia(): number {
+        return 0;
+    }
+    getBonusSabedoria(): number {
+        return 0;
+    }
+    getBonusCarisma(): number {
+        return 4;
     }
 }

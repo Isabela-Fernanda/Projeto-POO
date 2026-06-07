@@ -8,7 +8,26 @@ export class Humano extends Raca {
 
     constructor() {
         super(
-            "Humano", 0, 0, 0, 0, 0, 0
+            "Humano"
         );
+    }
+
+    getBonusForca(): number {
+        return 0;
+    }
+    getBonusDestreza(): number {
+        return 0;
+    }
+    getBonusConstituicao(): number {
+        return 0;
+    }
+    getBonusInteligencia(): number {
+        return 0;
+    }
+    getBonusSabedoria(): number {
+        return 0;
+    }
+    getBonusCarisma(): number {
+        return 0;
     }
 }

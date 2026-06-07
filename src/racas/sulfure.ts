@@ -8,7 +8,26 @@ export class Sulfure extends Raca {
 
     constructor(){
         super(
-            "Sulfure", 0, 4, 0, 2, 0, 0
+            "Sulfure"
         );
+    }
+
+    getBonusForca(): number {
+        return 0;
+    }
+    getBonusDestreza(): number {
+        return 4;
+    }
+    getBonusConstituicao(): number {
+        return 0;
+    }
+    getBonusInteligencia(): number {
+        return 2;
+    }
+    getBonusSabedoria(): number {
+        return 0;
+    }
+    getBonusCarisma(): number {
+        return 0;
     }
 }

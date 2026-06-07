@@ -8,7 +8,26 @@ export class Aggelus extends Raca {
 
     constructor() {
         super(
-            "Aggelus", 0, 0, 0, 0, 4, 2
+            "Aggelus"
         );
+    }
+
+    getBonusForca(): number {
+        return 0;
+    }
+    getBonusDestreza(): number {
+        return 0;
+    }
+    getBonusConstituicao(): number {
+        return 0;
+    }
+    getBonusInteligencia(): number {
+        return 0;
+    }
+    getBonusSabedoria(): number {
+        return 4;
+    }
+    getBonusCarisma(): number {
+        return 2;
     }
 }

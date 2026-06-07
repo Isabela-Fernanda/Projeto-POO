@@ -8,7 +8,26 @@ export class Osteon extends Raca {
 
     constructor() {
         super(
-            "Osteon", 0, 0, -2, 0, 0, 0,
+            "Osteon"
         );
+    }
+
+    getBonusForca(): number {
+        return 0;
+    }
+    getBonusDestreza(): number {
+        return 0;
+    }
+    getBonusConstituicao(): number {
+        return -2;
+    }
+    getBonusInteligencia(): number {
+        return 0;
+    }
+    getBonusSabedoria(): number {
+        return 0;
+    }
+    getBonusCarisma(): number {
+        return 0;
     }
 }

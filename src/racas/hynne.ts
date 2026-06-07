@@ -8,7 +8,26 @@ export class Hynne extends Raca {
 
     constructor() {
         super(
-            "Hynne", -2, 4, 0, 0, 0, 2
+            "Hynne"
         );
+    }
+
+    getBonusForca(): number {
+        return -2;
+    }
+    getBonusDestreza(): number {
+        return 4;
+    }
+    getBonusConstituicao(): number {
+        return 0;
+    }
+    getBonusInteligencia(): number {
+        return 0;
+    }
+    getBonusSabedoria(): number {
+        return 0;
+    }
+    getBonusCarisma(): number {
+        return 2;
     }
 }

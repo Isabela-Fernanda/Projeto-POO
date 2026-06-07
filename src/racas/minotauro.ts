@@ -8,7 +8,26 @@ export class Minotauro extends Raca {
 
     constructor() {
         super(
-            "Minotauro", 4, 0, 2, 0, -2, 0
+            "Minotauro"
         );
+    }
+
+    getBonusForca(): number {
+        return 4;
+    }
+    getBonusDestreza(): number {
+        return 0;
+    }
+    getBonusConstituicao(): number {
+        return 2;
+    }
+    getBonusInteligencia(): number {
+        return 0;
+    }
+    getBonusSabedoria(): number {
+        return -2;
+    }
+    getBonusCarisma(): number {
+        return 0;
     }
 }

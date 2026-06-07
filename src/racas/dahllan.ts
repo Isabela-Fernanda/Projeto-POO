@@ -8,7 +8,26 @@ export class Dahllan extends Raca {
 
     constructor() {
         super(
-            "Dahllan", 0, 2, 0, -2, 4, 0
+            "Dahllan"
         );
+    }
+
+    getBonusForca(): number {
+        return 0;
+    }
+    getBonusDestreza(): number {
+        return 2;
+    }
+    getBonusConstituicao(): number {
+        return 0;
+    }
+    getBonusInteligencia(): number {
+        return -2;
+    }
+    getBonusSabedoria(): number {
+        return 4;
+    }
+    getBonusCarisma(): number {
+        return 0;
     }
 }

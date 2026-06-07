@@ -8,7 +8,26 @@ export class SereiaTritao extends Raca {
 
     constructor() {
         super(
-            "SereiaTritao", 0, 0, 0, 0, 0, 0
+            "SereiaTritao"
         );
+    }
+
+    getBonusForca(): number {
+        return 0;
+    }
+    getBonusDestreza(): number {
+        return 0;
+    }
+    getBonusConstituicao(): number {
+        return 0;
+    }
+    getBonusInteligencia(): number {
+        return 0;
+    }
+    getBonusSabedoria(): number {
+        return 0;
+    }
+    getBonusCarisma(): number {
+        return 0;
     }
 }

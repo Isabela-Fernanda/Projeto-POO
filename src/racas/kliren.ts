@@ -8,7 +8,26 @@ export class Kliren extends Raca {
 
     constructor() {
         super(
-            "Kliren", -2, 0, 0, 4, 0, 2
+            "Kliren"
         );
+    }
+
+    getBonusForca(): number {
+        return -2;
+    }
+    getBonusDestreza(): number {
+        return 0;
+    }
+    getBonusConstituicao(): number {
+        return 0;
+    }
+    getBonusInteligencia(): number {
+        return 4;
+    }
+    getBonusSabedoria(): number {
+        return 0;
+    }
+    getBonusCarisma(): number {
+        return 2;
     }
 }

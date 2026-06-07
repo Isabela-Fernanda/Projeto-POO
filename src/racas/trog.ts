@@ -8,7 +8,26 @@ export class Trog extends Raca {
 
     constructor() {
         super(
-            "Trog", 2, 0, 4, -2, 0, 0
+            "Trog"
         );
+    }
+
+    getBonusForca(): number {
+        return 2;
+    }
+    getBonusDestreza(): number {
+        return 0;
+    }
+    getBonusConstituicao(): number {
+        return 4;
+    }
+    getBonusInteligencia(): number {
+        return -2;
+    }
+    getBonusSabedoria(): number {
+        return 0;
+    }
+    getBonusCarisma(): number {
+        return 0;
     }
 }
