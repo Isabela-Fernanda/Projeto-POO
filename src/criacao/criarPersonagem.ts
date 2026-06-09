@@ -6,12 +6,41 @@ import { GeradorAtributos } from "./geradorAtributos.ts";
 
 // Raças
 import { Raca } from "../racas/raca.ts";
+import { Aggelus } from "../racas/aggelus.ts";
+import { Anao } from "../racas/anao.ts";
+import { Dahllan } from "../racas/dahllan.ts";
 import { Elfo } from "../racas/elfo.ts";
+import { Goblin } from "../racas/goblin.ts";
+import { Golem } from "../racas/golem.ts";
 import { Humano } from "../racas/humano.ts";
+import { Hynne } from "../racas/hynne.ts";
+import { Kliren } from "../racas/kliren.ts";
+import { Lefou } from "../racas/lefou.ts";
+import { Medusa } from "../racas/medusa.ts";
+import { Minotauro } from "../racas/minotauro.ts";
+import { Osteon } from "../racas/osteon.ts";
+import { Qareen } from "../racas/qareen.ts";
+import { SereiaTritao } from "../racas/sereia-tritao.ts";
+import { Silfide } from "../racas/silfide.ts";
+import { Sulfure } from "../racas/sulfure.ts";
+import { Trog } from "../racas/trog.ts";
 
 // Classes
 import { Classe } from "../personagens/classes/classe.ts";
+import { Arcanista } from "../personagens/classes/arcanista.ts";
+import { Barbaro } from "../personagens/classes/barbaro.ts";
+import { Bardo } from "../personagens/classes/bardo.ts";
+import { Bucaneiro } from "../personagens/classes/bucaneiro.ts";
+import { Cacador } from "../personagens/classes/cacador.ts";
+import { Cavaleiro } from "../personagens/classes/cavaleiro.ts";
+import { Clerigo } from "../personagens/classes/clerigo.ts";
+import { Druida } from "../personagens/classes/druida.ts";
 import { Guerreiro } from "../personagens/classes/guerreiro.ts";
+import { Inventor } from "../personagens/classes/inventor.ts";
+import { Ladino } from "../personagens/classes/ladino.ts";
+import { Lutador } from "../personagens/classes/lutador.ts";
+import { Nobre } from "../personagens/classes/nobre.ts";
+import { Paladino } from "../personagens/classes/paladino.ts";
 
 // Perícias
 import { Pericia } from "../pericias/pericia.ts";
@@ -74,15 +103,47 @@ export class CriacaoPersonagem {
 
     private static escolherRaca(): Raca {
         console.log("\n=== RAÇA ===");
-        console.log("1 - Humano\n2 - Elfo");
+        console.log("1 - Aggelus |   2 - Anão\n3 - Dahllan |   4 - Elfo\n5 - Goblin |   6 - Golem\n7 - Humano |   8 - Hynne\n9 - Kliren |   10 - Lefou\n11 - Medusa |   12 - Minotauro\n13 - Osteon |   14 - Qareen\n15 - Sereia |   16 - Silfide\n17 - Sulfure |   18 - Trog\n");
 
         const opcao = prompt("Escolha a Raça:");
 
         switch (opcao) {
             case "1":
-                return new Humano();
+                return new Aggelus();
             case "2":
+                return new Anao();
+            case "3":
+                return new Dahllan();
+            case "4":
                 return new Elfo();
+            case "5":
+                return new Goblin();
+            case "6":
+                return new Golem();
+            case "7":
+                return new Humano();
+            case "8":
+                return new Hynne();
+            case "9":
+                return new Kliren();
+            case "10":
+                return new Lefou();
+            case "11":
+                return new Medusa();
+            case "12":
+                return new Minotauro();
+            case "13":
+                return new Osteon();
+            case "14":
+                return new Qareen();
+            case "15":
+                return new SereiaTritao();
+            case "16":
+                return new Silfide();
+            case "17":
+                return new Sulfure();
+            case "18":
+                return new Trog();
             default:
                 return new Humano();
         }
@@ -151,13 +212,39 @@ export class CriacaoPersonagem {
 
     private static escolherClasse(): Classe {
         console.log("\n=== CLASSE ===");
-        console.log("1 - Guerreiro");
+        console.log("1 - Arcanista  |   2 - Bárbaro\n3 - Bardo  |   4 - Bucaneiro\n5 - Caçador  |   6 - Cavaleiro\n7 - Clérigo  |   8 - Druida\n9 - Guerreiro   |   10 - Inventor\n11 - Ladino  |   12 - Lutador\n13 - Nobre    |   14 - Paladino");
 
         const opcao = prompt("Escolha a classe:");
 
         switch (opcao) {
             case "1":
+                return new Arcanista();
+            case "2":
+                return new Barbaro();
+            case "3":
+                return new Bardo();
+            case "4":
+                return new Bucaneiro();
+            case "5":
+                return new Cacador();
+            case "6":
+                return new Cavaleiro();
+            case "7":
+                return new Clerigo();
+            case "8":
+                return new Druida();
+            case "9":
                 return new Guerreiro();
+            case "10":
+                return new Inventor();
+            case "11":
+                return new Ladino();
+            case "12":
+                return new Lutador();
+            case "13":
+                return new Nobre();
+            case "14":
+                return new Paladino();
             default:
                 return new Guerreiro();
         }

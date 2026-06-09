@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Trog extends Raca {
     constructor() {
@@ -33,5 +34,9 @@ export class Trog extends Raca {
 
     precisaEscolherBonus(): boolean {
         return false;
+    }
+
+    getAtributosProibidos(): TipoAtributo[] {
+        return [];
     }
 }
