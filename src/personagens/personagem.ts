@@ -1,30 +1,35 @@
 import { Raca } from "../racas/raca.ts";
-import { Atributos } from "./atributos/atributos.ts";
+import { Classe } from "./classes/classe.ts";
+import { Atributos, TipoAtributo } from "./atributos/atributos.ts";
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
-import { Pericia } from "../habilidades/pericia.ts";
+import { Pericia } from "../pericias/pericia.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
 import { CalculadoraDano } from "../combate/calcularDano.ts";
+import { CalculadoraDefesa } from "../combate/calcularDefesa.ts";
 
 export abstract class Personagem {
     protected vidaAtual: number;
+    protected vidaMaxima: number;
     protected manaAtual: number;
+    protected manaMaxima: number;
 
     constructor(
         protected nome: string,
         protected nivel: number,
         protected raca: Raca,
+        protected classe: Classe | null,
         protected atributos: Atributos,
-        protected defesa: number,
-        protected vidaMaxima: number,
-        protected manaMaxima: number,
         protected inventario: Inventario,
         protected equipamento: Equipamento,
         protected pericias: Map< Pericia, number >,
         protected habilidades: Habilidade[],
     ) {
-        this.vidaAtual = vidaMaxima;
-        this.manaAtual = manaMaxima;
+        this.vidaMaxima = (classe?.getVidaInicial() ?? 0) + this.getConstituicao();
+        this.manaMaxima = (classe?.getManaInicial() ?? 0);
+
+        this.vidaAtual = this.vidaMaxima;
+        this.manaAtual = this.manaMaxima;
     }
 
     abstract atacar(alvo?: Personagem): void;
@@ -69,11 +74,31 @@ export abstract class Personagem {
     }
 
     getForca(): number {
-        return (this.atributos.getForca() + this.raca.getBonusForca());
+        return (this.atributos.getAtributo(TipoAtributo.FORCA) + this.raca.getBonusForca());
     }
+    getDestreza(): number {
+        return (this.atributos.getAtributo(TipoAtributo.DESTREZA) + this.raca.getBonusDestreza());
+    }
+    getConstituicao(): number {
+        return (this.atributos.getAtributo(TipoAtributo.CONSTITUICAO) + this.raca.getBonusConstituicao());
+    }
+    getInteligencia(): number {
+        return (this.atributos.getAtributo(TipoAtributo.INTELIGENCIA) + this.raca.getBonusInteligencia());
+    }
+    getSabedoria(): number {
+        return (this.atributos.getAtributo(TipoAtributo.SABEDORIA) + this.raca.getBonusSabedoria());
+    }
+    getCarisma(): number {
+        return (this.atributos.getAtributo(TipoAtributo.CARISMA) + this.raca.getBonusCarisma());
+    }
+    
 
     getDefesa(): number {
-        return this.defesa;
+        return CalculadoraDefesa.calcular(this);
+    }
+
+    getEquipamento(): Equipamento {
+        return this.equipamento;
     }
 
 }

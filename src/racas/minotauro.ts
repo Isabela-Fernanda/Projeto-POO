@@ -1,11 +1,8 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Minotauro extends Raca {
-    getHabilidadesRaciais(): Habilidade[] {
-        return [];
-    }
-
     constructor() {
         super(
             "Minotauro"
@@ -29,5 +26,17 @@ export class Minotauro extends Raca {
     }
     getBonusCarisma(): number {
         return 0;
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
+    }
+
+    precisaEscolherBonus(): boolean {
+        return false;
+    }
+
+    getAtributosProibidos(): TipoAtributo[] {
+        return [];
     }
 }

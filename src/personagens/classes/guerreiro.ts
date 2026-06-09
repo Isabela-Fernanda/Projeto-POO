@@ -1,43 +1,49 @@
-import { CalculadoraDano } from "../../combate/calcularDano.ts";
-import { CalculadoraAtaque } from "../../combate/calcularAtaque.ts";
-import { Personagem } from "../personagem.ts";
-import { Jogador } from "../jogador.ts";
+import { Classe } from "./classe.ts";
+import { Habilidade} from '../../habilidades/habilidades.ts';
+import { Pericia } from "../../pericias/pericia.ts";
+import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
 
-export class Guerreiro extends Jogador {
-    atacar(alvo?: Personagem): void {
-        if (!alvo) {
-            console.log(
-                `${this.getNome()} não tem alvo para atacar.`
-            );
-            return;
-        }
 
-        if (
-            CalculadoraAtaque.acertou(
-                this,
-                alvo
-            )
-        ) {
-
-            const dano =
-                CalculadoraDano.calcularAtaqueFisico(
-                    this,
-                    alvo
-                );
-
-            alvo.receberDano(dano);
-
-            console.log(
-                `${this.getNome()} causou ${dano} de dano!`
-            );
-
-        }
-        else {
-
-            console.log(
-                `${this.getNome()} errou o ataque!`
-            );
-
-        }
+export class Guerreiro extends Classe {
+    constructor(){
+        super("Guerreiro");
     }
+    getVidaInicial(): number {
+        return 20;
+    }
+
+    getManaInicial(): number {
+        return 3;
+    }
+
+    getPericiasTreinadas(): number {
+        return 2;
+    }
+
+    getHabilidadesClasse(): Habilidade[] {
+        return [];
+    }
+
+    getPericiasClasse(): Pericia[] {
+        return[
+            CatalogoPericias.LUTA,
+            CatalogoPericias.PONTARIA,
+            CatalogoPericias.FORTITUDE
+        ]
+    }
+
+    getPericiasDisponiveis(): Pericia[] {
+        return[
+            CatalogoPericias.ADESTRAMENTO,
+            CatalogoPericias.ATLETISMO,
+            CatalogoPericias.CAVALGAR,
+            CatalogoPericias.GUERRA,
+            CatalogoPericias.INICIATIVA,
+            CatalogoPericias.INTIMIDACAO,
+            CatalogoPericias.OFICIO,
+            CatalogoPericias.PERCEPCAO,
+            CatalogoPericias.REFLEXOS
+        ]
+    }
+
 }

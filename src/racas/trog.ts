@@ -2,10 +2,6 @@ import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
 
 export class Trog extends Raca {
-    getHabilidadesRaciais(): Habilidade[] {
-        return [];
-    }
-
     constructor() {
         super(
             "Trog"
@@ -29,5 +25,13 @@ export class Trog extends Raca {
     }
     getBonusCarisma(): number {
         return 0;
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
+    }
+
+    precisaEscolherBonus(): boolean {
+        return false;
     }
 }

@@ -1,16 +1,13 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Lefou extends Raca {
-    getHabilidadesRaciais(): Habilidade[] {
-        return [];
-    }
-
     constructor() {
         super(
             "Lefou"
         );
-    }  
+    }
 
     getBonusForca(): number {
         return 0;
@@ -29,5 +26,17 @@ export class Lefou extends Raca {
     }
     getBonusCarisma(): number {
         return -2;
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
+    }
+
+    precisaEscolherBonus(): boolean {
+        return true;
+    }
+
+    getAtributosProibidos(): TipoAtributo[] {
+        return [TipoAtributo.CARISMA];
     }
 }

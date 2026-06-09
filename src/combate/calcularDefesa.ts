@@ -6,19 +6,12 @@ export class CalculadoraDefesa {
         personagem: Personagem
     ): number {
 
-        let defesa =
-            10 +
-            personagem.getAtributos()
-                      .getDestreza();
+        let defesa = 10 + personagem.getDestreza();
 
-        const armadura =
-            personagem
-                .getEquipamento()
-                .getArmadura();
+        const armadura = personagem.getEquipamento().getArmadura();
 
         if (armadura) {
-            defesa +=
-                armadura.getBonusDefesa();
+            defesa += armadura.getBonusDefesa();
         }
 
         return defesa;

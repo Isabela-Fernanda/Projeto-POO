@@ -1,4 +1,5 @@
 import { Personagem } from "../personagens/personagem.ts";
+import { Atributos, TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Tela {
 
@@ -10,10 +11,7 @@ export class Tela {
 
     }
 
-    static mostrarStatus(
-        personagem: Personagem
-    ): void {
-
+    static mostrarStatus(personagem: Personagem): void {
         console.log(
             `${personagem.getNome()}`
         );
@@ -21,7 +19,7 @@ export class Tela {
         console.log(
             `HP: ${personagem.getVidaAtual()}/${personagem.getVidaMaxima()}`
         );
-
+        
         console.log("");
 
     }

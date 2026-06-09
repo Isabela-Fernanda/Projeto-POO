@@ -8,13 +8,9 @@ export class CalculadoraAtaque {
         alvo: Personagem
     ): boolean {
 
-        const rolagem =
-            Dado.d20();
+        const rolagem = Dado.d20();
 
-        const total =
-            rolagem +
-            atacante.getAtributos()
-                     .getDestreza();
+        const total = rolagem + atacante.getDestreza();
 
         console.log(
             `${atacante.getNome()} rolou ${rolagem} (total ${total})`
