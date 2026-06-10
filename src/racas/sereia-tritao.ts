@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { CancaoDosMares, MestreDoTridente, TransformacaoAnfibia } from "../habilidades/habilidadesRaca/habilidadesSereiaTritao.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class SereiaTritao extends Raca {
@@ -29,7 +30,11 @@ export class SereiaTritao extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new CancaoDosMares(),
+            new MestreDoTridente(),
+            new TransformacaoAnfibia()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

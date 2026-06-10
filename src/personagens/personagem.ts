@@ -4,6 +4,7 @@ import { Atributos, TipoAtributo } from "./atributos/atributos.ts";
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
 import { Pericia } from "../pericias/pericia.ts";
+import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
 import { CalculadoraDano } from "../combate/calcularDano.ts";
 import { CalculadoraDefesa } from "../combate/calcularDefesa.ts";
@@ -22,7 +23,7 @@ export abstract class Personagem {
         protected atributos: Atributos,
         protected inventario: Inventario,
         protected equipamento: Equipamento,
-        protected pericias: Map< Pericia, number >,
+        protected pericias: Map<Pericia, GrauTreinamento>,
         protected habilidades: Habilidade[],
     ) {
         this.vidaMaxima = (classe?.getVidaInicial() ?? 0) + this.getConstituicao();
@@ -33,7 +34,7 @@ export abstract class Personagem {
     }
 
     abstract atacar(alvo?: Personagem): void;
-    
+
     receberDano(dano: number): void {
         this.vidaAtual -= dano;
         if (this.vidaAtual < 0) {
@@ -91,14 +92,56 @@ export abstract class Personagem {
     getCarisma(): number {
         return (this.atributos.getAtributo(TipoAtributo.CARISMA) + this.raca.getBonusCarisma());
     }
-    
+
+    getAtributo(tipo: TipoAtributo): number {
+        switch (tipo) {
+            case TipoAtributo.FORCA:
+                return this.getForca();
+
+            case TipoAtributo.DESTREZA:
+                return this.getDestreza();
+
+            case TipoAtributo.CONSTITUICAO:
+                return this.getConstituicao();
+
+            case TipoAtributo.INTELIGENCIA:
+                return this.getInteligencia();
+
+            case TipoAtributo.SABEDORIA:
+                return this.getSabedoria();
+
+            case TipoAtributo.CARISMA:
+                return this.getCarisma();
+        }
+    }
+
+    getModificadorAtributo(tipo: TipoAtributo): number {
+        const valor = this.getAtributo(tipo);
+        return Math.floor((valor - 10)/2);
+    }
 
     getDefesa(): number {
         return CalculadoraDefesa.calcular(this);
     }
 
+    getHabilidades(): Habilidade[] {
+        return this.habilidades;
+    }
+
     getEquipamento(): Equipamento {
         return this.equipamento;
+    }
+
+    adicionarPericia(pericia: Pericia, grau: GrauTreinamento = GrauTreinamento.TREINADO): void {
+        this.pericias.set(pericia, grau);
+    }
+
+    getPericias(): Map<Pericia, GrauTreinamento> {
+        return this.pericias;
+    }
+
+    possuiPericia(pericia: Pericia): boolean {
+        return this.pericias.has(pericia);
     }
 
 }

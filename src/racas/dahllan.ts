@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { AmigaDasPlantas, ArmaduraDeAllihanna, EmpatiaSelvagem } from "../habilidades/habilidadesRaca/habilidadesDahllan.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Dahllan extends Raca {
@@ -29,7 +30,11 @@ export class Dahllan extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new AmigaDasPlantas(),
+            new ArmaduraDeAllihanna(),
+            new EmpatiaSelvagem()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

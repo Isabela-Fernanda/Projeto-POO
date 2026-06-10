@@ -1,5 +1,7 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { Versatil } from "../habilidades/habilidadesRaca/habilidadesHumano.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Humano extends Raca {
@@ -29,7 +31,9 @@ export class Humano extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new Versatil()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

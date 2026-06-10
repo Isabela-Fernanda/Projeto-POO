@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { HerancaDivina, LuzSagrada } from "../habilidades/habilidadesRaca/habilidadesAggelus.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Aggelus extends Raca {
@@ -29,7 +30,10 @@ export class Aggelus extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new HerancaDivina(),
+            new LuzSagrada()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

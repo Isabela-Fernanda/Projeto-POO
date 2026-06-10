@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { CanalizarReparos, Chassi, CriaturaArtificial, EspiritoElemental,SemOrigem } from "../habilidades/habilidadesRaca/habilidadesGolem.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Golem extends Raca {
@@ -29,7 +30,13 @@ export class Golem extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new CanalizarReparos(),
+            new Chassi(),
+            new CriaturaArtificial(),
+            new EspiritoElemental(),
+            new SemOrigem()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

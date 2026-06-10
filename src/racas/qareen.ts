@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { Desejos, ResistenciaElemental, TatuagemMistica } from "../habilidades/habilidadesRaca/habilidadesQareen.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Qareen extends Raca {
@@ -29,7 +30,11 @@ export class Qareen extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new Desejos(),
+            new ResistenciaElemental(),
+            new TatuagemMistica()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

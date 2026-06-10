@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { ConnhecimentoDasRochas, DevagarESempre, DuroComoPedra, TradicaoDeHeredrimm } from "../habilidades/habilidadesRaca/habilidadesAnao.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Anao extends Raca {
@@ -29,7 +30,12 @@ export class Anao extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new ConnhecimentoDasRochas(),
+            new DevagarESempre(),
+            new DuroComoPedra(),
+            new TradicaoDeHeredrimm()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

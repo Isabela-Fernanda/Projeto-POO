@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { MauCheiro, Mordida, Reptiliano, SangueFrio } from "../habilidades/habilidadesRaca/habilidadesTrog.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Trog extends Raca {
@@ -29,7 +30,12 @@ export class Trog extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new MauCheiro(),
+            new Mordida(),
+            new Reptiliano(),
+            new SangueFrio()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

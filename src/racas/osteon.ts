@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { ArmaduraOssea, MemoriaPostuma, NaturezaEsqueletica, PrecoDaNaoVida } from "../habilidades/habilidadesRaca/habilidadesOsteon.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Osteon extends Raca {
@@ -29,7 +30,12 @@ export class Osteon extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new ArmaduraOssea(),
+            new MemoriaPostuma(),
+            new NaturezaEsqueletica(),
+            new PrecoDaNaoVida()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

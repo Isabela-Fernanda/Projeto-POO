@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { Engenhoso, Espelunqueiro, PesteEsguia, RatoDasRuas } from "../habilidades/habilidadesRaca/habilidadesGoblin.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Goblin extends Raca {
@@ -29,7 +30,12 @@ export class Goblin extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new Engenhoso(),
+            new Espelunqueiro(),
+            new PesteEsguia(),
+            new RatoDasRuas()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

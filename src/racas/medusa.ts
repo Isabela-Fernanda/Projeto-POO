@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { CriaDeMegalokk, NaturezaVenenosa, OlharAtordoante } from "../habilidades/habilidadesRaca/habilidadesMedusa.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Medusa extends Raca {
@@ -29,7 +30,11 @@ export class Medusa extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new CriaDeMegalokk(),
+            new NaturezaVenenosa(),
+            new OlharAtordoante()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { Chifres, CouroRigido, Faro, MedoDeAltura } from "../habilidades/habilidadesRaca/habilidadesMinotauro.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Minotauro extends Raca {
@@ -29,7 +30,12 @@ export class Minotauro extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new Chifres(),
+            new CouroRigido(),
+            new Faro(),
+            new MedoDeAltura()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

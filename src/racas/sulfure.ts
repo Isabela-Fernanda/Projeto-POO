@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { HerancaDivina, SombrasProfanas } from "../habilidades/habilidadesRaca/habilidadesSulfure.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Sulfure extends Raca {
@@ -29,7 +30,10 @@ export class Sulfure extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new HerancaDivina(),
+            new SombrasProfanas()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

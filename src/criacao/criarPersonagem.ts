@@ -42,12 +42,15 @@ import { Lutador } from "../personagens/classes/lutador.ts";
 import { Nobre } from "../personagens/classes/nobre.ts";
 import { Paladino } from "../personagens/classes/paladino.ts";
 
+// Habilidades
+import { Habilidade } from "../habilidades/habilidades.ts";
 // Perícias
 import { Pericia } from "../pericias/pericia.ts";
 
 // Inventario
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
+import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
 
 export class CriacaoPersonagem {
 
@@ -64,9 +67,12 @@ export class CriacaoPersonagem {
 
         const classe = this.escolherClasse();
 
-        const pericias = this.escolherPericias(classe, atributos);
+        const habilidades = this.gerarHabilidades(raca, classe);
+        this.mostrarHabilidades(habilidades);
 
-        return new Jogador(
+        const pericias = this.escolherPericias(classe);
+
+        const jogador = new Jogador(
             nome,
             1,
             raca,
@@ -75,8 +81,12 @@ export class CriacaoPersonagem {
             new Inventario(),
             new Equipamento(),
             pericias,
-            []
+            habilidades
         )
+
+        this.aplicarHabilidadesCriacao(jogador);
+
+        return jogador;
     }
 
     private static escolherNome(): string {
@@ -147,6 +157,32 @@ export class CriacaoPersonagem {
             default:
                 return new Humano();
         }
+    }
+
+    private static gerarHabilidades(raca: Raca, classe: Classe): Habilidade[] {
+        const habilidades: Habilidade[] = [];
+
+        habilidades.push(
+            ...raca.getHabilidadesRaciais()
+        );
+
+        habilidades.push(
+            ...classe.getHabilidadesClasse()
+        );
+
+        return habilidades;
+    }
+
+    private static aplicarHabilidadesCriacao(jogador: Jogador): void {
+        for(const habilidade of jogador.getHabilidades()) {
+            habilidade.aplicarCriacao(jogador);
+        }
+    }
+
+    private static mostrarHabilidades(habilidades: Habilidade[]): void {
+        console.log("\n=== HABILIDADES ===");
+
+        habilidades.forEach(habilidade => console.log(habilidade.getNome()));
     }
 
     private static escolherAtributo(): TipoAtributo {
@@ -251,8 +287,8 @@ export class CriacaoPersonagem {
 
     }
 
-    private static escolherPericias(classe: Classe, atributos: Atributos): Map<Pericia, number> {
-        const pericias = new Map<Pericia, number>();
+    private static escolherPericias(classe: Classe): Map<Pericia, GrauTreinamento> {
+        const pericias = new Map<Pericia, GrauTreinamento>();
 
         const disponiveis = classe.getPericiasDisponiveis();
 
@@ -282,7 +318,7 @@ export class CriacaoPersonagem {
                 continue;
             }
 
-            pericias.set(pericia, 1);
+            pericias.set(pericia, GrauTreinamento.TREINADO);
         }
 
         console.log(
@@ -290,8 +326,8 @@ export class CriacaoPersonagem {
         );
 
         pericias.forEach((_, pericia) => {
-                console.log(pericia.getNome());
-            }
+            console.log(pericia.getNome());
+        }
         );
 
         return pericias;

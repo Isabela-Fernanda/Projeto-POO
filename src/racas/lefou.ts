@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { CriaDaTormenta, Deformidade } from "../habilidades/habilidadesRaca/habilidadesLefou.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Lefou extends Raca {
@@ -29,7 +30,10 @@ export class Lefou extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new CriaDaTormenta(),
+            new Deformidade()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

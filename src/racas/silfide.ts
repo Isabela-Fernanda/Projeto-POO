@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { AsasDeBorboleta, EspiritoDaNatureza, MagiaDasFadas } from "../habilidades/habilidadesRaca/habilidadesSilfide.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Silfide extends Raca {
@@ -29,7 +30,11 @@ export class Silfide extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new AsasDeBorboleta(),
+            new EspiritoDaNatureza(),
+            new MagiaDasFadas()
+        ];
     }
 
     precisaEscolherBonus(): boolean {

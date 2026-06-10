@@ -1,5 +1,6 @@
 import { Raca } from "./raca.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { Arremessador, PequenoERechonchudo, SorteSalvadora } from "../habilidades/habilidadesRaca/habilidadesHynne.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Hynne extends Raca {
@@ -29,7 +30,11 @@ export class Hynne extends Raca {
     }
 
     getHabilidadesRaciais(): Habilidade[] {
-        return [];
+        return [
+            new Arremessador(),
+            new PequenoERechonchudo(),
+            new SorteSalvadora()
+        ];
     }
 
     precisaEscolherBonus(): boolean {
