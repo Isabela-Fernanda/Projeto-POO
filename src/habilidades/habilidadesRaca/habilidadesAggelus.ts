@@ -1,5 +1,6 @@
 import { Personagem } from "../../personagens/personagem";
 import { Habilidade } from "../habilidades";
+import { CatalogoPericias } from "../../pericias/catalogoPericias";
 
 export class HerancaDivina extends Habilidade {
     constructor(){
@@ -21,4 +22,11 @@ export class LuzSagrada extends Habilidade {
         //Lançar magia "Luz" como magia divina 
         console.log(`${usuario.getNome()} emite uma luz celestial.`);
     }
+
+    override aplicarCriacao(personagem: Personagem): void {
+    personagem.adicionarBonusPericia(CatalogoPericias.DIPLOMACIA, 2);
+
+    personagem.adicionarBonusPericia(CatalogoPericias.INTUICAO, 2);
+
+}
 }

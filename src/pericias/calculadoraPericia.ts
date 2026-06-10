@@ -4,14 +4,16 @@ import { Personagem } from "../personagens/personagem";
 
 export class CalculadoraPericia {
     static calcular(personagem: Personagem, pericia: Pericia): number {
-        const atributo = personagem.getModificadorAtributo(pericia.getAtributoBase());
+        const atributo = personagem.getAtributo(pericia.getAtributoBase());
 
-        const treinamento = personagem.getPericias().get(pericia);
+        const treinamento = personagem.getGrauTreinamento(pericia);
 
-        if(pericia.exigeTreinamento() && treinamento === undefined) {
+        const bonus = personagem.getBonusPericia(pericia);
+
+        if(pericia.exigeTreinamento() && treinamento === GrauTreinamento.DESTREINADO) {
             throw new Error(`${pericia.getNome()} exige treinamento.`)
         }
 
-        return atributo + (treinamento ?? GrauTreinamento.DESTREINADO);
+        return atributo + treinamento + bonus;
     }
 }

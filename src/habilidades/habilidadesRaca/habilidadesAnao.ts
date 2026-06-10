@@ -29,6 +29,11 @@ export class DuroComoPedra extends Habilidade {
     usar(usuario: Personagem, alvo?: Personagem): void {
         console.log("Duro como Pedra é uma habilidade passiva.");
     }
+
+    override aplicarCriacao(personagem: Personagem): void {
+        const bonus = 3 + (personagem.getNivel() - 1);
+        personagem.aumentarVidaMaxima(bonus);
+    }
 }
 
 export class TradicaoDeHeredrimm extends Habilidade {

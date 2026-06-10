@@ -87,4 +87,6 @@ export class CatalogoPericias {
             console.log("Escolha inválida.");
         }
     }
+
+    
 }

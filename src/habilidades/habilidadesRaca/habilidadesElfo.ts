@@ -1,5 +1,6 @@
 import { Habilidade } from "../habilidades";
 import { Personagem } from "../../personagens/personagem";
+import { CatalogoPericias } from "../../pericias/catalogoPericias";
 
 export class GracaDeGlorienn extends Habilidade{
     constructor(){
@@ -9,15 +10,23 @@ export class GracaDeGlorienn extends Habilidade{
     usar(usuario: Personagem, alvo?: Personagem): void {
         console.log("Graça de Glórienn é uma habilidade passiva.");
     }
+
+    override aplicarCriacao(personagem: Personagem): void {
+        personagem.setDeslocamento(12);
+    }
 }
 
 export class HerancaFeerica extends Habilidade {
     constructor(){
-        super("Herança Feérica", "Você recebe +1 ponto de mana por nível.", 0);
+        super("Herança Feérica", "Você recebe +1 PM por nível.", 0);
     }
 
     usar(usuario: Personagem, alvo?: Personagem): void {
         console.log("Herança Feérica é uma habilidade passiva.");
+    }
+
+    override aplicarCriacao(personagem: Personagem): void {
+        personagem.aumentarManaMaxima(personagem.getNivel());
     }
 }
 
@@ -28,5 +37,11 @@ export class SentidosElficos extends Habilidade {
 
     usar(usuario: Personagem, alvo?: Personagem): void {
         console.log("Sentidos Élficos é uma habilidade passiva.");
+    }
+
+    override aplicarCriacao(personagem: Personagem): void {
+        personagem.adicionarBonusPericia(CatalogoPericias.MISTICISMO, 2);
+
+        personagem.adicionarBonusPericia(CatalogoPericias.PERCEPCAO, 2);
     }
 }

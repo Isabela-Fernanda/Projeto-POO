@@ -7,6 +7,16 @@ export class TestePericia {
     static executar(personagem: Personagem, pericia: Pericia, cd: number): boolean {
         const rolagem = Dado.d20();
 
+        if(rolagem === 20) {
+            console.log("\n20 NATURAL!");
+            return true;
+        }
+
+        if(rolagem === 1) {
+            console.log("\n1 NATURAL!");
+            return false;
+        }
+
         const modificador = CalculadoraPericia.calcular(personagem, pericia);
 
         const total = rolagem + modificador;

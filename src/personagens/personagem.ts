@@ -14,6 +14,9 @@ export abstract class Personagem {
     protected vidaMaxima: number;
     protected manaAtual: number;
     protected manaMaxima: number;
+    protected deslocamento: number;
+    protected bonusDefesaTemporario: number = 0;
+    protected tags: string[] = [];
 
     constructor(
         protected nome: string,
@@ -24,6 +27,7 @@ export abstract class Personagem {
         protected inventario: Inventario,
         protected equipamento: Equipamento,
         protected pericias: Map<Pericia, GrauTreinamento>,
+        protected bonusPericias: Map<Pericia, number>,
         protected habilidades: Habilidade[],
     ) {
         this.vidaMaxima = (classe?.getVidaInicial() ?? 0) + this.getConstituicao();
@@ -31,6 +35,8 @@ export abstract class Personagem {
 
         this.vidaAtual = this.vidaMaxima;
         this.manaAtual = this.manaMaxima;
+
+        this.deslocamento = 9;
     }
 
     abstract atacar(alvo?: Personagem): void;
@@ -54,6 +60,22 @@ export abstract class Personagem {
         return this.nivel;
     }
 
+    getClasse(): Classe | null {
+        return this.classe;
+    }
+
+    getRaca(): Raca {
+        return this.raca;
+    }
+
+    getInventario(): Inventario {
+        return this.inventario;
+    }
+
+    /* ------------------------------------------------------------ */
+    /* --------------------------- VIDA --------------------------- */
+    /* ------------------------------------------------------------ */
+
     getVidaAtual(): number {
         return this.vidaAtual;
     }
@@ -62,6 +84,23 @@ export abstract class Personagem {
         return this.vidaMaxima;
     }
 
+    aumentarVidaMaxima(valor: number): void {
+        this.vidaMaxima += valor;
+        this.vidaAtual += valor;
+    }
+
+    regenerarVida(valor: number): void {
+        this.vidaAtual += valor;
+
+        if (this.vidaAtual > this.vidaMaxima) {
+            this.vidaAtual = this.vidaMaxima;
+        }
+    }
+
+    /* ------------------------------------------------------------ */
+    /* -------------------------- MANA ---------------------------- */
+    /* ------------------------------------------------------------ */
+
     getManaAtual(): number {
         return this.manaAtual;
     }
@@ -69,6 +108,59 @@ export abstract class Personagem {
     getManaMaxima(): number {
         return this.manaMaxima;
     }
+
+    aumentarManaMaxima(valor: number): void {
+        this.manaMaxima += valor;
+        this.manaAtual += valor;
+    }
+
+    gastarMana(valor: number): boolean {
+        if (this.manaAtual < valor) {
+            return false;
+        }
+
+        this.manaAtual -= valor;
+        return true;
+    }
+
+    regenerarMana(valor: number): void {
+        this.manaAtual += valor;
+
+        if (this.manaAtual > this.manaMaxima) {
+            this.manaAtual = this.manaMaxima;
+        }
+    }
+
+    /* ------------------------------------------------------------ */
+    /* ---------------------- DESLOCAMENTO ------------------------ */
+    /* ------------------------------------------------------------ */
+
+    getDeslocamento(): number {
+        return this.deslocamento;
+    }
+    setDeslocamento(valor: number): void {
+        this.deslocamento = valor;
+    }
+
+    /* ------------------------------------------------------------ */
+    /* --------------------------- TAG ---------------------------- */
+    /* ------------------------------------------------------------ */
+
+    adicionarTag(tag: string): void {
+        this.tags.push(tag);
+    }
+
+    possuiTag(tag: string): boolean {
+        return this.tags.includes(tag);
+    }
+
+    getTags(): string[] {
+        return [...this.tags];
+    }
+
+    /* ------------------------------------------------------------ */
+    /* ------------------------ ATRIBUTOS ------------------------- */
+    /* ------------------------------------------------------------ */
 
     getAtributos(): Atributos {
         return this.atributos;
@@ -116,32 +208,77 @@ export abstract class Personagem {
     }
 
     getModificadorAtributo(tipo: TipoAtributo): number {
-        const valor = this.getAtributo(tipo);
-        return Math.floor((valor - 10)/2);
+        return this.getAtributo(tipo);
     }
+
+    /* ------------------------------------------------------------ */
+    /* ------------------------- DEFESA --------------------------- */
+    /* ------------------------------------------------------------ */
 
     getDefesa(): number {
         return CalculadoraDefesa.calcular(this);
     }
 
+    /* ------------------------------------------------------------ */
+    /* ---------------------- HABILIDADES ------------------------- */
+    /* ------------------------------------------------------------ */
+
     getHabilidades(): Habilidade[] {
         return this.habilidades;
     }
+
+    possuiHabilidade(nome: string): boolean {
+        return this.habilidades.some(habilidade =>
+            habilidade.getNome() === nome
+        );
+    }
+
+    /* ------------------------------------------------------------ */
+    /* ---------------------- EQUIPAMENTO ------------------------- */
+    /* ------------------------------------------------------------ */
 
     getEquipamento(): Equipamento {
         return this.equipamento;
     }
 
+    /* ------------------------------------------------------------ */
+    /* ------------------------- PERICIA -------------------------- */
+    /* ------------------------------------------------------------ */
+
     adicionarPericia(pericia: Pericia, grau: GrauTreinamento = GrauTreinamento.TREINADO): void {
         this.pericias.set(pericia, grau);
+    }
+
+    adicionarBonusPericia(pericia: Pericia, valor: number): void {
+        const atual = this.bonusPericias.get(pericia) ?? 0;
+
+        this.bonusPericias.set(pericia, atual + valor);
     }
 
     getPericias(): Map<Pericia, GrauTreinamento> {
         return this.pericias;
     }
 
+    getBonusPericia(pericia: Pericia): number {
+        return this.bonusPericias.get(pericia) ?? 0;
+    }
+
+    getGrauTreinamento(pericia: Pericia): GrauTreinamento {
+        return (this.pericias.get(pericia) ?? GrauTreinamento.DESTREINADO);
+    }
+
     possuiPericia(pericia: Pericia): boolean {
         return this.pericias.has(pericia);
+    }
+
+    /* ------------------------------------------------------------ */
+    /* -------------------- BONUS TEMPORARIOS --------------------- */
+    /* ------------------------------------------------------------ */
+    receberBonusDefesaTemporario(valor: number): void {
+        this.bonusDefesaTemporario += valor;
+    }
+    getBonusDefesaTemporario(): number {
+        return this.bonusDefesaTemporario;
     }
 
 }

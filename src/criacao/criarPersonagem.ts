@@ -175,7 +175,9 @@ export class CriacaoPersonagem {
 
     private static aplicarHabilidadesCriacao(jogador: Jogador): void {
         for(const habilidade of jogador.getHabilidades()) {
-            habilidade.aplicarCriacao(jogador);
+            if(habilidade.ehHabilidadeCriacao()){
+                habilidade.aplicarCriacao(jogador);
+            }
         }
     }
 

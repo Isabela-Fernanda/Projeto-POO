@@ -22,8 +22,17 @@ export abstract class Habilidade {
     abstract usar(usuario: Personagem, alvo?: Personagem): void;
 
     aplicarCriacao(personagem: Personagem): void {}
-
     ehHabilidadeCriacao(): boolean {
+        return false;
+    }
+
+    aplicarPassiva(personagem: Personagem): void {}
+    ehHabilidadePassiva(): boolean {
+        return false;
+    }
+
+    aplicarAtiva(personagem: Personagem): void {}
+    ehHabilidadeAtiva(): boolean {
         return false;
     }
 }
