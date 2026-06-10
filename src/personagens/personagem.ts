@@ -167,22 +167,22 @@ export abstract class Personagem {
     }
 
     getForca(): number {
-        return (this.atributos.getAtributo(TipoAtributo.FORCA) + this.raca.getBonusForca());
+        return (this.atributos.getAtributo(TipoAtributo.FORCA));
     }
     getDestreza(): number {
-        return (this.atributos.getAtributo(TipoAtributo.DESTREZA) + this.raca.getBonusDestreza());
+        return (this.atributos.getAtributo(TipoAtributo.DESTREZA));
     }
     getConstituicao(): number {
-        return (this.atributos.getAtributo(TipoAtributo.CONSTITUICAO) + this.raca.getBonusConstituicao());
+        return (this.atributos.getAtributo(TipoAtributo.CONSTITUICAO));
     }
     getInteligencia(): number {
-        return (this.atributos.getAtributo(TipoAtributo.INTELIGENCIA) + this.raca.getBonusInteligencia());
+        return (this.atributos.getAtributo(TipoAtributo.INTELIGENCIA));
     }
     getSabedoria(): number {
-        return (this.atributos.getAtributo(TipoAtributo.SABEDORIA) + this.raca.getBonusSabedoria());
+        return (this.atributos.getAtributo(TipoAtributo.SABEDORIA));
     }
     getCarisma(): number {
-        return (this.atributos.getAtributo(TipoAtributo.CARISMA) + this.raca.getBonusCarisma());
+        return (this.atributos.getAtributo(TipoAtributo.CARISMA));
     }
 
     getAtributo(tipo: TipoAtributo): number {
@@ -208,7 +208,9 @@ export abstract class Personagem {
     }
 
     getModificadorAtributo(tipo: TipoAtributo): number {
-        return this.getAtributo(tipo);
+       const valor = this.getAtributo(tipo);
+
+       return Atributos.calcularModificador(valor);
     }
 
     /* ------------------------------------------------------------ */
