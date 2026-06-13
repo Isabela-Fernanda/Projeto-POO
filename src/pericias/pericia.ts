@@ -1,4 +1,4 @@
-import { TipoAtributo } from "../personagens/atributos/atributos";
+import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Pericia {
     constructor(

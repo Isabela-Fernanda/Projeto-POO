@@ -1,9 +1,9 @@
-import { Item } from "../itens/item.ts";
+import { Item } from "./itens/item.ts";
 
 export class Inventario {
     private itens: Item[] = [];
 
-    adicionarItem(item: Item): void{
+    adicionar(item: Item): void{
         this.itens.push(item);
     }
 
@@ -14,9 +14,18 @@ export class Inventario {
         }
     }
 
+    getItens(): Item[] {
+        return this.itens;
+    }
+
     listarItens(): void {
-        this.itens.forEach(item => {
-            console.log(item.getNome());
+        console.log("\n=== INVENTÁRIO ===");
+        if(this.itens.length === 0){
+            console.log("Vazio.");
+            return;
+        }
+        this.itens.forEach((item, indice) => {
+            console.log(`${indice + 1} - ${item.getNome()}`);
         });
     }
 }

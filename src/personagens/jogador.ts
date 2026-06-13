@@ -1,11 +1,16 @@
 import { Personagem } from "./personagem.ts";
+import { Time } from "./time.ts";
 import { Raca } from "../racas/raca.ts";
 import { Classe } from "./classes/classe.ts";
 import { Atributos } from "./atributos/atributos.ts";
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
 import { Pericia } from "../pericias/pericia.ts";
+import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { Combate } from "../combate/combate.ts"
+
+import { TesteAtaque } from "../combate/testes/testeAtaque.ts";
 
 export class Jogador extends Personagem {
     protected experiencia: number = 0;
@@ -20,29 +25,45 @@ export class Jogador extends Personagem {
         inventario: Inventario,
         equipamento: Equipamento,
         pericias: Map<Pericia, number>,
+        bonusPericias: Map<Pericia, number>,
         habilidades: Habilidade[]
     ) {
-        super(nome, nivel, raca, classe, atributos, inventario, equipamento, pericias, habilidades);
+        super(nome, nivel, Time.HEROIS, raca, classe, atributos, inventario, equipamento, pericias, bonusPericias, habilidades);
         this.experiencia = 0;
         this.ouro = 0;
     }
 
     ganharExperiencia(valor: number) {
         this.experiencia += valor;
-        
-        while(this.experiencia >= this.getNivel() * 100) {
+
+        while (this.experiencia >= this.getNivel() * 100) {
             this.experiencia -= this.getNivel() * 100;
             this.nivel++;
 
             console.log(`${this.getNome()} subiu para o nível ${this.nivel}!`)
         }
     }
-
     atacar(alvo?: Personagem): void {
-        if(!alvo){
-            console.log(`${this.getNome()} não possui alvo.`);
+
+        if (!alvo) {
             return;
         }
-        console.log(`${this.getNome()} atacou ${alvo.getNome()}.`);
+
+        const resultado = TesteAtaque.executarAtaque(this, alvo);
+
+        console.log(`${this.getNome()} ataca ${alvo.getNome()}`);
+
+        if (!resultado.acertou) {
+            console.log("ERROU!");
+            return;
+        }
+
+        alvo.receberDano(resultado.dano);
+
+        if (resultado.critico) {
+            console.log("ACERTO CRÍTICO!");
+        }
+
+        console.log(`${alvo.getNome()} sofreu ${resultado.dano} dano`);
     }
 }

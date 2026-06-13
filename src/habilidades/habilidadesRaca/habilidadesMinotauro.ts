@@ -1,5 +1,5 @@
-import { Habilidade } from "../habilidades";
-import { Personagem } from "../../personagens/personagem";
+import { Habilidade } from "../habilidades.ts";
+import { Personagem } from "../../personagens/personagem.ts";
 
 export class Chifres extends Habilidade{
     constructor(){

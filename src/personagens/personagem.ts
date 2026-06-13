@@ -1,13 +1,24 @@
+import { Time } from "./time.ts";
+
 import { Raca } from "../racas/raca.ts";
 import { Classe } from "./classes/classe.ts";
 import { Atributos, TipoAtributo } from "./atributos/atributos.ts";
+
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
+import { Arma } from "../inventario/itens/arma.ts";
+import { Armadura } from "../inventario/itens/armadura.ts";
+
 import { Pericia } from "../pericias/pericia.ts";
 import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
+
 import { Habilidade } from "../habilidades/habilidades.ts";
-import { CalculadoraDano } from "../combate/calcularDano.ts";
-import { CalculadoraDefesa } from "../combate/calcularDefesa.ts";
+import { Efeito } from "../habilidades/efeito.ts";
+import { Condicao } from "../combate/tipoCondicao.ts";
+
+import { CalculadoraDefesa } from "../combate/calcular/calcularDefesa.ts";
+import { Tags } from "../poderes/tags.ts";
+import { TipoEnergia } from "../poderes/tipoEnergia.ts";
 
 export abstract class Personagem {
     protected vidaAtual: number;
@@ -15,19 +26,24 @@ export abstract class Personagem {
     protected manaAtual: number;
     protected manaMaxima: number;
     protected deslocamento: number;
+    protected bonusDefesa: number = 0;
     protected bonusDefesaTemporario: number = 0;
-    protected tags: string[] = [];
+    protected tags: Tags[] = [];
+    protected imunidadesEnergia: TipoEnergia[] = [];
+    private poderesTormenta = 0;
+    private efeitos: Efeito[] = [];
 
     constructor(
         protected nome: string,
         protected nivel: number,
+        protected time: Time,
         protected raca: Raca,
         protected classe: Classe | null,
         protected atributos: Atributos,
         protected inventario: Inventario,
         protected equipamento: Equipamento,
         protected pericias: Map<Pericia, GrauTreinamento>,
-        protected bonusPericias: Map<Pericia, number>,
+        protected bonusPericias: Map<Pericia, number> = new Map(),
         protected habilidades: Habilidade[],
     ) {
         this.vidaMaxima = (classe?.getVidaInicial() ?? 0) + this.getConstituicao();
@@ -43,8 +59,13 @@ export abstract class Personagem {
 
     receberDano(dano: number): void {
         this.vidaAtual -= dano;
+
         if (this.vidaAtual < 0) {
             this.vidaAtual = 0;
+        }
+
+        if (!this.estaVivo()) {
+            console.log(`${this.nome} foi derrotado!`)
         }
     }
 
@@ -60,6 +81,14 @@ export abstract class Personagem {
         return this.nivel;
     }
 
+    getTime(): Time {
+        return this.time;
+    }
+
+    setTime(time: Time): void {
+        this.time = time;
+    }
+
     getClasse(): Classe | null {
         return this.classe;
     }
@@ -70,6 +99,10 @@ export abstract class Personagem {
 
     getInventario(): Inventario {
         return this.inventario;
+    }
+
+    getCDMagia(): number {
+        return 10 + Math.floor(this.nivel / 2) + this.getModificadorAtributo(TipoAtributo.SABEDORIA);
     }
 
     /* ------------------------------------------------------------ */
@@ -136,7 +169,13 @@ export abstract class Personagem {
     /* ------------------------------------------------------------ */
 
     getDeslocamento(): number {
-        return this.deslocamento;
+        let bonusEfeito = 0;
+
+        for (const efeito of this.efeitos) {
+            bonusEfeito += efeito.getBonusDeslocamento();
+        }
+
+        return Math.max(0, this.deslocamento + bonusEfeito);
     }
     setDeslocamento(valor: number): void {
         this.deslocamento = valor;
@@ -146,16 +185,24 @@ export abstract class Personagem {
     /* --------------------------- TAG ---------------------------- */
     /* ------------------------------------------------------------ */
 
-    adicionarTag(tag: string): void {
+    adicionarTag(tag: Tags): void {
         this.tags.push(tag);
     }
 
-    possuiTag(tag: string): boolean {
+    possuiTag(tag: Tags): boolean {
         return this.tags.includes(tag);
     }
 
-    getTags(): string[] {
+    getTags(): Tags[] {
         return [...this.tags];
+    }
+
+    /* ------------------------------------------------------------ */
+    /* ------------------------- ENERGIA -------------------------- */
+    /* ------------------------------------------------------------ */
+
+    adicionarImunidadeEnergia(energia: TipoEnergia): void {
+        this.imunidadesEnergia.push(energia);
     }
 
     /* ------------------------------------------------------------ */
@@ -208,9 +255,9 @@ export abstract class Personagem {
     }
 
     getModificadorAtributo(tipo: TipoAtributo): number {
-       const valor = this.getAtributo(tipo);
+        const valor = this.getAtributo(tipo);
 
-       return Atributos.calcularModificador(valor);
+        return Atributos.calcularModificador(valor);
     }
 
     /* ------------------------------------------------------------ */
@@ -221,9 +268,25 @@ export abstract class Personagem {
         return CalculadoraDefesa.calcular(this);
     }
 
+    adicionarBonusDefesa(valor: number): void {
+        this.bonusDefesa += valor;
+    }
+
+    getBonusDefesa(): number {
+        return this.bonusDefesa;
+    }
+
     /* ------------------------------------------------------------ */
     /* ---------------------- HABILIDADES ------------------------- */
     /* ------------------------------------------------------------ */
+
+    adicionarHabilidade(habilidade: Habilidade): void {
+        if (this.possuiHabilidade(habilidade.getNome())) {
+            return;
+        }
+
+        this.habilidades.push(habilidade);
+    }
 
     getHabilidades(): Habilidade[] {
         return this.habilidades;
@@ -241,6 +304,14 @@ export abstract class Personagem {
 
     getEquipamento(): Equipamento {
         return this.equipamento;
+    }
+
+    equiparArma(arma: Arma): void {
+        this.equipamento.equiparArma(arma);
+    }
+
+    equiparProtecao(armadura: Armadura): void {
+        this.equipamento.equiparProtecao(armadura);
     }
 
     /* ------------------------------------------------------------ */
@@ -274,13 +345,73 @@ export abstract class Personagem {
     }
 
     /* ------------------------------------------------------------ */
-    /* -------------------- BONUS TEMPORARIOS --------------------- */
+    /* -------------------- PODER DA TORMENTA --------------------- */
     /* ------------------------------------------------------------ */
-    receberBonusDefesaTemporario(valor: number): void {
-        this.bonusDefesaTemporario += valor;
+
+    adicionarPoderTormenta(quantidade: number = 1): void {
+        this.poderesTormenta += quantidade;
     }
-    getBonusDefesaTemporario(): number {
-        return this.bonusDefesaTemporario;
+
+    getQuantidadePoderesTormenta(): number {
+        return this.poderesTormenta;
+    }
+
+    /* ------------------------------------------------------------ */
+    /* -------------------- EFEITOS --------------------- */
+    /* ------------------------------------------------------------ */
+
+    adicionarEfeito(efeito: Efeito): void {
+        this.efeitos.push(efeito);
+
+        console.log(`${this.nome} recebeu o efeito ${efeito.getNome()}`)
+    }
+
+    removerEfeito(efeito: Efeito): void {
+        this.efeitos = this.efeitos.filter(e => e !== efeito);
+    }
+
+    possuiCondicao(condicao: Condicao): boolean {
+        return this.efeitos.some(
+            efeito => efeito.possuiCondicao(condicao)
+        );
+    }
+
+    podeAgir(): boolean {
+        return this.efeitos.every(efeito => efeito.podeAgir());
+    }
+
+    getEfeitos(): Efeito[] {
+        return this.efeitos;
+    }
+
+    listarEfeitos(): void {
+        if (this.efeitos.length === 0) {
+            return;
+        }
+
+        console.log("Efeitos:");
+        for (const efeito of this.efeitos) {
+            console.log(`${efeito.getNome()} (${efeito.getDuracao()} rodadas)`);
+        }
+    }
+
+    somarBonusEfeitos(seletor: (efeito: Efeito) => number): number {
+        let total = 0;
+
+        for (const efeito of this.efeitos) {
+            total += seletor(efeito);
+        }
+
+        return total;
+    }
+
+    atualizarEfeitos(): void {
+        for (const efeito of this.efeitos) {
+            efeito.processar(this);
+            efeito.reduzirDuracao();
+        }
+
+        this.efeitos = this.efeitos.filter(e => !e.expirou());
     }
 
 }

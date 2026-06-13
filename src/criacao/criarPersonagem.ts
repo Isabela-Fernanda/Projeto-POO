@@ -44,12 +44,19 @@ import { Paladino } from "../personagens/classes/paladino.ts";
 
 // Habilidades
 import { Habilidade } from "../habilidades/habilidades.ts";
+import { Amedrontar } from "../habilidades/magias/amedrontar.ts";
+import { Sono } from "../habilidades/magias/sono.ts";
+import { CurarFerimentos } from "../habilidades/magias/curarFerimentos.ts";
+import { MagiaBencao } from "../habilidades/magias/bencao.ts";
+
 // Perícias
 import { Pericia } from "../pericias/pericia.ts";
 
 // Inventario
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
+import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
+import { CatalogoArmaduras } from "../inventario/itens/catalogoArmadura.ts";
 import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
 
 export class CriacaoPersonagem {
@@ -81,10 +88,23 @@ export class CriacaoPersonagem {
             new Inventario(),
             new Equipamento(),
             pericias,
+            new Map(),
             habilidades
         )
 
+        jogador.getInventario().adicionar(CatalogoArmas.ESPADA_LONGA);
+
+        jogador.getInventario().adicionar(CatalogoArmaduras.ARMADURA_DE_COURO);
+
+        jogador.getInventario().adicionar(CatalogoArmaduras.ESCUDO_LEVE);
+
         this.aplicarHabilidadesCriacao(jogador);
+
+        jogador.adicionarHabilidade(new Amedrontar());
+        jogador.adicionarHabilidade(new Sono());
+        jogador.adicionarHabilidade(new MagiaBencao());
+        jogador.adicionarHabilidade(new CurarFerimentos());
+
 
         return jogador;
     }
@@ -174,8 +194,8 @@ export class CriacaoPersonagem {
     }
 
     private static aplicarHabilidadesCriacao(jogador: Jogador): void {
-        for(const habilidade of jogador.getHabilidades()) {
-            if(habilidade.ehHabilidadeCriacao()){
+        for (const habilidade of jogador.getHabilidades()) {
+            if (habilidade.ehHabilidadeCriacao()) {
                 habilidade.aplicarCriacao(jogador);
             }
         }

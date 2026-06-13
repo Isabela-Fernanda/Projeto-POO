@@ -1,5 +1,13 @@
 import { Tela } from "../ui/tela.ts";
+import { Jogador } from "../personagens/jogador.ts";
+
+import { Item } from "../inventario/itens/item.ts";
+import { Arma } from "../inventario/itens/arma.ts";
+import { Armadura } from "../inventario/itens/armadura.ts";
+
 import { CriacaoPersonagem } from "../criacao/criarPersonagem.ts";
+import { Combate } from "../combate/combate.ts";
+import { Time } from "../personagens/time.ts";
 
 export class Jogo {
 
@@ -8,59 +16,25 @@ export class Jogo {
         console.clear();
         console.log("=== RPG TORMENTA ===");
 
-        const nome =
-            prompt("Digite o nome do herói:");
-
-        console.log(
-            `Bem-vindo, ${nome}!`
-        );
+        console.log("\nCriando Personagem 1");
 
         const jogador = CriacaoPersonagem.criar();
 
-        const inimigo = CriacaoPersonagem.criar();
+        console.log("\nCriando inimigos");
 
-        while (jogador.estaVivo() && inimigo.estaVivo()) {
-            console.clear();
-            console.log("=== COMBATE ===");
-            Tela.mostrarStatus(jogador);
-            Tela.mostrarStatus(inimigo);
+        const inimigo1 = CriacaoPersonagem.criar();
+        inimigo1.setTime(Time.INIMIGOS);
 
-            const opcao = prompt(
-                `1 - Atacar \n2 - Ver Status\n\nEscolha: `
-            );
-            switch (opcao) {
-                case "1":
-                    jogador.atacar(inimigo);
-                    break;
-                case "2":
-                    Tela.titulo("Status do Herói");
-                    Tela.mostrarStatus(jogador);
-                    prompt("Pressione Enter para continuar...");
-                    continue;
-                default:
-                    console.log("Opção inválida!");
-                    prompt("Pressione Enter para continuar...");
-            }
-            if (inimigo.estaVivo()) {
-                inimigo.atacar(jogador);
-            }
-            if (!jogador.estaVivo()) {
-                console.log("Você foi derrotado!");
-                break;
-            }
-            console.log();
-            Tela.mostrarStatus(jogador);
-            Tela.mostrarStatus(inimigo);
+        const combate =
+            new Combate([
+                jogador,
+                inimigo1,
+            ]);
 
-            if (!inimigo.estaVivo()) {
-                console.log("Você venceu!");
-                break;
-            }
-            
-            prompt(
-                "Pressione Enter para continuar..."
-            );
+        combate.iniciar();
 
-        }
+        prompt(
+            "\nPressione Enter..."
+        );
     }
 }

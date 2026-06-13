@@ -1,6 +1,6 @@
-import { CatalogoPericias } from "../../pericias/catalogoPericias";
-import { Personagem } from "../../personagens/personagem";
-import { Habilidade } from "../habilidades";
+import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
+import { Personagem } from "../../personagens/personagem.ts";
+import { Habilidade } from "../habilidades.ts";
 
 export class Versatil extends Habilidade {
     constructor() {

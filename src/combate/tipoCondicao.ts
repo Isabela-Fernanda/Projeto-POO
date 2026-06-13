@@ -1,0 +1,11 @@
+export enum Condicao {
+    AMENDROTADO,
+    ATORDOADO,
+    CAIDO,
+    CEGO,
+    ENVENENADO,
+    INCONSCIENTE,
+    QUEIMANDO,
+    PARALISADO,
+    SANGRANDO
+}

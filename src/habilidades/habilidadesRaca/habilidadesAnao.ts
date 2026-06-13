@@ -1,6 +1,7 @@
-import { Habilidade } from "../habilidades";
-import { Personagem } from "../../personagens/personagem";
+import { Habilidade } from "../habilidades.ts";
+import { Personagem } from "../../personagens/personagem.ts";
 
+//Continuar a aplicar depois
 export class ConnhecimentoDasRochas extends Habilidade{
     constructor(){
         super("Conhecimento das Rochas", " Você recebe visão no escuro e +2 em testes de Percepção e Sobrevivência realizados no subterrâneo.", 0);
@@ -19,6 +20,14 @@ export class DevagarESempre extends Habilidade {
     usar(usuario: Personagem, alvo?: Personagem): void {
         console.log("Devagar e Sempre é uma habilidade passiva.");
     }
+
+    override ehHabilidadeCriacao(): boolean {
+        return true;
+    }
+
+    override aplicarCriacao(personagem: Personagem): void {
+        personagem.setDeslocamento(6);
+    }
 }
 
 export class DuroComoPedra extends Habilidade {
@@ -30,12 +39,17 @@ export class DuroComoPedra extends Habilidade {
         console.log("Duro como Pedra é uma habilidade passiva.");
     }
 
+    override ehHabilidadeCriacao(): boolean {
+        return true;
+    }
+
     override aplicarCriacao(personagem: Personagem): void {
         const bonus = 3 + (personagem.getNivel() - 1);
         personagem.aumentarVidaMaxima(bonus);
     }
 }
 
+//Continuar a aplicar depois
 export class TradicaoDeHeredrimm extends Habilidade {
     constructor(){
         super("Tradição de Heredrimm", "Você é perito nas armas tradicionais anãs, seja por ter treinado com elas, seja por usá-las como ferramentas de ofício. Para você, todos os machados, martelos, marretas e picaretas são armas simples. Você recebe +2 em ataques com essas armas.", 0);

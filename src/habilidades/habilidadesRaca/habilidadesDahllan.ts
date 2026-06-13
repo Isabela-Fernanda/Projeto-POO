@@ -1,6 +1,9 @@
-import { Habilidade } from "../habilidades";
-import { Personagem } from "../../personagens/personagem";
+import { Habilidade } from "../habilidades.ts";
+import { Personagem } from "../../personagens/personagem.ts";
+import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
+import { GrauTreinamento } from "../../pericias/grauTreinamento.ts";
 
+//Continuar a aplicar depois
 export class AmigaDasPlantas extends Habilidade{
     constructor(){
         super("Amiga das Plantas", "Você pode lançar a magia Controlar Plantas (atributo-chave Sabedoria). Caso aprenda novamente essa magia, seu custo diminui em –1 PM.", 0);
@@ -35,5 +38,17 @@ export class EmpatiaSelvagem extends Habilidade {
 
     usar(usuario: Personagem, alvo?: Personagem): void {
         console.log("Empatia Selvagem é uma habilidade passiva.");
+    }
+
+    override ehHabilidadeCriacao(): boolean {
+        return true;
+    }
+
+    override aplicarCriacao(personagem: Personagem): void {
+        if(personagem.possuiHabilidade("Empatia Selvagem")) {
+            personagem.adicionarBonusPericia(CatalogoPericias.ADESTRAMENTO, 2);
+        } else{
+            personagem.adicionarPericia(CatalogoPericias.ADESTRAMENTO, GrauTreinamento.TREINADO);
+        }
     }
 }

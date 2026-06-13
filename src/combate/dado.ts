@@ -29,4 +29,14 @@ export class Dado {
     static d20(): number {
         return this.rolar(20);
     }
+
+    static rolarVarios (quantidade: number, faces: number): number {
+    let total = 0;
+
+    for(let i = 0; i < quantidade; i++) {
+        total += this.rolar(faces);
+    }
+
+    return total;
+}
 }

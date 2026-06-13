@@ -1,6 +1,9 @@
-import { Habilidade } from "../habilidades";
-import { Personagem } from "../../personagens/personagem";
+import { Habilidade } from "../habilidades.ts";
+import { Personagem } from "../../personagens/personagem.ts";
+import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
+import { Tags } from "../../poderes/tags.ts";
 
+//Continuar a aplicar depois
 export class Engenhoso extends Habilidade{
     constructor(){
         super("Engenhoso", "Você não sofre penalidades em testes de perícia por não usar kits. Se usar o kit, recebe +2 no teste de perícia.", 0);
@@ -18,6 +21,14 @@ export class Espelunqueiro extends Habilidade {
 
     usar(usuario: Personagem, alvo?: Personagem): void {
         console.log("Espelunqueiro é uma habilidade passiva.");
+    }
+
+    override ehHabilidadeCriacao(): boolean {
+        return true;
+    }
+
+    override aplicarCriacao(personagem: Personagem): void {
+        personagem.adicionarTag(Tags.VISAO_NO_ESCURO);
     }
 }
 
@@ -38,5 +49,15 @@ export class RatoDasRuas extends Habilidade {
 
     usar(usuario: Personagem, alvo?: Personagem): void {
         console.log("Rato das Ruas é uma habilidade passiva.");
+    }
+
+    override ehHabilidadeCriacao(): boolean {
+        return true;
+    }
+
+    override aplicarCriacao(personagem: Personagem): void {
+        personagem.adicionarBonusPericia(CatalogoPericias.FORTITUDE, 2);
+
+        personagem.adicionarTag(Tags.REGENERACAO_MAIOR_IGUAL_NIVEL);
     }
 }
