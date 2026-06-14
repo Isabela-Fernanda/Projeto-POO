@@ -1,9 +1,10 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
 import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
 import { HerancaDivina } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
 import { LuzSagrada } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
 

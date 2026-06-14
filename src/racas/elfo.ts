@@ -1,13 +1,15 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { GracaDeGlorienn, HerancaFeerica, SentidosElficos } from "../poderes/habilidadesRaca/habilidadesElfo.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { GracaDeGlorienn, HerancaFeerica, SentidosElficos } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
 
 export class Elfo extends Raca {
     constructor() {
-        super(
-            "Elfo"
-        );
+        super("Elfo");
     }
 
     getBonusForca(): number {
@@ -29,12 +31,20 @@ export class Elfo extends Raca {
         return 0;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    getBeneficiosRaciais(): BeneficioRacial[] {
+        return [];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
         return [
             new GracaDeGlorienn(),
             new HerancaFeerica(),
             new SentidosElficos()
         ];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
     }
 
     precisaEscolherBonus(): boolean {

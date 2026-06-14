@@ -1,13 +1,15 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { CriaDaTormenta, Deformidade } from "../poderes/habilidadesRaca/habilidadesLefou.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { CriaDaTormenta, Deformidade } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
 
 export class Lefou extends Raca {
     constructor() {
-        super(
-            "Lefou"
-        );
+        super("Lefou");
     }
 
     getBonusForca(): number {
@@ -29,11 +31,19 @@ export class Lefou extends Raca {
         return -2;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    getBeneficiosRaciais(): BeneficioRacial[] {
         return [
             new CriaDaTormenta(),
             new Deformidade()
         ];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+        return [];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
     }
 
     precisaEscolherBonus(): boolean {

@@ -1,13 +1,17 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { AmigaDasPlantas, ArmaduraDeAllihanna, EmpatiaSelvagem } from "../poderes/habilidadesRaca/habilidadesDahllan.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { AmigaDasPlantas } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
+import { EmpatiaSelvagem } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
+import { ArmaduraDeAllihanna } from "./habilidadesRaca/catalogoHabilidadesRaciais.ts";
 
 export class Dahllan extends Raca {
     constructor() {
-        super(
-            "Dahllan"
-        );
+        super("Dahllan");
     }
 
     getBonusForca(): number {
@@ -29,11 +33,21 @@ export class Dahllan extends Raca {
         return 0;
     }
 
+    getBeneficiosRaciais(): BeneficioRacial[] {
+        return [
+            new AmigaDasPlantas()
+        ];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+        return [
+            new EmpatiaSelvagem()
+        ];
+    }
+
     getHabilidadesRaciais(): Habilidade[] {
         return [
-            new AmigaDasPlantas(),
-            new ArmaduraDeAllihanna(),
-            new EmpatiaSelvagem()
+            new ArmaduraDeAllihanna()
         ];
     }
 

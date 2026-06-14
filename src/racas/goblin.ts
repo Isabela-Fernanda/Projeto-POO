@@ -1,13 +1,16 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { Engenhoso, Espelunqueiro, PesteEsguia, RatoDasRuas } from "../poderes/habilidadesRaca/habilidadesGoblin.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { Engenhoso } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
+import { Espelunqueiro, PesteEsguia, RatoDasRuas } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
 
 export class Goblin extends Raca {
     constructor() {
-        super(
-            "Goblin"
-        );
+        super("Goblin");
     }
 
     getBonusForca(): number {
@@ -29,13 +32,22 @@ export class Goblin extends Raca {
         return -2;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    getBeneficiosRaciais(): BeneficioRacial[] {
         return [
-            new Engenhoso(),
+            new Engenhoso()
+        ];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+        return [
             new Espelunqueiro(),
             new PesteEsguia(),
             new RatoDasRuas()
         ];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
     }
 
     precisaEscolherBonus(): boolean {

@@ -1,14 +1,15 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { Versatil } from "../poderes/habilidadesRaca/habilidadesHumano.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { Versatil } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
+
 export class Humano extends Raca {
     constructor() {
-        super(
-            "Humano"
-        );
+        super("Humano");
     }
 
     getBonusForca(): number {
@@ -30,10 +31,18 @@ export class Humano extends Raca {
         return 0;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    getBeneficiosRaciais(): BeneficioRacial[] {
         return [
             new Versatil()
         ];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+        return [];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
     }
 
     precisaEscolherBonus(): boolean {

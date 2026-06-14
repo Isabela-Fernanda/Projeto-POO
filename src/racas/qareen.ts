@@ -3,16 +3,14 @@ import { Raca } from "./raca.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 import { TipoDano } from "../combate/tipoDano.ts";
 
-import { BeneficioRacial } from "../poderes/beneficioRacial/beneficioRacial.ts";
-import { CaracteristicaRacial } from "../poderes/caracteristicasRaciais/caracteristicaRacial.ts";
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-
-import { Desejos, ResistenciaElemental, TatuagemMistica } from "../poderes/beneficioRacial/catalogoBeneficiosRaciais.ts";
+import { ResistenciaElemental, TatuagemMistica, Desejos } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
 
 export class Qareen extends Raca {
-    constructor(
-        private tipoDano: TipoDano
-    ) {
+    private tipoDano: TipoDano
+    constructor() {
         super("Qareen");
 
         this.tipoDano = this.escolherResistenciaElemental();

@@ -1,13 +1,16 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { CriaDeMegalokk, NaturezaVenenosa, OlharAtordoante } from "../poderes/habilidadesRaca/habilidadesMedusa.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { CriaDeMegalokk, ResistenciaVenenosa } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
+import { NaturezaVenenosa, OlharAtordoante } from "./habilidadesRaca/catalogoHabilidadesRaciais.ts";
 
 export class Medusa extends Raca {
     constructor() {
-        super(
-            "Medusa"
-        );
+        super("Medusa");
     }
 
     getBonusForca(): number {
@@ -29,9 +32,19 @@ export class Medusa extends Raca {
         return 2;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    getBeneficiosRaciais(): BeneficioRacial[] {
+        return [];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
         return [
             new CriaDeMegalokk(),
+            new ResistenciaVenenosa()
+        ];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [
             new NaturezaVenenosa(),
             new OlharAtordoante()
         ];

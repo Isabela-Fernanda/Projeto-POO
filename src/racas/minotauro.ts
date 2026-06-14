@@ -1,13 +1,16 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { Chifres, CouroRigido, Faro, MedoDeAltura } from "../poderes/habilidadesRaca/habilidadesMinotauro.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { Faro, MedoDeAltura } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
+import { Chifres, CouroRigido } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
 
 export class Minotauro extends Raca {
     constructor() {
-        super(
-            "Minotauro"
-        );
+        super("Minotauro");
     }
 
     getBonusForca(): number {
@@ -29,13 +32,22 @@ export class Minotauro extends Raca {
         return 0;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    getBeneficiosRaciais(): BeneficioRacial[] {
         return [
-            new Chifres(),
-            new CouroRigido(),
             new Faro(),
             new MedoDeAltura()
         ];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+        return [
+            new Chifres(),
+            new CouroRigido(),
+        ];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
     }
 
     precisaEscolherBonus(): boolean {

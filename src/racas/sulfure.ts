@@ -1,13 +1,16 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { HerancaDivina, SombrasProfanas } from "../poderes/habilidadesRaca/habilidadesSulfure.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { SombrasProfanas } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
+import { HerancaDivina } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
 
 export class Sulfure extends Raca {
     constructor(){
-        super(
-            "Sulfure"
-        );
+        super("Sulfure");
     }
 
     getBonusForca(): number {
@@ -29,11 +32,20 @@ export class Sulfure extends Raca {
         return 0;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    getBeneficiosRaciais(): BeneficioRacial[] {
         return [
-            new HerancaDivina(),
             new SombrasProfanas()
         ];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+        return [
+            new HerancaDivina()
+        ];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
     }
 
     precisaEscolherBonus(): boolean {

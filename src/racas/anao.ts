@@ -1,13 +1,16 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { ConnhecimentoDasRochas, DevagarESempre, DuroComoPedra, TradicaoDeHeredrimm } from "../poderes/habilidadesRaca/habilidadesAnao.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { ConnhecimentoDasRochas, TradicaoDeHeredrimm } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
+import { DevagarESempre, DuroComoPedra } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
 
 export class Anao extends Raca {
     constructor() {
-        super(
-            "Anao", 
-        );
+        super("Anao");
     }
 
     getBonusForca(): number {
@@ -29,13 +32,22 @@ export class Anao extends Raca {
         return 0;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    getBeneficiosRaciais(): BeneficioRacial[] {
         return [
             new ConnhecimentoDasRochas(),
-            new DevagarESempre(),
-            new DuroComoPedra(),
             new TradicaoDeHeredrimm()
         ];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+        return [
+            new DevagarESempre(),
+            new DuroComoPedra()
+        ];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
     }
 
     precisaEscolherBonus(): boolean {

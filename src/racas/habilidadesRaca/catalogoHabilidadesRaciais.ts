@@ -43,20 +43,6 @@ export class CanalizarReparos extends Habilidade {
 }
 
 /* ----------------------------------------------------------------- */
-/* ----------------------------- Hynne ----------------------------- */
-/* ----------------------------------------------------------------- */
-export class SorteSalvadora extends Habilidade {
-    constructor() {
-        super("Sorte Salvadora", "Quando faz um teste de resistência, você pode gastar 1 PM para rolar este teste novamente.", 1, TipoAcao.LIVRE, TipoAlvo.PROPRIO);
-    }
-
-    usar(usuario: Personagem): void {
-        // Preciso aplicar o método para usar no combate 
-        console.log(`${usuario.getNome()} usou sorte salvadora para refazer teste de resistência.`);
-    }
-}
-
-/* ----------------------------------------------------------------- */
 /* ----------------------------- Medusa ---------------------------- */
 /* ----------------------------------------------------------------- */
 export class NaturezaVenenosa extends Habilidade {

@@ -153,6 +153,16 @@ export class SorteSalvadora extends BeneficioRacial {
     }
 }
 
+export class Arremessador extends BeneficioRacial {
+    constructor(){
+        super("Arremessador", " Quando faz um ataque à distância com uma funda ou uma arma de arremesso, seu dano aumenta em um passo.")
+    }
+
+    aplicar(personagem: Personagem): void {
+        personagem.adicionarTag(Tags.ARREMESSADOR);
+    }
+}
+
 /* ----------------------------------------------------------------- */
 /* ----------------------------- Kliren ---------------------------- */
 /* ----------------------------------------------------------------- */

@@ -1,13 +1,16 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { Arremessador, PequenoERechonchudo, SorteSalvadora } from "../poderes/habilidadesRaca/habilidadesHynne.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { SorteSalvadora, Arremessador } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
+import { PequenoERechonchudo } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
 
 export class Hynne extends Raca {
     constructor() {
-        super(
-            "Hynne"
-        );
+        super("Hynne");
     }
 
     getBonusForca(): number {
@@ -29,12 +32,21 @@ export class Hynne extends Raca {
         return 2;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    getBeneficiosRaciais(): BeneficioRacial[] {
         return [
-            new Arremessador(),
-            new PequenoERechonchudo(),
-            new SorteSalvadora()
+            new SorteSalvadora(),
+            new Arremessador()
         ];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+        return [
+            new PequenoERechonchudo()
+        ];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
     }
 
     precisaEscolherBonus(): boolean {

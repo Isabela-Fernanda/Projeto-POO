@@ -1,13 +1,15 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { CancaoDosMares, MestreDoTridente, TransformacaoAnfibia } from "../poderes/habilidadesRaca/habilidadesSereiaTritao.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { CancaoDosMares, MestreDoTridente, TransformacaoAnfibia } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
 
 export class SereiaTritao extends Raca {
     constructor() {
-        super(
-            "SereiaTritao"
-        );
+        super("SereiaTritao");
     }
 
     getBonusForca(): number {
@@ -29,12 +31,20 @@ export class SereiaTritao extends Raca {
         return 0;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    getBeneficiosRaciais(): BeneficioRacial[] {
         return [
             new CancaoDosMares(),
             new MestreDoTridente(),
             new TransformacaoAnfibia()
         ];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+        return [];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
     }
 
     precisaEscolherBonus(): boolean {
