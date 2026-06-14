@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { CriaDaTormenta, Deformidade } from "../habilidades/habilidadesRaca/habilidadesLefou.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { CriaDaTormenta, Deformidade } from "../poderes/habilidadesRaca/habilidadesLefou.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Lefou extends Raca {

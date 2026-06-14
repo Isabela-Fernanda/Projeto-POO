@@ -7,9 +7,9 @@ import { Item } from "../inventario/itens/item.ts";
 import { Arma } from "../inventario/itens/arma.ts";
 import { Armadura } from "../inventario/itens/armadura.ts";
 
-import { Habilidade, TipoAlvo } from "../habilidades/habilidades.ts";
+import { Habilidade, TipoAlvo } from "../poderes/habilidades.ts";
 
-import { TipoAcao } from "../habilidades/habilidades.ts";
+import { TipoAcao } from "../poderes/habilidades.ts";
 
 export class Turno {
     static executar(personagem: Personagem, participantes: Personagem[]): void {

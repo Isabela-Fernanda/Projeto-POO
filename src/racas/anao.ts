@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { ConnhecimentoDasRochas, DevagarESempre, DuroComoPedra, TradicaoDeHeredrimm } from "../habilidades/habilidadesRaca/habilidadesAnao.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { ConnhecimentoDasRochas, DevagarESempre, DuroComoPedra, TradicaoDeHeredrimm } from "../poderes/habilidadesRaca/habilidadesAnao.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Anao extends Raca {

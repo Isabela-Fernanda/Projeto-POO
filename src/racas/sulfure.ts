@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { HerancaDivina, SombrasProfanas } from "../habilidades/habilidadesRaca/habilidadesSulfure.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { HerancaDivina, SombrasProfanas } from "../poderes/habilidadesRaca/habilidadesSulfure.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Sulfure extends Raca {

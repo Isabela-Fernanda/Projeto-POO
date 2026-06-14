@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { Chifres, CouroRigido, Faro, MedoDeAltura } from "../habilidades/habilidadesRaca/habilidadesMinotauro.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { Chifres, CouroRigido, Faro, MedoDeAltura } from "../poderes/habilidadesRaca/habilidadesMinotauro.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Minotauro extends Raca {

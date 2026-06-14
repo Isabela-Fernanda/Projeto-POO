@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { GracaDeGlorienn, HerancaFeerica, SentidosElficos } from "../habilidades/habilidadesRaca/habilidadesElfo.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { GracaDeGlorienn, HerancaFeerica, SentidosElficos } from "../poderes/habilidadesRaca/habilidadesElfo.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Elfo extends Raca {

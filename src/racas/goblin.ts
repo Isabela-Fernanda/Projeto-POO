@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { Engenhoso, Espelunqueiro, PesteEsguia, RatoDasRuas } from "../habilidades/habilidadesRaca/habilidadesGoblin.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { Engenhoso, Espelunqueiro, PesteEsguia, RatoDasRuas } from "../poderes/habilidadesRaca/habilidadesGoblin.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Goblin extends Raca {

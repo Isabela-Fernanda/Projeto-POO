@@ -1,5 +1,8 @@
-import { Habilidade } from "../habilidades/habilidades.ts"
+import { Habilidade } from "../poderes/habilidades.ts"
+import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+
 export abstract class Raca {
     constructor(
         protected nome: string,
@@ -16,6 +19,8 @@ export abstract class Raca {
     abstract getBonusSabedoria(): number;
     abstract getBonusCarisma(): number;
 
+    abstract getCaracteristicasRaciais(): CaracteristicaRacial[];
+    abstract getBeneficiosRaciais(): BeneficioRacial[];
     abstract getHabilidadesRaciais(): Habilidade[];
     
     abstract precisaEscolherBonus(): boolean;

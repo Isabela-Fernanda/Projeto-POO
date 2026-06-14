@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { AsasDeBorboleta, EspiritoDaNatureza, MagiaDasFadas } from "../habilidades/habilidadesRaca/habilidadesSilfide.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { AsasDeBorboleta, EspiritoDaNatureza, MagiaDasFadas } from "../poderes/habilidadesRaca/habilidadesSilfide.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Silfide extends Raca {

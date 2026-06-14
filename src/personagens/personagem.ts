@@ -12,13 +12,14 @@ import { Armadura } from "../inventario/itens/armadura.ts";
 import { Pericia } from "../pericias/pericia.ts";
 import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
 
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { Efeito } from "../habilidades/efeito.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { Efeito } from "../poderes/efeito.ts";
 import { Condicao } from "../combate/tipoCondicao.ts";
 
 import { CalculadoraDefesa } from "../combate/calcular/calcularDefesa.ts";
 import { Tags } from "../poderes/tags.ts";
 import { TipoEnergia } from "../poderes/tipoEnergia.ts";
+import { TipoDano } from "../combate/tipoDano.ts";
 
 export abstract class Personagem {
     protected vidaAtual: number;
@@ -32,6 +33,7 @@ export abstract class Personagem {
     protected imunidadesEnergia: TipoEnergia[] = [];
     private poderesTormenta = 0;
     private efeitos: Efeito[] = [];
+    private resistencias = new Map<TipoDano, number>;
 
     constructor(
         protected nome: string,
@@ -103,6 +105,10 @@ export abstract class Personagem {
 
     getCDMagia(): number {
         return 10 + Math.floor(this.nivel / 2) + this.getModificadorAtributo(TipoAtributo.SABEDORIA);
+    }
+
+    adicionarResistencia(tipo: TipoDano, valor: number): void{
+        this.resistencias.set(tipo, valor);
     }
 
     /* ------------------------------------------------------------ */

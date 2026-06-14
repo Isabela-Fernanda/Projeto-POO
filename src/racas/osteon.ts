@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { ArmaduraOssea, MemoriaPostuma, NaturezaEsqueletica, PrecoDaNaoVida } from "../habilidades/habilidadesRaca/habilidadesOsteon.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { ArmaduraOssea, MemoriaPostuma, NaturezaEsqueletica, PrecoDaNaoVida } from "../poderes/habilidadesRaca/habilidadesOsteon.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Osteon extends Raca {

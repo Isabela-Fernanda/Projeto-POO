@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { Hibrido, LogicaGnomica, OssosFrageis, Vanguardista } from "../habilidades/habilidadesRaca/habilidadesKliren.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { Hibrido, LogicaGnomica, OssosFrageis, Vanguardista } from "../poderes/habilidadesRaca/habilidadesKliren.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Kliren extends Raca {

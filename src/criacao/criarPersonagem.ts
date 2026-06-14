@@ -43,11 +43,7 @@ import { Nobre } from "../personagens/classes/nobre.ts";
 import { Paladino } from "../personagens/classes/paladino.ts";
 
 // Habilidades
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { Amedrontar } from "../habilidades/magias/amedrontar.ts";
-import { Sono } from "../habilidades/magias/sono.ts";
-import { CurarFerimentos } from "../habilidades/magias/curarFerimentos.ts";
-import { MagiaBencao } from "../habilidades/magias/bencao.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
 
 // Perícias
 import { Pericia } from "../pericias/pericia.ts";
@@ -92,19 +88,7 @@ export class CriacaoPersonagem {
             habilidades
         )
 
-        jogador.getInventario().adicionar(CatalogoArmas.ESPADA_LONGA);
-
-        jogador.getInventario().adicionar(CatalogoArmaduras.ARMADURA_DE_COURO);
-
-        jogador.getInventario().adicionar(CatalogoArmaduras.ESCUDO_LEVE);
-
         this.aplicarHabilidadesCriacao(jogador);
-
-        jogador.adicionarHabilidade(new Amedrontar());
-        jogador.adicionarHabilidade(new Sono());
-        jogador.adicionarHabilidade(new MagiaBencao());
-        jogador.adicionarHabilidade(new CurarFerimentos());
-
 
         return jogador;
     }

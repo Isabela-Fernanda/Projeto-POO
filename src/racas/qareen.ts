@@ -1,13 +1,21 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { Desejos, ResistenciaElemental, TatuagemMistica } from "../habilidades/habilidadesRaca/habilidadesQareen.ts";
+
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+import { TipoDano } from "../combate/tipoDano.ts";
+
+import { BeneficioRacial } from "../poderes/beneficioRacial/beneficioRacial.ts";
+import { CaracteristicaRacial } from "../poderes/caracteristicasRaciais/caracteristicaRacial.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+
+import { Desejos, ResistenciaElemental, TatuagemMistica } from "../poderes/beneficioRacial/catalogoBeneficiosRaciais.ts";
 
 export class Qareen extends Raca {
-    constructor() {
-        super(
-            "Qareen"
-        );
+    constructor(
+        private tipoDano: TipoDano
+    ) {
+        super("Qareen");
+
+        this.tipoDano = this.escolherResistenciaElemental();
     }
 
     getBonusForca(): number {
@@ -29,12 +37,55 @@ export class Qareen extends Raca {
         return 4;
     }
 
-    getHabilidadesRaciais(): Habilidade[] {
+    private escolherResistenciaElemental(): TipoDano {
+        console.log("\n=== BENEFÍCIO RACIAL: RESISTÊNCIA A UM TIPO DE DANO ===");
+        let escolha;
+        while (true) {
+            console.log("1 - 10 de Resistência a Frio (Qareen da Água)");
+            console.log("2 - 10 de Resistência a Eletricidade (Qareen da Ar)");
+            console.log("3 - 10 de Resistência a Fogo (Qareen do Fogo)");
+            console.log("4 - 10 de Resistência a Ácido (Qareen da Terra)");
+            console.log("5 - 10 de Resistência a Luz (Qareen da Luz)");
+            console.log("6 - 10 de Resistência a Trevas (Qareen da Trevas)");
+            escolha = prompt("Escolha: ");
+
+            if (escolha === "1" || escolha === "2" || escolha === "3" || escolha === "4" || escolha === "5" || escolha === "6") {
+                break;
+            }
+
+            console.log("Opção inválida.");
+        }
+
+        switch (escolha) {
+            case "1":
+                return TipoDano.FRIO;
+            case "2":
+                return TipoDano.ELETRICIDADE;
+            case "3":
+                return TipoDano.FOGO;
+            case "4":
+                return TipoDano.ACIDO;
+            case "5":
+                return TipoDano.LUZ;
+            case "6":
+                return TipoDano.TREVAS;
+        }
+    }
+
+    getBeneficiosRaciais(): BeneficioRacial[] {
         return [
             new Desejos(),
-            new ResistenciaElemental(),
+            new ResistenciaElemental(this.tipoDano),
             new TatuagemMistica()
         ];
+    }
+
+    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+        return [];
+    }
+
+    getHabilidadesRaciais(): Habilidade[] {
+        return [];
     }
 
     precisaEscolherBonus(): boolean {

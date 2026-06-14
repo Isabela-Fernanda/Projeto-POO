@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { CancaoDosMares, MestreDoTridente, TransformacaoAnfibia } from "../habilidades/habilidadesRaca/habilidadesSereiaTritao.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { CancaoDosMares, MestreDoTridente, TransformacaoAnfibia } from "../poderes/habilidadesRaca/habilidadesSereiaTritao.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class SereiaTritao extends Raca {

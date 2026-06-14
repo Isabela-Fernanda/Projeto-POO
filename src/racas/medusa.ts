@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { CriaDeMegalokk, NaturezaVenenosa, OlharAtordoante } from "../habilidades/habilidadesRaca/habilidadesMedusa.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { CriaDeMegalokk, NaturezaVenenosa, OlharAtordoante } from "../poderes/habilidadesRaca/habilidadesMedusa.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Medusa extends Raca {

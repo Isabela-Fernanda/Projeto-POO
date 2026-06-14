@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { Versatil } from "../habilidades/habilidadesRaca/habilidadesHumano.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { Versatil } from "../poderes/habilidadesRaca/habilidadesHumano.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 

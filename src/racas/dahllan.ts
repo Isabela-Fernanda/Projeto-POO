@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { AmigaDasPlantas, ArmaduraDeAllihanna, EmpatiaSelvagem } from "../habilidades/habilidadesRaca/habilidadesDahllan.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { AmigaDasPlantas, ArmaduraDeAllihanna, EmpatiaSelvagem } from "../poderes/habilidadesRaca/habilidadesDahllan.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
 export class Dahllan extends Raca {

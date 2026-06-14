@@ -1,4 +1,4 @@
-import { Habilidade } from "../../habilidades/habilidades.ts";
+import { Habilidade } from "../../poderes/habilidades.ts";
 import { Pericia } from "../../pericias/pericia.ts";
 
 export abstract class Classe {

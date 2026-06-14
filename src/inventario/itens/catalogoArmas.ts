@@ -2,6 +2,10 @@ import { Arma, TipoAtaque, Categoria, FacilidadeUso, Municao } from "./arma.ts";
 import { TipoDano } from "../../combate/tipoDano.ts";
 
 export class CatalogoArmas {
+    // Especial
+    static readonly CHIFRE = new Arma("Chifre", 0, 1, 6, 20, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.PERFURACAO, Categoria.LEVE, FacilidadeUso.SIMPLES);
+    static readonly MORDIDA = new Arma("Mordida", 0, 1, 6, 20, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.PERFURACAO, Categoria.LEVE, FacilidadeUso.SIMPLES);
+
     // Armas Simples
     // Armas Simples - Leves
     static readonly ADAGA = new Arma("Adaga", 0.5, 1, 4, 19, 2, [TipoAtaque.CORPO_A_CORPO, TipoAtaque.ARREMESSO], TipoDano.PERFURACAO, Categoria.LEVE, FacilidadeUso.SIMPLES, [], undefined, 9);

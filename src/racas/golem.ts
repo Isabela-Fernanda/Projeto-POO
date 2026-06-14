@@ -1,6 +1,6 @@
 import { Raca } from "./raca.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
-import { CanalizarReparos, Chassi, CriaturaArtificial, EspiritoElemental, SemOrigem } from "../habilidades/habilidadesRaca/habilidadesGolem.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+import { CanalizarReparos, Chassi, CriaturaArtificial, EspiritoElemental, SemOrigem } from "../poderes/habilidadesRaca/habilidadesGolem.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 import { TipoEnergia } from "../poderes/tipoEnergia.ts";
 

@@ -7,7 +7,7 @@ import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
 import { Pericia } from "../pericias/pericia.ts";
 import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
-import { Habilidade } from "../habilidades/habilidades.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
 import { Combate } from "../combate/combate.ts"
 
 import { TesteAtaque } from "../combate/testes/testeAtaque.ts";
