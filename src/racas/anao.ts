@@ -10,7 +10,7 @@ import { DevagarESempre, DuroComoPedra } from "./caracteristicasRaciais/catalogo
 
 export class Anao extends Raca {
     constructor() {
-        super("Anao");
+        super("Anão");
     }
 
     getBonusForca(): number {

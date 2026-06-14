@@ -1,4 +1,4 @@
-import { Item } from "./item.ts"
+import { Item, Modificacoes } from "./item.ts"
 import { TipoDano } from "../../combate/tipoDano.ts";
 
 export enum TipoAtaque {
@@ -30,7 +30,11 @@ export enum FacilidadeUso {
 export enum PropriedadeArma {
     AGIL,
     ADAPTAVEL,
+    ENREDA,
     PRECISA,
+    DERRUBAR,
+    DESARMAR,
+    DESBALANCEADA,
     DUPLA,
     ALONGADA,
     BRUTAL,
@@ -41,7 +45,9 @@ export enum PropriedadeArma {
 export class Arma extends Item {
     constructor(
         nome: string,
+        preco: number,
         peso: number,
+        descricao: string = "",
 
         private quantidadeDados: number,
         private facesDado: number,
@@ -56,6 +62,7 @@ export class Arma extends Item {
         private facilidade: FacilidadeUso,
 
         private propriedades: PropriedadeArma[] = [],
+        modificacoes: Modificacoes[] = [],
 
         private municao?: Municao,
         private alcance?: number,
@@ -63,7 +70,7 @@ export class Arma extends Item {
         private bonusAtaque: number = 0,
         private bonusDano: number = 0,
     ) {
-        super(nome, peso);
+        super(nome, preco, peso, descricao, modificacoes);
     }
 
     getQuantidadeDados(): number {
@@ -84,6 +91,26 @@ export class Arma extends Item {
 
     podeAtacarDistancia(): boolean {
         return this.tipoAtaque.includes(TipoAtaque.DISTANCIA);
+    }
+
+    ehAgil(): boolean {
+        return this.propriedades.includes(PropriedadeArma.AGIL);
+    }
+
+    ehDupla(): boolean {
+        return this.propriedades.includes(PropriedadeArma.DUPLA);
+    }
+
+    ehAdaptavel(): boolean {
+        return this.propriedades.includes(PropriedadeArma.ADAPTAVEL);
+    }
+
+    ehAlongada(): boolean {
+        return this.propriedades.includes(PropriedadeArma.ALONGADA);
+    }
+
+    ehDesbalanceada(): boolean {
+        return this.propriedades.includes(PropriedadeArma.DESBALANCEADA);
     }
 
     getMargemCritico(): number {
@@ -107,7 +134,8 @@ export class Arma extends Item {
     }
 
     usaDestrezaNoAtaque(): boolean {
-        return this.tipoAtaque.includes(TipoAtaque.DISTANCIA);
+        return (this.tipoAtaque.includes(TipoAtaque.DISTANCIA) || this.propriedades.includes(PropriedadeArma.AGIL)
+        );
     }
 
     getMunicao(): Municao | undefined {

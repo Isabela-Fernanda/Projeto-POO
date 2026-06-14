@@ -1,4 +1,4 @@
-import { Item } from "./item.ts"
+import { Item, Modificacoes } from "./item.ts"
 
 export enum CategoriaArmadura {
     LEVE,
@@ -13,13 +13,16 @@ export enum TipoProtecao {
 export class Armadura extends Item {
     constructor(
         nome: string,
+        preco: number,
         peso: number,
+        descricao: string = "",
         private bonusDefesa: number,
         private categoria: CategoriaArmadura,
         private tipo: TipoProtecao,
         private penalidade: number,
+        modificacoes: Modificacoes[] = [],
     ){
-        super(nome, peso);
+        super(nome, preco, peso, descricao, modificacoes);
     }
 
     getBonusDefesa(): number {

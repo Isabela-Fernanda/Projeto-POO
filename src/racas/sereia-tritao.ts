@@ -9,7 +9,7 @@ import { CancaoDosMares, MestreDoTridente, TransformacaoAnfibia } from "./benefi
 
 export class SereiaTritao extends Raca {
     constructor() {
-        super("SereiaTritao");
+        super("SereiaTritão");
     }
 
     getBonusForca(): number {

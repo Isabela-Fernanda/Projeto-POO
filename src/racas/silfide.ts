@@ -11,7 +11,7 @@ import { Voo } from "./habilidadesRaca/catalogoHabilidadesRaciais.ts";
 
 export class Silfide extends Raca {
     constructor() {
-        super("Silfide");
+        super("Sílfide");
     }
 
     getBonusForca(): number {
@@ -60,3 +60,4 @@ export class Silfide extends Raca {
         return [];
     }
 }
+
