@@ -232,7 +232,7 @@ export class Chifres extends CaracteristicaRacial{
     }
 
     aplicar(personagem: Personagem): void {
-        personagem.getEquipamento().equiparArma(CatalogoArmas.CHIFRE);
+        personagem.getEquipamento().equiparArmaNatura(CatalogoArmas.CHIFRE);
     }
 }
 
@@ -298,6 +298,6 @@ export class Mordida extends CaracteristicaRacial {
     }
 
     aplicar(personagem: Personagem): void {
-        personagem.getEquipamento().equiparArma(CatalogoArmas.MORDIDA);
+        personagem.getEquipamento().equiparArmaNatura(CatalogoArmas.MORDIDA);
     }
 }

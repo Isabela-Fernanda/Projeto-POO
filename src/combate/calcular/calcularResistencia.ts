@@ -13,6 +13,7 @@ export class CalcularResistencia {
             case TipoDano.FOGO:
             case TipoDano.FRIO:
             case TipoDano.LUZ:
+            case TipoDano.RESTRICAO:
             case TipoDano.TREVAS:
                 return TestePericia.executar(personagem, CatalogoPericias.REFLEXOS, cd, bonusEfeito);
             case TipoDano.CORTE:

@@ -1,3 +1,5 @@
+import { Efeito } from "../../poderes/efeito.ts";
+
 export enum Modificacoes {
     //ARMAS
     CERTEIRA, //+1 teste ataque
@@ -33,31 +35,67 @@ export enum Modificacoes {
     GELO_ETERNO,
     MADEIRA_TOLLON,
     MATERIA_VERMELHA,
-    MITRAL 
+    MITRAL
 }
 
 export class Item {
+    private efeitos: Efeito[] = [];
+
     constructor(
         protected nome: string,
         protected preco: number,
         protected peso: number,
         protected descricao: string,
         protected modificacoes: Modificacoes[] = [],
-    ) {}
+    ) { }
 
     getNome(): string {
         return this.nome;
     }
 
-    getPeso(): number{
+    getPeso(): number {
         return this.peso;
     }
 
-    getDescricao(): string{
+    getDescricao(): string {
         return this.descricao;
     }
 
     getMultiplicadores(): Modificacoes[] {
         return this.modificacoes;
+    }
+
+    adicionarEfeito(efeito: Efeito): void {
+        const taganuladas = efeito.getTagsAnuladas();
+
+        this.efeitos = this.efeitos.filter(e => {
+            const possuiTagAnulada = e.getTags().some(tag => taganuladas.includes(tag));
+
+            if(possuiTagAnulada) {
+                console.log(`${efeito.getNome()} anulou ${e.getNome()}`);
+            }
+            return !possuiTagAnulada;
+        });
+
+        this.efeitos.push(efeito);
+
+        console.log(`${this.nome} recebeu o efeito ${efeito.getNome()}`)
+    }
+
+    removerEfeito(efeito: Efeito): void {
+        this.efeitos = this.efeitos.filter(e => e !== efeito);
+    }
+
+    getEfeitos(): Efeito[] {
+        return this.efeitos;
+    }
+
+    atualizarEfeitos(): void {
+        for (const efeito of this.efeitos) {
+            efeito.processarObjeto(this);
+            efeito.reduzirDuracao();
+        }
+
+        this.efeitos = this.efeitos.filter(e => !e.expirou());
     }
 }

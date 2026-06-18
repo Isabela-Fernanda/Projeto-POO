@@ -1,6 +1,8 @@
 export enum TipoEnergia {
+    ACIDO,
+    FOGO,
     FRIO,
     ELETRICIDADE,
-    FOGO,
-    ACIDO
+    LUZ,
+    TREVAS
 }

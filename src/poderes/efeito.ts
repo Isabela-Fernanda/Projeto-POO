@@ -1,11 +1,24 @@
 import { Personagem } from "../personagens/personagem.ts";
 import { Condicao } from "../combate/tipoCondicao.ts";
+import { Item } from "../inventario/itens/item.ts";
+import { TagEfeito } from "./tags.ts";
+
+export enum TipoEfeito {
+    CONDICAO,
+    BUFF,
+    DEBUFF,
+    CURA,
+    RESISTENCIA,
+    INVOCACAO,
+    TRANSFORMACAO
+}
 
 export abstract class Efeito {
     constructor(
         protected nome: string,
         protected duracao: number,
-        protected condicoes: Condicao[] = []
+        protected condicoes: Condicao[] = [],
+        protected proximoEfeito?: Efeito,
     ) { }
 
     getNome(): string {
@@ -20,12 +33,20 @@ export abstract class Efeito {
         return this.condicoes;
     }
 
+    getProximoEfeito(): Efeito | undefined {
+        return this.proximoEfeito;
+    }
+
     possuiCondicao(condicao: Condicao): boolean {
         return this.condicoes.includes(condicao);
     }
 
     podeAgir(): boolean {
-        return true;
+        if (this.condicoes.includes(Condicao.PARALISADO) || this.condicoes.includes(Condicao.INCONSCIENTE) || this.condicoes.includes(Condicao.PASMO)) {
+            return false
+        } else {
+            return true
+        }
     }
 
     reduzirDuracao(): void {
@@ -36,7 +57,16 @@ export abstract class Efeito {
         return this.duracao <= 0;
     }
 
-    processar(personagem: Personagem): void { }
+    getTags(): TagEfeito[] {
+        return [];
+    }
+
+    getTagsAnuladas(): TagEfeito[] {
+        return [];
+    }
+
+    processar(personagem: Personagem): void { };
+    processarObjeto(item: Item): void { };
 
     getBonusAtaque(): number {
         return 0;
@@ -63,6 +93,40 @@ export abstract class Efeito {
     }
 
     getBonusDeslocamento(): number {
+        return 0;
+    }
+
+    //Bonus pericias especificas
+    getBonusAtletismo(): number {
+        return 0;
+    }
+
+    getBonusEnganacao(): number {
+        return 0;
+    }
+
+    getBonusIniciativa(): number {
+        return 0;
+    }
+
+    getBonusPercepcao(): number {
+        return 0;
+    }
+
+    // EMITE
+    emiteLuz(): boolean {
+        return false;
+    }
+
+    getRaioLuz(): number {
+        return 0;
+    }
+
+    emiteEscuridao(): boolean {
+        return false;
+    }
+
+    getRaioEscururidao(): number {
         return 0;
     }
 }

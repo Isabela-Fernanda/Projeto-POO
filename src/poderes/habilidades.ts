@@ -12,6 +12,8 @@ export enum TipoAlvo {
     INIMIGO,
     ALIADO,
     PROPRIO,
+    OBJETO,
+    CRIATURA,
     QUALQUER
 }
 
@@ -62,10 +64,5 @@ export abstract class Habilidade {
         this.usar(usuario, alvo);
 
         return true;
-    }
-
-    aplicarCriacao(personagem: Personagem): void { }
-    ehHabilidadeCriacao(): boolean {
-        return false;
     }
 }

@@ -26,14 +26,24 @@ export abstract class Personagem {
     protected vidaMaxima: number;
     protected manaAtual: number;
     protected manaMaxima: number;
+
     protected deslocamento: number;
+    protected posX: number = 0;
+    protected posY: number = 0;
+
     protected bonusDefesa: number = 0;
-    protected bonusDefesaTemporario: number = 0;
+    private poderesTormenta = 0;
+
+    private criaturasInvocadas: Personagem[] = [];
+    private efeitos: Efeito[] = [];
     protected tags: Tags[] = [];
     protected imunidadesEnergia: TipoEnergia[] = [];
-    private poderesTormenta = 0;
-    private efeitos: Efeito[] = [];
-    private resistencias = new Map<TipoDano, number>;
+
+    private vidaTemporaria = 0;
+    protected defesaTemporaria: number = 0;
+
+    private resistencias = new Map<TipoDano, number>();
+    private bonusAtributos = new Map<TipoAtributo, number>();
 
     constructor(
         protected nome: string,
@@ -60,6 +70,12 @@ export abstract class Personagem {
     abstract atacar(alvo?: Personagem): void;
 
     receberDano(dano: number): void {
+        if (this.vidaTemporaria > 0) {
+            const absorvido = Math.min(this.vidaTemporaria, dano);
+            this.vidaTemporaria -= absorvido;
+            dano -= absorvido;
+        }
+
         this.vidaAtual -= dano;
 
         if (this.vidaAtual < 0) {
@@ -107,7 +123,11 @@ export abstract class Personagem {
         return 10 + Math.floor(this.nivel / 2) + this.getModificadorAtributo(TipoAtributo.SABEDORIA);
     }
 
-    adicionarResistencia(tipo: TipoDano, valor: number): void{
+    getResistencia(tipo: TipoDano): number {
+        return this.resistencias.get(tipo) ?? 0;
+    }
+
+    adicionarResistencia(tipo: TipoDano, valor: number): void {
         this.resistencias.set(tipo, valor);
     }
 
@@ -187,6 +207,19 @@ export abstract class Personagem {
         this.deslocamento = valor;
     }
 
+    getX(): number {
+        return this.posX;
+    }
+
+    getY(): number {
+        return this.posY;
+    }
+
+    setPosicao(x: number, y: number): void {
+        this.posX = x;
+        this.posY = y;
+    }
+
     /* ------------------------------------------------------------ */
     /* --------------------------- TAG ---------------------------- */
     /* ------------------------------------------------------------ */
@@ -220,22 +253,22 @@ export abstract class Personagem {
     }
 
     getForca(): number {
-        return (this.atributos.getAtributo(TipoAtributo.FORCA));
+        return (this.atributos.getAtributo(TipoAtributo.FORCA) + this.getBonusAtributo(TipoAtributo.FORCA));
     }
     getDestreza(): number {
-        return (this.atributos.getAtributo(TipoAtributo.DESTREZA));
+        return (this.atributos.getAtributo(TipoAtributo.DESTREZA) + this.getBonusAtributo(TipoAtributo.DESTREZA));
     }
     getConstituicao(): number {
-        return (this.atributos.getAtributo(TipoAtributo.CONSTITUICAO));
+        return (this.atributos.getAtributo(TipoAtributo.CONSTITUICAO) + this.getBonusAtributo(TipoAtributo.CONSTITUICAO));
     }
     getInteligencia(): number {
-        return (this.atributos.getAtributo(TipoAtributo.INTELIGENCIA));
+        return (this.atributos.getAtributo(TipoAtributo.INTELIGENCIA) + this.getBonusAtributo(TipoAtributo.INTELIGENCIA));
     }
     getSabedoria(): number {
-        return (this.atributos.getAtributo(TipoAtributo.SABEDORIA));
+        return (this.atributos.getAtributo(TipoAtributo.SABEDORIA) + this.getBonusAtributo(TipoAtributo.SABEDORIA));
     }
     getCarisma(): number {
-        return (this.atributos.getAtributo(TipoAtributo.CARISMA));
+        return (this.atributos.getAtributo(TipoAtributo.CARISMA) + this.getBonusAtributo(TipoAtributo.CARISMA));
     }
 
     getAtributo(tipo: TipoAtributo): number {
@@ -258,6 +291,10 @@ export abstract class Personagem {
             case TipoAtributo.CARISMA:
                 return this.getCarisma();
         }
+    }
+
+    private getBonusAtributo(tipo: TipoAtributo): number {
+        return this.bonusAtributos.get(tipo) ?? 0;
     }
 
     getModificadorAtributo(tipo: TipoAtributo): number {
@@ -312,8 +349,16 @@ export abstract class Personagem {
         return this.equipamento;
     }
 
-    equiparArma(arma: Arma): void {
-        this.equipamento.equiparArma(arma);
+    equiparMaoDireita(arma: Arma): void {
+        this.equipamento.equiparMaoDireita(arma);
+    }
+
+    equiparMaoEsquerda(arma: Arma): void {
+        this.equipamento.equiparMaoEsquerda(arma);
+    }
+
+    equiparDuasMãos(arma: Arma): void {
+        this.equipamento.equiparDuasMaos(arma);
     }
 
     equiparProtecao(armadura: Armadura): void {
@@ -367,6 +412,18 @@ export abstract class Personagem {
     /* ------------------------------------------------------------ */
 
     adicionarEfeito(efeito: Efeito): void {
+        const tagsAnuladas = efeito.getTagsAnuladas();
+
+        this.efeitos = this.efeitos.filter(e => {
+            const possuiTagAnulada = e.getTags().some(tag => tagsAnuladas.includes(tag));
+
+            if (possuiTagAnulada) {
+                console.log(`${efeito.getNome()} anulou ${e.getNome()}`);
+            }
+
+            return !possuiTagAnulada;
+        });
+
         this.efeitos.push(efeito);
 
         console.log(`${this.nome} recebeu o efeito ${efeito.getNome()}`)
@@ -412,12 +469,64 @@ export abstract class Personagem {
     }
 
     atualizarEfeitos(): void {
+        const novosEfeitos: Efeito[] = [];
+
         for (const efeito of this.efeitos) {
             efeito.processar(this);
             efeito.reduzirDuracao();
+
+            if (efeito.expirou()) {
+                const sucessor = efeito.getProximoEfeito();
+
+                if (sucessor) {
+                    novosEfeitos.push(sucessor);
+                    console.log(`${efeito.getNome()} evoluiu para ${sucessor.getNome()}`);
+                }
+            } else {
+                novosEfeitos.push(efeito);
+            }
         }
 
-        this.efeitos = this.efeitos.filter(e => !e.expirou());
+        this.efeitos = novosEfeitos;
+    }
+
+    //BONUS DE EFEITO
+    getBonusIniciativa(): number {
+        return this.efeitos.reduce((total, efeito) => total + efeito.getBonusIniciativa(), 0);
+    }
+
+    getBonusPercepcao(): number {
+        return this.efeitos.reduce((total, efeito) => total + efeito.getBonusPercepcao(), 0);
+    }
+
+    adicionarInvocacao(criatura: Personagem): void {
+        this.criaturasInvocadas.push(criatura);
+    }
+
+    adicionarBonusAtributo(tipo: TipoAtributo, valor: number): void {
+        const atual = this.bonusAtributos.get(tipo) ?? 0;
+
+        this.bonusAtributos.set(tipo, atual + valor);
+    }
+
+    removerBonusAtributo(tipo: TipoAtributo, valor: number): void {
+        const atual = this.bonusAtributos.get(tipo) ?? 0;
+        this.bonusAtributos.set(tipo, atual - valor);
+    }
+
+    //TEMPORARIOS
+    getVidaTemporaria(): number {
+        return this.vidaTemporaria;
+    }
+
+    adicionarVidaTemporaria(valor: number): void {
+        this.vidaTemporaria += valor;
+    }
+
+    removerVidaTemporaria(): void {
+        this.vidaTemporaria = 0;
     }
 
 }
+
+

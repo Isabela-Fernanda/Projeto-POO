@@ -59,3 +59,11 @@ export enum Tags {
     CURA_POR_ENERGIA_ESCOLHIDA,
 
 }
+
+export enum TagEfeito {
+    LUZ,
+    ESCURIDAO,
+    VOO,
+    INVISIBILIDADE,
+    MAGICO
+}

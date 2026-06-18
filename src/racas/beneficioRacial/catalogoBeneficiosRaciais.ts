@@ -5,9 +5,9 @@ import { BeneficioRacial } from "./beneficioRacial.ts";
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
 
-import { MagiaLuz } from "../../poderes/magias/magiaLuz.ts";
-import { MagiaControlarPlantas } from "../../poderes/magias/magiaControlarPlantas.ts";
-import { MagiaEscuridao } from "../../poderes/magias/magiaEsciridao.ts";
+import { MagiaLuzArcana } from "../../poderes/magia/circulo_1/magiaLuzArcana.ts";
+import { MagiaControlarPlantas } from "../../poderes/magia/circulo_1_Divino/magiaControlarPlantas.ts";
+import { MagiaEscuridaoArcana } from "../../poderes/magia/circulo_1/magiaEscuridaoArcana.ts";
 import { Tags } from "../../poderes/tags.ts";
 
 import { TipoEnergia } from "../../poderes/tipoEnergia.ts";
@@ -24,7 +24,7 @@ export class LuzSagrada extends BeneficioRacial {
         personagem.adicionarBonusPericia(CatalogoPericias.DIPLOMACIA, 2);
         personagem.adicionarBonusPericia(CatalogoPericias.INTUICAO, 2);
 
-        personagem.adicionarHabilidade(new MagiaLuz());
+        personagem.adicionarHabilidade(new MagiaLuzArcana());
     }
 }
 
@@ -437,10 +437,7 @@ export class SombrasProfanas extends BeneficioRacial {
     aplicar(personagem: Personagem): void {
         personagem.adicionarBonusPericia(CatalogoPericias.ENGANACAO, 2);
         personagem.adicionarBonusPericia(CatalogoPericias.FURTIVIDADE, 2);
-
-        personagem.adicionarHabilidade(
-            new MagiaEscuridao()
-        );
+        personagem.adicionarHabilidade(new MagiaEscuridaoArcana());
     }
 }
 

@@ -3,10 +3,15 @@ import { Armadura, TipoProtecao } from "./itens/armadura.ts";
 import { CatalogoArmas } from "./itens/catalogoArmas.ts";
 
 export class Equipamento {
+    private armaNatural?: Arma;
     private maoDireita: Arma = CatalogoArmas.DESARMADO;
     private maoEsquerda: Arma = CatalogoArmas.DESARMADO;
     private armadura?: Armadura;
     private escudo?: Armadura;
+
+    equiparArmaNatura(arma?: Arma){
+        this.armaNatural = arma;
+    }
 
     equiparMaoDireita(arma: Arma): void {
         this.maoDireita = arma;

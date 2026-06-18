@@ -9,6 +9,7 @@ export enum TipoDano {
     LUZ,
     MENTAL,
     PERFURACAO,
+    RESTRICAO,
     TREVAS,
     VENENO
 }
