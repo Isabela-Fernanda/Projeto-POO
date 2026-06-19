@@ -24,6 +24,8 @@ export class CalcularResistencia {
                 return TestePericia.executar(personagem, CatalogoPericias.FORTITUDE, cd, bonusEfeito);
             case TipoDano.MENTAL:
                 return TestePericia.executar(personagem, CatalogoPericias.VONTADE, cd, bonusEfeito);
+            case TipoDano.EQUILIBRIO:
+                return TestePericia.executar(personagem, CatalogoPericias.ACROBACIA, cd, bonusEfeito);
             default:
                 throw new Error(`Tipo de dano não suportado: ${tipoDano}`)
         }

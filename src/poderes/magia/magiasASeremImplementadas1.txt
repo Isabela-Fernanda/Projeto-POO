@@ -1,0 +1,145 @@
+SEGUNDO CIRCULO
+    MagiaPura (aplica efeito sem teste de resistência)
+        Campo de Força
+        Dissipar Magia
+        Refúgio
+        Ligação Telepática
+        Localização
+        Mapear
+        Montaria Arcana
+        Salto Dimensional
+        Servos Invisíveis
+        Aparência Perfeita
+        Camuflagem Ilusória
+        Esculpir Sons
+        Invisibilidade
+        Alterar Tamanho
+        Metamorfose
+        Velocidade
+
+    MagiaResistencia (alvo faz teste de resistência)
+        Amarras Etéreas
+        Desespero Esmagador
+        Marca da Obediência
+        Sussurros Insanos
+
+    MagiaDano (causa dano direto)
+        Flecha Ácida
+        Crânio Voador de Vladislav
+        Toque Vampírico
+
+    MagiaArea (afeta vários alvos ou uma área)
+        Bola de Fogo
+        Relâmpago
+        Sopro das Uivantes
+
+    MagiaSustentada (permanece ativa)
+        Runa de Proteção
+
+    MagiaInvocacao (cria criatura/objeto permanente temporário)
+        Conjurar Mortos-Vivos
+
+
+TERCEIRO CIRCULO
+    MagiaPura (aplica efeito sem teste de resistência)
+        Âncora Dimensional
+        Dificultar Detecção
+        Globo de Invulnerabilidade
+        Contato Extraplanar
+        Lendas e Histórias
+        Vidência
+        Convocação Instantânea
+        Teletransporte
+        Miragem
+        Pele de Pedra
+        Telecinesia
+        Transformação de Guerra
+        Voo
+
+    MagiaResistencia (alvo faz teste de resistência)
+        Imobilizar
+        Selo de Mana
+
+    MagiaDano (causa dano direto)
+        Ferver Sangue
+        Lança Ígnea de Aleph
+
+    MagiaArea (afeta vários alvos ou uma área)
+        Erupção Glacial
+        Muralha Elemental
+        Tentáculos de Trevas
+        Ilusão Lacerante
+
+    MagiaInvocacao (cria criatura/objeto permanente temporário)
+        Enxame Rubro de Ichabod
+        Servo Morto-Vivo
+
+QUARTO CIRCULO
+    MagiaPura (aplica efeito sem teste de resistência)
+        Controlar a Gravidade
+        Forma Etérea
+
+    MagiaResistencia (alvo faz teste de resistência)
+        Alterar Memória
+        Marionete
+
+    MagiaDano (causa dano direto)
+        Raio Polar
+        Desintegrar
+
+    MagiaArea (afeta vários alvos ou uma área)
+        Relâmpago Flamejante de Reynard
+        Talho Invisível de Edauros
+        Explosão Caleidoscópica
+
+    MagiaSustentada (permanece ativa)
+        Muralha de Ossos
+        Duplicata Ilusória
+
+    MagiaInvocacao (cria criatura/objeto permanente temporário)
+        Assassino Fantasmagórico
+        Animar Objetos
+
+QUINTO CIRCULO
+    MagiaPura (aplica efeito sem teste de resistência)
+        Invulnerabilidade
+        Alterar Destino
+        Projetar Consciência
+        Campo Antimagia
+        Libertação
+        Sonho
+        Visão da Verdade
+        Viagem Planar
+        Controlar o Tempo
+        Desejo
+        Semiplano
+    
+    MagiaResistencia (alvo faz teste de resistência)
+        Aprisionamento
+        Legião
+        Palavra Primordial
+        Possessão
+        Roubar a Alma
+        Toque da Morte
+    
+    MagiaDano (causa dano direto)
+        Mata-Dragão
+
+    MagiaArea (afeta vários alvos ou uma área)
+        Buraco Negro
+        Chuva de Meteoros
+        Barragem Elemental de Vectorius
+        Deflagração de Mana
+
+    MagiaSustentada (permanece ativa)
+        Engenho de Mana
+        Réquiem
+        Sombra Assassina
+
+    MagiaInvocacao (cria criatura/objeto permanente temporário)
+        Conjurar Elemental
+        Mão Poderosa de Talude
+
+
+
+

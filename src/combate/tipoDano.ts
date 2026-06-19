@@ -2,6 +2,7 @@ export enum TipoDano {
     ACIDO,
     CORTE,
     ELETRICIDADE,
+    EQUILIBRIO,
     ESSENCIA,
     FOGO,
     FRIO,

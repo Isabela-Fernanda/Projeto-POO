@@ -203,6 +203,7 @@ export abstract class Personagem {
 
         return Math.max(0, this.deslocamento + bonusEfeito);
     }
+
     setDeslocamento(valor: number): void {
         this.deslocamento = valor;
     }
@@ -218,6 +219,17 @@ export abstract class Personagem {
     setPosicao(x: number, y: number): void {
         this.posX = x;
         this.posY = y;
+    }
+
+    moverPara(x: number, y: number): void {
+        this.posX = x;
+        this.posY = y;
+    }
+
+    estaAdjacente(alvo: Personagem): boolean {
+        const dx = Math.abs(this.getX() - alvo.getX());
+        const dy = Math.abs(this.getY() - alvo.getY());
+        return dx <= 1 && dy <= 1;
     }
 
     /* ------------------------------------------------------------ */

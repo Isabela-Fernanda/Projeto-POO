@@ -7,13 +7,13 @@ import { MagiaArea } from "../magiaArea.ts";
 import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia, } from "../magia.ts";
 
 import { Condicao } from "../../../combate/tipoCondicao.ts";
-import { UtilitarioCondicao, UtilitarioResistencia, AreaMagica, AreaCircular, FiltroInimigos } from "../utilitarios.ts";
+import { UtilitarioCondicao, UtilitarioResistencia, AreaCircular, FiltroInimigos } from "../utilitarios.ts";
 
 export class MagiaControlarPlantas extends MagiaArea {
     constructor() {
         super("Controlar Plantas", "...", 1, "", CirculoMagia.PRIMEIRO, TipoMagia.DIVINA, EscolaMagia.TRANSMUTACAO, TipoAcao.PADRAO, TipoAlvo.QUALQUER, AlcanceMagia.CURTO, DuracaoMagia.CENA);
     }
-    protected obterArea(): AreaMagica {
+    protected obterArea(): AreaCircular {
         return new AreaCircular(9);
     }
 

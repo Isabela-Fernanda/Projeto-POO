@@ -69,6 +69,32 @@ export class AreaCircular implements AreaMagica {
     constructor(
         private raio: number
     ) { }
+    getRaio(): number {
+        return this.raio;
+    }
+
+    obterAlvos(centroX: number, centroY: number, conjurador: Personagem, criaturas: Personagem[]): Personagem[] {
+        return criaturas.filter(criatura => {
+            const dx = criatura.getX() - centroX;
+            const dy = criatura.getY() - centroY;
+
+            return (Math.sqrt(dx * dx + dy * dy) <= this.raio);
+        });
+    }
+}
+
+export class AreaCilindrica implements AreaMagica {
+    constructor(
+        private raio: number,
+        private altura: number
+    ) { }
+    getRaio(): number {
+        return this.raio;
+    }
+
+    getAltura(): number {
+        return this.altura;
+    }
 
     obterAlvos(centroX: number, centroY: number, conjurador: Personagem, criaturas: Personagem[]): Personagem[] {
         return criaturas.filter(criatura => {

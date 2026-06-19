@@ -1,19 +1,19 @@
 import { Personagem } from "../../../personagens/personagem.ts";
 import { Dado } from "../../../combate/dado.ts";
-import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.ts";
 
-import { AreaCircular, AreaMagica, FiltroInimigos, UtilitarioMagia } from "../utilitarios.ts";
-
-import { TipoDano } from "../../../combate/tipoDano.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
 import { MagiaArea } from "../magiaArea.ts";
+import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.ts";
+import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
+import { TipoDano } from "../../../combate/tipoDano.ts";
+
+import { AreaCircular, UtilitarioMagia, FiltroInimigos } from "../utilitarios.ts";
 
 export class MagiaExplosaoDeChamas extends MagiaArea {
     constructor() {
         super("Explosão de Chamas", "Um leque de chamas irrompe de suas mãos, causando 2d6 pontos de dano de fogo às criaturas na área.", 1, "", CirculoMagia.PRIMEIRO, TipoMagia.ARCANA, EscolaMagia.EVOCACAO, TipoAcao.PADRAO, TipoAlvo.QUALQUER, AlcanceMagia.CURTO, DuracaoMagia.INSTANTANEA);
     }
 
-    protected obterArea(): AreaMagica {
+    protected obterArea(): AreaCircular {
         return new AreaCircular(6);
     }
 
