@@ -10,7 +10,9 @@ import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
 import { Combate } from "../combate/combate.ts"
 
-import { TesteAtaque } from "../combate/testes/testeAtaque.ts";
+import { AtaquePossivel, ModoAtaque, TesteAtaque } from "../combate/testes/testeAtaque.ts";
+import { Mapa } from "../mapa/mapa.ts";
+import { Arma } from "../inventario/itens/arma.ts";
 
 export class Jogador extends Personagem {
     protected experiencia: number = 0;
@@ -24,7 +26,7 @@ export class Jogador extends Personagem {
         atributos: Atributos,
         inventario: Inventario,
         equipamento: Equipamento,
-        pericias: Map<Pericia, number>,
+        pericias: Map<Pericia, GrauTreinamento>,
         bonusPericias: Map<Pericia, number>,
         habilidades: Habilidade[]
     ) {
@@ -43,27 +45,13 @@ export class Jogador extends Personagem {
             console.log(`${this.getNome()} subiu para o nível ${this.nivel}!`)
         }
     }
-    atacar(alvo?: Personagem): void {
+    atacar(alvo: Personagem, mapa: Mapa, arma: Arma, modoAtaque: ModoAtaque): void {
+        this.resolverAtaque(alvo, arma, modoAtaque);
+    }
 
-        if (!alvo) {
-            return;
+    atacarComDuasArmas(alvo: Personagem, mapa: Mapa, ataques: AtaquePossivel[]): void {
+        for (const ataque of ataques) {
+            this.resolverAtaque(alvo, ataque.arma, ataque.modoAtaque, this.getPenalidadeDuasArmas());
         }
-
-        const resultado = TesteAtaque.executarAtaque(this, alvo);
-
-        console.log(`${this.getNome()} ataca ${alvo.getNome()}`);
-
-        if (!resultado.acertou) {
-            console.log("ERROU!");
-            return;
-        }
-
-        alvo.receberDano(resultado.dano);
-
-        if (resultado.critico) {
-            console.log("ACERTO CRÍTICO!");
-        }
-
-        console.log(`${alvo.getNome()} sofreu ${resultado.dano} dano`);
     }
 }

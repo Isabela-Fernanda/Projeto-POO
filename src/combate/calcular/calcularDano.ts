@@ -1,32 +1,39 @@
 import { Dado } from "../dado.ts";
 import { Personagem } from "../../personagens/personagem.ts";
 import { TipoAtributo } from "../../personagens/atributos/atributos.ts";
-import { TipoAtaque } from "../../inventario/itens/arma.ts";
+import { Arma, TipoAtaque } from "../../inventario/itens/arma.ts";
+import { ModoAtaque } from "../testes/testeAtaque.ts";
 
 export class CalcularDano {
-    static calcularDano(atacante: Personagem, critico: boolean = false): number {
+    static calcularDano(atacante: Personagem, arma: Arma, modoAtaque: ModoAtaque, critico: boolean = false): number {
         let dano = 0;
-        const bonusEfeito = atacante.somarBonusEfeitos(e => e.getBonusDano());
+        let bonusEfeito = 0;
+        
+        for (const efeito of atacante.getEfeitos()) {
+            bonusEfeito += efeito.getBonusDano();
+        }
 
-        const arma = atacante.getEquipamento().getArma();
+        let bonusAtributo = 0;
 
-        if(!arma){
-            return Math.max(1, 1 + atacante.getModificadorAtributo(TipoAtributo.FORCA)) + bonusEfeito;
+        switch (modoAtaque) {
+            case ModoAtaque.CORPO_A_CORPO:
+                bonusAtributo = atacante.getModificadorAtributo(TipoAtributo.FORCA);
+                break;
+            case ModoAtaque.ARREMESSO:
+                bonusAtributo = atacante.getModificadorAtributo(TipoAtributo.FORCA);
+                break;
+            case ModoAtaque.DISTANCIA:
+                bonusAtributo = 0;
+                break;
         }
 
         dano = Dado.rolarVarios(arma.getQuantidadeDados(), arma.getFacesDado());
 
-        if(critico) {
+        if (critico) {
             dano *= arma.getMultiplicadorCritico();
         }
 
-        if(arma.usaDestrezaNoAtaque()){
-            dano += arma.getBonusDano();
-        } else {
-            dano += arma.getBonusDano() + atacante.getModificadorAtributo(TipoAtributo.FORCA);
-        }
-
-        dano += bonusEfeito;
+        dano += arma.getBonusDano() + bonusAtributo + bonusEfeito;
 
         return Math.max(1, dano);
     }

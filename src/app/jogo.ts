@@ -1,3 +1,5 @@
+import { Mapa } from "../mapa/mapa.ts";
+
 import { Tela } from "../ui/tela.ts";
 import { Jogador } from "../personagens/jogador.ts";
 
@@ -25,16 +27,14 @@ export class Jogo {
         const inimigo1 = CriacaoPersonagem.criar();
         inimigo1.setTime(Time.INIMIGOS);
 
-        const combate =
-            new Combate([
-                jogador,
-                inimigo1,
-            ]);
+        const mapa = new Mapa();
+        mapa.posicionarEntidade(jogador, 2, 2);
+        mapa.posicionarEntidade(inimigo1, 8, 8);
+
+        const combate = new Combate(mapa, [jogador, inimigo1,]);
 
         combate.iniciar();
 
-        prompt(
-            "\nPressione Enter..."
-        );
+        prompt("\nPressione Enter...");
     }
 }

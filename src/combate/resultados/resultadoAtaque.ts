@@ -7,3 +7,7 @@ export class ResultadoAtaque {
         public readonly dano: number
     ) {}
 }
+
+export interface ResultadoAtaques {
+    ataques: ResultadoAtaque[];
+}

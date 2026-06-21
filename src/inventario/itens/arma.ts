@@ -64,8 +64,9 @@ export class Arma extends Item {
         private propriedades: PropriedadeArma[] = [],
         modificacoes: Modificacoes[] = [],
 
+        private alcance: number,
         private municao?: Municao,
-        private alcance?: number,
+        private alcanceArremeco?: number,
 
         private bonusAtaque: number = 0,
         private bonusDano: number = 0,
@@ -93,6 +94,14 @@ export class Arma extends Item {
         return this.tipoAtaque.includes(TipoAtaque.DISTANCIA);
     }
 
+    getAlcance(): number {
+        let alcance = this.alcance;
+        if(this.ehAlongada()){
+            alcance += 1;
+        }
+        return alcance;
+    }
+
     ehAgil(): boolean {
         return this.propriedades.includes(PropriedadeArma.AGIL);
     }
@@ -111,6 +120,38 @@ export class Arma extends Item {
 
     ehDesbalanceada(): boolean {
         return this.propriedades.includes(PropriedadeArma.DESBALANCEADA);
+    }
+
+    podeArremessar(): boolean {
+        return this.tipoAtaque.includes(TipoAtaque.ARREMESSO);
+    }
+
+    usaForcaNoArremesso(): boolean {
+        return this.podeArremessar();
+    }
+
+    getAlcanceArremesso(): number {
+        return this.alcanceArremeco ?? 0;
+    }
+
+    armaNoAlcance(distancia: number): boolean {
+        if (this.podeAtacarCorpoACorpo() && distancia <= this.getAlcance()) {
+            return true;
+        }
+
+        if (this.podeAtacarDistancia() && distancia <= this.getAlcance()) {
+            return true;
+        }
+
+        if (this.podeArremessar() && distancia <= this.getAlcanceArremesso()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    obterMaiorAlcance(): number {
+        return Math.max(this.getAlcance(), this.getAlcanceArremesso());
     }
 
     getMargemCritico(): number {
@@ -140,10 +181,6 @@ export class Arma extends Item {
 
     getMunicao(): Municao | undefined {
         return this.municao;
-    }
-
-    getAlcance(): number | undefined {
-        return this.alcance;
     }
 
     getBonusAtaque(): number {

@@ -88,8 +88,6 @@ export class CriacaoPersonagem {
             habilidades
         )
 
-        this.aplicarHabilidadesCriacao(jogador);
-
         return jogador;
     }
 
@@ -175,14 +173,6 @@ export class CriacaoPersonagem {
         );
 
         return habilidades;
-    }
-
-    private static aplicarHabilidadesCriacao(jogador: Jogador): void {
-        for (const habilidade of jogador.getHabilidades()) {
-            if (habilidade.ehHabilidadeCriacao()) {
-                habilidade.aplicarCriacao(jogador);
-            }
-        }
     }
 
     private static mostrarHabilidades(habilidades: Habilidade[]): void {

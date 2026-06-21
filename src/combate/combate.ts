@@ -1,11 +1,13 @@
+import { Mapa } from "../mapa/mapa.ts";
 import { Personagem } from "../personagens/personagem.ts";
 import { OrdemTurnos } from "./turno.ts";
 import { Rodada } from "./rodada.ts";
 
 export class Combate {
     constructor(
+        private mapa: Mapa,
         private participantes: Personagem[]
-    ) {}
+    ) { }
 
     iniciar(): void {
         let ordem = OrdemTurnos.determinar(this.participantes);
@@ -13,16 +15,16 @@ export class Combate {
         console.log("\n=== INICIATIVA ===");
 
         ordem.forEach((personagem, indice) => {
-                console.log(`${indice + 1}º ${personagem.getNome()}`);
-            }
+            console.log(`${indice + 1}º ${personagem.getNome()}`);
+        }
         );
 
         let numeroRodada = 1;
 
-        while(this.combateAtivo()){
+        while (this.combateAtivo()) {
             console.log(`\n===== RODADA ${numeroRodada} =====`);
 
-            const rodada = new Rodada(ordem);
+            const rodada = new Rodada(ordem, this.mapa);
 
             rodada.executar();
 
@@ -42,11 +44,14 @@ export class Combate {
     }
 
     private removerDerrotados(): void {
-    this.participantes =
-        this.participantes.filter(
-            p => p.estaVivo()
-        );
-}
+        const derrotados = this.participantes.filter(p => !p.estaVivo());
+
+        for (const morto of derrotados) {
+            this.mapa.removerEntidade(morto);
+        }
+
+        this.participantes = this.participantes.filter(p => p.estaVivo());
+    }
 }
 
 /* export class Combate {

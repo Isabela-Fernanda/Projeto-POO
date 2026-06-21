@@ -1,27 +1,17 @@
 import { Personagem } from "../personagens/personagem.ts";
 import { Atributos, TipoAtributo } from "../personagens/atributos/atributos.ts";
+import { Mapa } from "../mapa/mapa.ts";
 
 export class Tela {
 
-    static titulo(texto: string): void {
+    static mostrarMapa(mapa: Mapa): void {
+        console.log(mapa.renderizar());
+    }
 
-        console.log("\n====================");
-        console.log(texto);
-        console.log("====================\n");
+    static mostrarStatus(personagem: Personagem): void{
 
     }
 
-    static mostrarStatus(personagem: Personagem): void {
-        console.log(
-            `${personagem.getNome()}`
-        );
-
-        console.log(
-            `HP: ${personagem.getVidaAtual()}/${personagem.getVidaMaxima()}`
-        );
-        
-        console.log("");
-
-    }
+    static mostrarCombate(): void{}
 
 }

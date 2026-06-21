@@ -9,15 +9,21 @@ export class Equipamento {
     private armadura?: Armadura;
     private escudo?: Armadura;
 
-    equiparArmaNatura(arma?: Arma){
+    equiparArmaNatura(arma?: Arma) {
         this.armaNatural = arma;
     }
 
     equiparMaoDireita(arma: Arma): void {
+        if (this.maoDireita === this.maoEsquerda && this.maoDireita !== CatalogoArmas.DESARMADO) {
+            this.maoEsquerda = CatalogoArmas.DESARMADO;
+        }
         this.maoDireita = arma;
     }
 
     equiparMaoEsquerda(arma: Arma): void {
+        if (this.maoDireita === this.maoEsquerda && this.maoDireita !== CatalogoArmas.DESARMADO) {
+            this.maoDireita = CatalogoArmas.DESARMADO;
+        }
         this.maoEsquerda = arma;
     }
 
@@ -74,11 +80,31 @@ export class Equipamento {
         return this.maoEsquerda;
     }
 
+    getArmasEquipadas(): Arma[] {
+        return [this.maoDireita, this.maoEsquerda];
+    }
+
     getArmadura(): Armadura | undefined {
         return this.armadura;
     }
 
     getEscudo(): Armadura | undefined {
         return this.escudo;
+    }
+
+    estaUsandoDuasArmas(): boolean {
+        return (this.maoDireita !== CatalogoArmas.DESARMADO && this.maoEsquerda !== CatalogoArmas.DESARMADO && this.maoDireita !== this.maoEsquerda);
+    }
+
+    estaUsandoArmaDeDuasMaos(): boolean {
+        return (this.maoDireita === this.maoEsquerda && this.maoDireita !== CatalogoArmas.DESARMADO);
+    }
+
+    getArmaSecundariaValida(): Arma | undefined {
+        if (this.maoEsquerda === CatalogoArmas.DESARMADO) {
+            return undefined;
+        }
+
+        return this.maoEsquerda;
     }
 }

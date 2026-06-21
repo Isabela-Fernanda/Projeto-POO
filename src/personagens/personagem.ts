@@ -6,7 +6,7 @@ import { Atributos, TipoAtributo } from "./atributos/atributos.ts";
 
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
-import { Arma } from "../inventario/itens/arma.ts";
+import { Arma, FacilidadeUso } from "../inventario/itens/arma.ts";
 import { Armadura } from "../inventario/itens/armadura.ts";
 
 import { Pericia } from "../pericias/pericia.ts";
@@ -20,6 +20,15 @@ import { CalculadoraDefesa } from "../combate/calcular/calcularDefesa.ts";
 import { Tags } from "../poderes/tags.ts";
 import { TipoEnergia } from "../poderes/tipoEnergia.ts";
 import { TipoDano } from "../combate/tipoDano.ts";
+import { Mapa } from "../mapa/mapa.ts";
+import { ModoAtaque, TesteAtaque } from "../combate/testes/testeAtaque.ts";
+
+import { AtaquePossivel } from "../combate/testes/testeAtaque.ts";
+
+export interface AtaqueBonus {
+    nome: string;
+    arma: Arma;
+}
 
 export abstract class Personagem {
     protected vidaAtual: number;
@@ -33,6 +42,11 @@ export abstract class Personagem {
 
     protected bonusDefesa: number = 0;
     private poderesTormenta = 0;
+
+    private ataquesExtrasPermanentes = 0;
+    private ataquesExtrasTemporarios = 0;
+
+    private ataquesBonus: AtaqueBonus[] = [];
 
     private criaturasInvocadas: Personagem[] = [];
     private efeitos: Efeito[] = [];
@@ -67,7 +81,59 @@ export abstract class Personagem {
         this.deslocamento = 9;
     }
 
-    abstract atacar(alvo?: Personagem): void;
+    abstract atacar(alvo: Personagem, mapa: Mapa, arma: Arma, modoAtaque: ModoAtaque): void;
+    abstract atacarComDuasArmas(alvo: Personagem, mapa: Mapa, ataques: AtaquePossivel[]): void;
+
+    getQuantidadeAtaques(): number {
+        return 1 + this.ataquesExtrasPermanentes + this.ataquesExtrasTemporarios;
+    }
+
+    consumirAtaquesExtrasTemporarios(): void {
+        this.ataquesExtrasTemporarios = 0;
+    }
+
+    protected resolverAtaque(alvo: Personagem, arma: Arma, modoAtaque: ModoAtaque, penalidade: number = 0): void {
+        const resultado = TesteAtaque.executarAtaque(this, alvo, arma, modoAtaque, penalidade);
+
+        console.log(`${this.getNome()} ataca ${alvo.getNome()}`);
+
+        if (!resultado.acertou) {
+            console.log("ERROU!");
+            return;
+        }
+
+        alvo.receberDano(resultado.dano);
+
+        if (resultado.critico) {
+            console.log("ACERTO CRÍTICO!");
+        }
+
+        console.log(`${alvo.getNome()} sofreu ${resultado.dano} dano`);
+    }
+
+    adicionarAtaqueBonus(nome: string, arma: Arma): void {
+        this.ataquesBonus.push({
+            nome,
+            arma
+        });
+    }
+
+    getAtaquesBonus(): AtaqueBonus[] {
+        return this.ataquesBonus;
+    }
+
+    possuiAtaqueBonus(nome: string): boolean {
+        return this.ataquesBonus.some(
+            ataque => ataque.nome === nome
+        );
+    }
+
+    removerAtaqueBonus(nome: string): void {
+        this.ataquesBonus =
+            this.ataquesBonus.filter(
+                ataque => ataque.nome !== nome
+            );
+    }
 
     receberDano(dano: number): void {
         if (this.vidaTemporaria > 0) {
@@ -121,6 +187,10 @@ export abstract class Personagem {
 
     getCDMagia(): number {
         return 10 + Math.floor(this.nivel / 2) + this.getModificadorAtributo(TipoAtributo.SABEDORIA);
+
+        /* const atributo = this.classe?.getAtributoMagia() ?? TipoAtributo.SABEDORIA;
+
+        return 10 + Math.floor(this.nivel / 2) + this.getModificadorAtributo(atributo); */
     }
 
     getResistencia(tipo: TipoDano): number {
@@ -129,6 +199,22 @@ export abstract class Personagem {
 
     adicionarResistencia(tipo: TipoDano, valor: number): void {
         this.resistencias.set(tipo, valor);
+    }
+
+    adicionarAtaqueExtra(quantidade: number = 1): void {
+        this.ataquesExtrasPermanentes += quantidade;
+    }
+
+    adicionarAtaqueExtraTemporario(quantidade: number = 1): void {
+        this.ataquesExtrasTemporarios += quantidade;
+    }
+
+    getAtaquesExtras(): number {
+        return this.ataquesExtrasPermanentes;
+    }
+
+    possuiProficiencia(facilidade: FacilidadeUso): boolean {
+        return this.classe?.possuiProficiencia(facilidade) ?? false;
     }
 
     /* ------------------------------------------------------------ */
@@ -361,6 +447,56 @@ export abstract class Personagem {
         return this.equipamento;
     }
 
+    getAlcanceAtaque(): number {
+        let alcance = 1;
+
+        const alcance1 = this.equipamento.getArmaPrincipal().obterMaiorAlcance();
+        const alcance2 = this.equipamento.getArmaSecundaria().obterMaiorAlcance();
+
+        return Math.max(alcance, alcance1, alcance2);
+    }
+
+    obterAtaquesPossiveis(distancia: number): AtaquePossivel[] {
+        const ataques: { arma: Arma, modoAtaque: ModoAtaque }[] = [];
+
+        const armas = [
+            this.equipamento.getArmaPrincipal(),
+            this.equipamento.getArmaSecundaria()
+        ];
+
+        for (const arma of armas) {
+            if (arma.podeAtacarCorpoACorpo() && distancia <= arma.getAlcance()) {
+                ataques.push({ arma, modoAtaque: ModoAtaque.CORPO_A_CORPO });
+                continue;
+            }
+
+            if (arma.podeAtacarDistancia() && distancia <= arma.getAlcance()) {
+                ataques.push({ arma, modoAtaque: ModoAtaque.DISTANCIA });
+                continue;
+            }
+
+            if (arma.podeArremessar() && distancia <= arma.getAlcanceArremesso()) {
+                ataques.push({ arma, modoAtaque: ModoAtaque.ARREMESSO });
+            }
+        }
+
+        return ataques;
+    }
+
+    possuiArmaNoAlcance(distancia: number): boolean {
+        return (
+            this.equipamento.getArmaPrincipal().armaNoAlcance(distancia) || this.equipamento.getArmaSecundaria().armaNoAlcance(distancia)
+        );
+    }
+
+    getPenalidadeDuasArmas(): number {
+        if (this.possuiHabilidade("Estilo de Duas Armas")) {
+            return 0;
+        }
+
+        return -2;
+    }
+
     equiparMaoDireita(arma: Arma): void {
         this.equipamento.equiparMaoDireita(arma);
     }
@@ -375,6 +511,17 @@ export abstract class Personagem {
 
     equiparProtecao(armadura: Armadura): void {
         this.equipamento.equiparProtecao(armadura);
+    }
+
+    removerArmaEquipada(arma: Arma): void {
+        if (this.equipamento.getArmaPrincipal() === arma) {
+            this.equipamento.desequiparMaoDireita();
+            return;
+        }
+
+        if (this.equipamento.getArmaSecundaria() === arma) {
+            this.equipamento.desequiparMaoEsquerda();
+        }
     }
 
     /* ------------------------------------------------------------ */

@@ -1,24 +1,53 @@
 import { Personagem } from "../../personagens/personagem.ts";
-import { ResultadoAtaque } from "../resultados/resultadoAtaque.ts";
+import { ResultadoAtaque, ResultadoAtaques } from "../resultados/resultadoAtaque.ts";
 import { CalcularDano } from "../calcular/calcularDano.ts";
-import { CalcularAtaque } from "../calcular/calcularAtaque.ts";
+import { CalcularAtaque } from "../calcular/calcularAtaque.ts"; 
+import { Arma } from "../../inventario/itens/arma.ts";
+
+export enum ModoAtaque {
+    CORPO_A_CORPO,
+    ARREMESSO,
+    DISTANCIA
+}
+
+export interface AtaquePossivel {
+    arma: Arma;
+    modoAtaque: ModoAtaque;
+}
 
 export class TesteAtaque {
-    static executarAtaque(atacante: Personagem, alvo: Personagem): ResultadoAtaque {
-        const resultadoAtaque = CalcularAtaque.calcular(atacante);
+    static executarAtaque(atacante: Personagem, alvo: Personagem, arma: Arma, modoAtaque: ModoAtaque, penalidade?: number): ResultadoAtaque {
+        const resultadoAtaque = CalcularAtaque.calcular(atacante, arma, modoAtaque);
 
-        const arma = atacante.getEquipamento().getArma();
+        resultadoAtaque.total += (penalidade ?? 0);
 
-        const margemCritico = arma?.getMargemCritico() ?? 20;
+        const margemCritico = arma.getMargemCritico() ?? 20;
 
-        const acertou = resultadoAtaque.total >= alvo.getDefesa();
+        let acertou: boolean;
+
+        if(resultadoAtaque.rolagem === 1){
+            acertou = false;
+        } else if (resultadoAtaque.rolagem === 20){
+            acertou = true;
+        } else{
+            acertou = resultadoAtaque.total >= alvo.getDefesa();
+        }
 
         const critico = acertou && resultadoAtaque.rolagem >= margemCritico;
 
-        const dano =acertou ? CalcularDano.calcularDano(atacante, critico) : 0;
+        let dano = acertou ? (CalcularDano.calcularDano(atacante, arma, modoAtaque, critico)) : 0;
 
-        // Falta adicionar a resistencia do alvo ao dano
+        const resistencia = alvo.getResistencia(arma.getTipoDano());
+
+        dano = Math.max(0, dano - resistencia);
 
         return new ResultadoAtaque(resultadoAtaque.rolagem, resultadoAtaque.total, acertou, critico, dano);
+    }
+
+    static executarAtaqueDuplo(atacante: Personagem, alvo: Personagem, arma: Arma, modoAtaque: ModoAtaque): ResultadoAtaques {
+        const primeiro = this.executarAtaque(atacante, alvo, arma, modoAtaque);
+        const segundo = this.executarAtaque(atacante, alvo, arma, modoAtaque);
+
+        return {ataques: [primeiro, segundo]};
     }
 }

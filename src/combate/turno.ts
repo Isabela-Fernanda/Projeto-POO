@@ -4,15 +4,18 @@ import { EstadoTurno } from "./estadoTurno.ts";
 import { RodadaIniciativa } from "./rodadaIniciativas.ts";
 
 import { Item } from "../inventario/itens/item.ts";
-import { Arma } from "../inventario/itens/arma.ts";
+import { Arma, Categoria } from "../inventario/itens/arma.ts";
 import { Armadura } from "../inventario/itens/armadura.ts";
 
 import { Habilidade, TipoAlvo } from "../poderes/habilidades.ts";
 
 import { TipoAcao } from "../poderes/habilidades.ts";
+import { Mapa } from "../mapa/mapa.ts";
+import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
+import { AtaquePossivel, ModoAtaque } from "./testes/testeAtaque.ts";
 
 export class Turno {
-    static executar(personagem: Personagem, participantes: Personagem[]): void {
+    static executar(personagem: Personagem, participantes: Personagem[], mapa: Mapa): void {
         const estado = new EstadoTurno();
 
         console.log(`\n=== TURNO DE ${personagem.getNome()} ===`);
@@ -25,76 +28,233 @@ export class Turno {
         }
 
         if (personagem instanceof Jogador) {
-            this.executarJogador(personagem, participantes, estado);
+            this.executarJogador(personagem, participantes, mapa, estado);
         } else {
-            this.executarIA(personagem, participantes, estado);
+            this.executarIA(personagem, participantes, estado, mapa);
         }
     }
 
-    private static executarJogador(jogador: Jogador, participantes: Personagem[], estado: EstadoTurno) {
+    private static executarJogador(jogador: Jogador, participantes: Personagem[], mapa: Mapa, estado: EstadoTurno) {
+        mapa.renderizar();
+        for (const entidade of mapa.getEntidades()) {
+            console.log(`${entidade.getNome()} (${entidade.getX()}, ${entidade.getY()})`);
+        }
+
         while (true) {
-            console.log("\n1 - Atacar");
-            console.log("2 - Inventário");
-            console.log("3 - Ver Status");
-            console.log("4 - Habilidades")
-            console.log("5 - Encerrar Turno");
+            console.log("\n1 - Mover")
+            console.log("2 - Atacar");
+            console.log("3 - Inventário");
+            console.log("4 - Ver Status");
+            console.log("5 - Habilidades")
+            console.log("6 - Encerrar Turno");
 
             const opcao = prompt("Escolha:");
 
             switch (opcao) {
                 case "1":
+                    if (!estado.possuiAcaoMovimento()) {
+                        console.log("Você já usou sua ação de movimento.");
+                        break;
+                    }
+                    this.mover(jogador, mapa, estado);
+                    break;
+                case "2":
                     if (!estado.possuiAcaoPadrao()) {
                         console.log("Você já usou sua ação padrão.");
                         break;
                     }
-                    const alvo = this.escolherAlvo(jogador, participantes);
+                    if (jogador.getRaca().getNome() === "Minotauro" && !jogador.possuiAtaqueBonus("Chifrada")) {
+                        jogador.adicionarAtaqueBonus("Chifrada", CatalogoArmas.CHIFRE);
+                    }
+                    if (jogador.getRaca().getNome() === "Trog" && !jogador.possuiAtaqueBonus("Mordida")) {
+                        jogador.adicionarAtaqueBonus("Mordida", CatalogoArmas.MORDIDA);
+                    }
+
+                    const alvo = this.escolherAlvo(jogador, participantes, mapa);
 
                     if (!alvo) {
                         break;
                     }
-                    jogador.atacar(alvo);
+
+                    const distancia = mapa.calcularDistancia(jogador.getX(), jogador.getY(), alvo.getX(), alvo.getY());
+
+                    if (!jogador.possuiArmaNoAlcance(distancia)) {
+                        console.log("Alvo fora de alcance.");
+                        break;
+                    }
+
+                    const ataquesPossiveis = jogador.obterAtaquesPossiveis(distancia);
+
+                    if (ataquesPossiveis.length === 0) {
+                        console.log("Nenhuma arma alcança o alvo.");
+                        break
+                    }
+
+                    console.log("\n=== ESCOLHA O ATAQUE ===");
+
+                    ataquesPossiveis.forEach((ataque, i) => {
+                        console.log(`${i + 1} - ${ataque.arma.getNome()} (${ModoAtaque[ataque.modoAtaque]})`);
+                    });
+                    const escolha = Number(prompt("Escolha:"));
+                    const ataque = ataquesPossiveis[escolha - 1];
+
+                    if (!ataque) {
+                        break;
+                    }
+
+                    if (ataquesPossiveis)
+
+                        if (jogador.getEquipamento().estaUsandoDuasArmas()) {
+                            for (let i = 0; i < jogador.getQuantidadeAtaques(); i++) {
+                                jogador.atacarComDuasArmas(alvo, mapa, ataquesPossiveis);
+                            }
+                            jogador.consumirAtaquesExtrasTemporarios();
+                        } else {
+                            for (let i = 0; i < jogador.getQuantidadeAtaques(); i++) {
+                                jogador.atacar(alvo, mapa, ataque.arma, ataque.modoAtaque);
+                            }
+                            jogador.consumirAtaquesExtrasTemporarios();
+                        }
+                    const ehAtaqueCorpoACorpo = ataquesPossiveis.some(ataque => ataque.modoAtaque === ModoAtaque.CORPO_A_CORPO);
+                    if (ehAtaqueCorpoACorpo) {
+                        const escolha = prompt("Deseja gastar 1PM para realizar um ataque com sua arma natural? (s/n)");
+
+                        if (escolha?.toLowerCase() !== "s") {
+                            estado.usarAcaoPadrao();
+                            break;
+                        }
+
+                        if (!jogador.gastarMana(1)) {
+                            console.log("Mana insuficente! Não é possível realizar o ataque.");
+                            estado.usarAcaoPadrao();
+                            break;
+                        }
+
+                        for (const ataqueBonus of jogador.getAtaquesBonus()) {
+                            jogador.atacar(alvo, mapa, ataqueBonus.arma, ModoAtaque.CORPO_A_CORPO);
+                        }
+                        if (jogador.getRaca().getNome() === "Minotauro") {
+                            jogador.removerAtaqueBonus("Chifrada");
+                        }
+                        if (jogador.getRaca().getNome() === "Trog") {
+                            jogador.removerAtaqueBonus("Mordida");
+                        }
+                    }
                     estado.usarAcaoPadrao()
                     break;
-                case "2":
+                case "3":
                     if (!estado.possuiAcaoMovimento()) {
                         console.log("Você já usou sua ação de movimento.");
                         break;
                     }
                     this.abrirInventario(jogador, estado);
                     break;
-                case "3":
+                case "4":
+                    const sala = mapa.getSalaDaEntidade(jogador);
+                    console.log(sala ? `Sala: ${sala.getNome()}` : "Fora de sala");
+                    console.log(`Deslocamento: ${jogador.getDeslocamento()}`)
                     console.log(`${jogador.getNome()}`);
+                    console.log(`Posição: (${jogador.getX()}, ${jogador.getY()})`)
                     console.log(`PV: ${jogador.getVidaAtual()}/${jogador.getVidaMaxima()} | PM: ${jogador.getManaAtual()}/${jogador.getManaMaxima()}`);
                     console.log(`FOR: ${jogador.getForca()} | DES: ${jogador.getDestreza()} | CON: ${jogador.getConstituicao()} | INT: ${jogador.getInteligencia()} | SAB: ${jogador.getSabedoria()} | CAR: ${jogador.getCarisma()}`);
                     jogador.listarEfeitos();
                     break;
-                case "4":
-                    this.usarHabilidade(jogador, participantes, estado);
-                    break;
                 case "5":
+                    this.usarHabilidade(jogador, participantes, estado, mapa);
+                    break;
+                case "6":
                     return;
             }
         }
     }
 
-    private static executarIA(inimigo: Personagem, participantes: Personagem[], estado: EstadoTurno): void {
-        const alvos = participantes.filter(p => p.getTime() !== inimigo.getTime()
-            && p.estaVivo());
+    private static mover(jogador: Jogador, mapa: Mapa, estado: EstadoTurno) {
+        const x = Number(prompt("Destino X:"));
+        const y = Number(prompt("Destino Y:"));
+
+        const sucesso = mapa.moverEntidade(jogador, x, y);
+
+        if (sucesso) {
+            console.log("Movimento realizado.");
+            estado.usarAcaoMovimento();
+        } else {
+            console.log("Não foi possível mover.");
+        }
+    }
+
+    private static executarIA(inimigo: Personagem, participantes: Personagem[], estado: EstadoTurno, mapa: Mapa): void {
+        const alvos = participantes.filter(p => p.getTime() !== inimigo.getTime() && p.estaVivo());
 
         if (alvos.length === 0) {
             return;
         }
+        let alvoEscolhido: Personagem = alvos[0];
+        let menorDistancia = mapa.calcularDistancia(inimigo.getX(), inimigo.getY(), alvoEscolhido.getX(), alvoEscolhido.getY());
 
-        const alvo = alvos[0];
 
-        if (estado.possuiAcaoPadrao()) {
-            inimigo.atacar(alvo);
+        for (const alvo of alvos) {
+            const distancia = mapa.calcularDistancia(inimigo.getX(), inimigo.getY(), alvo.getX(), alvo.getY());
+
+            if (distancia < menorDistancia) {
+                menorDistancia = distancia;
+                alvoEscolhido = alvo;
+            }
+        }
+
+        const alcance = inimigo.getAlcanceAtaque();
+
+
+
+        if (estado.possuiAcaoMovimento() && menorDistancia > alcance) {
+            const deslocamento = inimigo.getDeslocamento();
+
+            for (let i = 0; i < deslocamento; i++) {
+                const novoX = inimigo.getX() + Math.sign(alvoEscolhido.getX() - inimigo.getX());
+
+                const novoY = inimigo.getY() + Math.sign(alvoEscolhido.getY() - inimigo.getY());
+
+                if (!mapa.moverEntidade(inimigo, novoX, novoY)) {
+                    break;
+                }
+
+                const distanciaAtual = mapa.calcularDistancia(inimigo.getX(), inimigo.getY(), alvoEscolhido.getX(), alvoEscolhido.getY());
+
+                if (distanciaAtual <= alcance) {
+                    break;
+                }
+            }
+        }
+
+        const distancia = mapa.calcularDistancia(inimigo.getX(), inimigo.getY(), alvoEscolhido.getX(), alvoEscolhido.getY());
+
+        const ataquesPossiveis = inimigo.obterAtaquesPossiveis(distancia);
+
+        if (estado.possuiAcaoPadrao() && ataquesPossiveis.length > 0) {
+            if (inimigo.getEquipamento().estaUsandoDuasArmas()) {
+                inimigo.atacarComDuasArmas(alvoEscolhido, mapa, ataquesPossiveis);
+            } else {
+                const ataque = this.escolherMelhorAtaque(ataquesPossiveis);
+                for (let i = 0; i < inimigo.getQuantidadeAtaques(); i++) {
+                    inimigo.atacar(alvoEscolhido, mapa, ataque.arma, ataque.modoAtaque);
+                }
+                inimigo.consumirAtaquesExtrasTemporarios();
+            }
             estado.usarAcaoPadrao();
         }
     }
 
+    private static escolherMelhorAtaque(ataques: AtaquePossivel[]): AtaquePossivel {
+        return ataques.reduce((melhor, atual) => {
+            const danoMelhor = melhor.arma.getQuantidadeDados() * melhor.arma.getFacesDado();
+
+            const danoAtual = atual.arma.getQuantidadeDados() * atual.arma.getFacesDado();
+
+            return danoAtual > danoMelhor ? atual : melhor;
+        });
+    }
+
     private static escolherAlvo(
-        atacante: Personagem, participantes: Personagem[], habilidade?: Habilidade): Personagem | undefined {
+        atacante: Personagem, participantes: Personagem[], mapa: Mapa, habilidade?: Habilidade): Personagem | undefined {
         let alvos = participantes.filter(p => p.getTime() !== atacante.getTime() && p.estaVivo());
 
         switch (habilidade?.getTipoAlvo()) {
@@ -120,7 +280,7 @@ export class Turno {
         console.log("\n=== ESCOLHA O ALVO ===");
 
         alvos.forEach((alvo, indice) => {
-            console.log(`${indice + 1} - ${alvo.getNome()} (PV ${alvo.getVidaAtual()}/${alvo.getVidaMaxima()})`);
+            console.log(`${indice + 1} - ${alvo.getNome()} (PV ${alvo.getVidaAtual()}/${alvo.getVidaMaxima()} | ${mapa.calcularDistancia(atacante.getX(), atacante.getY(), alvo.getX(), alvo.getY())}m)`);
         });
 
         const escolha = Number(prompt("Escolha:"));
@@ -162,7 +322,61 @@ export class Turno {
 
     private static usarItem(jogador: Jogador, item: Item): boolean {
         if (item instanceof Arma) {
-            jogador.equiparArma(item);
+            if (item.getCategoria() === Categoria.DUAS_MAOS) {
+                const atualDireita = jogador.getEquipamento().getArmaPrincipal();
+                const atualEsquerda = jogador.getEquipamento().getArmaSecundaria();
+                if (atualDireita !== CatalogoArmas.DESARMADO && atualEsquerda !== CatalogoArmas.DESARMADO) {
+                    const confirmar = prompt(`Substituir ${atualDireita.getNome()} e ${atualEsquerda.getNome()} por ${item.getNome()}? (s/n)`);
+
+                    if (confirmar?.toLowerCase() !== "s") {
+                        return false;
+                    }
+                } else if (atualDireita !== CatalogoArmas.DESARMADO && atualEsquerda === CatalogoArmas.DESARMADO) {
+                    const confirmar = prompt(`Substituir ${atualDireita.getNome()} por ${item.getNome()}? (s/n)`);
+
+                    if (confirmar?.toLowerCase() !== "s") {
+                        return false;
+                    }
+                } else if (atualEsquerda !== CatalogoArmas.DESARMADO && atualDireita === CatalogoArmas.DESARMADO) {
+                    const confirmar = prompt(`Substituir ${atualEsquerda.getNome()} por ${item.getNome()}? (s/n)`);
+
+                    if (confirmar?.toLowerCase() !== "s") {
+                        return false;
+                    }
+                }
+                jogador.equiparDuasMãos(item);
+            } else {
+                while (true) {
+                    console.log("1 - Equipar Mão Direita.");
+                    console.log("2 - Equipar Mão Esquerda.");
+                    let escolha = prompt("Escolha:");
+
+                    if (escolha === "1") {
+                        const atual = jogador.getEquipamento().getArmaPrincipal();
+                        if (atual !== CatalogoArmas.DESARMADO) {
+                            const confirmar = prompt(`Substituir ${atual.getNome()} por ${item.getNome()}? (s/n)`);
+                            if (confirmar?.toLowerCase() !== "s") {
+                                return false;
+                            }
+                        }
+                        jogador.equiparMaoDireita(item);
+                        break;
+                    }
+                    if (escolha === "2") {
+                        const atual = jogador.getEquipamento().getArmaSecundaria();
+                        if (atual !== CatalogoArmas.DESARMADO) {
+                            const confirmar = prompt(`Substituir ${atual.getNome()} por ${item.getNome()}? (s/n)`);
+                            if (confirmar?.toLowerCase() !== "s") {
+                                return false;
+                            }
+                        }
+                        jogador.equiparMaoEsquerda(item);
+                        break;
+                    }
+
+                    console.log("Escolha invalida. Escolha novamente.");
+                }
+            }
 
             console.log(`${item.getNome()} equipada.`);
 
@@ -180,8 +394,7 @@ export class Turno {
         return false;
     }
 
-    private static usarHabilidade(jogador: Jogador, participantes: Personagem[], estado: EstadoTurno): void {
-
+    private static usarHabilidade(jogador: Jogador, participantes: Personagem[], estado: EstadoTurno, mapa: Mapa): void {
         const habilidades = jogador.getHabilidades();
 
         if (habilidades.length === 0) {
@@ -190,12 +403,16 @@ export class Turno {
         }
 
         console.log("\n=== HABILIDADES ===");
-
+        console.log("0 - Voltar");
         habilidades.forEach((habilidade, indice) =>
             console.log(`${indice + 1} - ${habilidade.getNome()} (${habilidade.getCustoMana()} PM)`)
         );
 
         const escolha = Number(prompt("Escolha:"));
+
+        if(escolha === 0){
+            return;
+        }
 
         const habilidade = habilidades[escolha - 1];
 
@@ -207,12 +424,14 @@ export class Turno {
 
         if (habilidade.getPrecisaAlvo()) {
 
-            alvo = this.escolherAlvo(jogador, participantes, habilidade);
+            alvo = this.escolherAlvo(jogador, participantes, mapa, habilidade);
 
             if (!alvo) {
                 return;
             }
         }
+
+        let sucesso: boolean;
 
         switch (habilidade.getTipoAcao()) {
             case TipoAcao.PADRAO:
@@ -220,7 +439,7 @@ export class Turno {
                     console.log("Você já usou sua ação padrão.");
                     return;
                 }
-                let sucesso = habilidade.executar(jogador, alvo);
+                sucesso = habilidade.executar(jogador, alvo);
                 if (sucesso) {
                     estado.usarAcaoPadrao();
                 }
@@ -249,24 +468,14 @@ export class Turno {
 }
 
 export class OrdemTurnos {
-    static determinar(
-        participantes: Personagem[]
-    ): Personagem[] {
+    static determinar(participantes: Personagem[]): Personagem[] {
+        const resultados = participantes.map(personagem => ({
+            personagem,
+            iniciativa: RodadaIniciativa.rolar(personagem)
+        }));
 
-        const resultados =
-            participantes.map(personagem => ({
-                personagem,
-                iniciativa:
-                    RodadaIniciativa.rolar(personagem)
-            }));
+        resultados.sort((a, b) => b.iniciativa - a.iniciativa);
 
-        resultados.sort(
-            (a, b) =>
-                b.iniciativa - a.iniciativa
-        );
-
-        return resultados.map(
-            r => r.personagem
-        );
+        return resultados.map(r => r.personagem);
     }
 }
