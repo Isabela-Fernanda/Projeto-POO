@@ -1,15 +1,21 @@
 import { Classe } from "./classe.ts";
-import { Habilidade} from '../../poderes/habilidades.ts';
+import { Habilidade } from '../../poderes/habilidades.ts';
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-
+import { TipoAtributo } from "../atributos/atributos.ts";
+import { FacilidadeUso } from "../../inventario/equipamento.ts";
 
 export class Cacador extends Classe {
-    constructor(){
+    constructor() {
         super("Caçador");
+        this.proficiencias.push(FacilidadeUso.MARCIAIS, FacilidadeUso.ESCUDO);
     }
     getVidaInicial(): number {
         return 16;
+    }
+
+    getPVPorNivel(): number {
+        return 4;
     }
 
     getManaInicial(): number {
@@ -24,6 +30,10 @@ export class Cacador extends Classe {
         return [];
     }
 
+    getAtributoMagia(): null {
+        return null;
+    }
+
     getPericiasClasse(): Pericia[] {
         return [
             CatalogoPericias.LUTA,
@@ -33,7 +43,7 @@ export class Cacador extends Classe {
     }
 
     getPericiasDisponiveis(): Pericia[] {
-        return[
+        return [
             CatalogoPericias.ADESTRAMENTO,
             CatalogoPericias.ATLETISMO,
             CatalogoPericias.CAVALGAR,

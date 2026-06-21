@@ -1,4 +1,5 @@
-import { Arma, TipoAtaque, Categoria, FacilidadeUso, Municao, PropriedadeArma } from "./arma.ts";
+import { Arma, TipoAtaque, Categoria, Municao, PropriedadeArma } from "./arma.ts";
+import { FacilidadeUso } from "../equipamento.ts";
 import { TipoDano } from "../../combate/tipoDano.ts";
 
 export class CatalogoArmas {
@@ -47,14 +48,14 @@ export class CatalogoArmas {
 
     // Armas Marciais
     // Armas Marciais - Leves
-    static readonly ESCUDO_LEVE = new Arma("Escudo leve", 5, 3, "Você pode usar um escudo como uma arma marcial, mas perde seu bônus na Defesa até o próximo turno.", 1, 4, 20, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.IMPACTO, Categoria.LEVE, FacilidadeUso.MARCIAIS, [], [], 1.5);
+    static readonly ESCUDO_LEVE = new Arma("Escudo leve", 5, 3, "Você pode usar um escudo como uma arma marcial, mas perde seu bônus na Defesa até o próximo turno.", 1, 4, 20, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.IMPACTO, Categoria.LEVE, FacilidadeUso.ESCUDO, [], [], 1.5);
 
     static readonly MACHADINHA = new Arma("Machadinha", 6, 2, "Ferramenta útil para cortar madeira e também inimigos. Uma machadinha pode ser arremessada.", 1, 6, 20, 3, [TipoAtaque.CORPO_A_CORPO, TipoAtaque.ARREMESSO], TipoDano.CORTE, Categoria.LEVE, FacilidadeUso.MARCIAIS, [], [], 1.5, undefined, 9);
 
     // Armas Marciais - Uma Mão
     static readonly CIMITARRA = new Arma("Cimitarra", 15, 2, "Espada com a lâmina curva e muito afiada. A cimitarra é uma arma ágil.", 1, 6, 18, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.CORTE, Categoria.UMA_MAO, FacilidadeUso.MARCIAIS, [PropriedadeArma.AGIL], [], 1.5);
 
-    static readonly ESCUDO_PESADO = new Arma("Escudo pesado", 15, 7, "Você pode usar um escudo como uma arma marcial, mas perde seu bônus na Defesa até o próximo turno.", 1, 6, 20, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.IMPACTO, Categoria.UMA_MAO, FacilidadeUso.MARCIAIS, [], [], 1.5);
+    static readonly ESCUDO_PESADO = new Arma("Escudo pesado", 15, 7, "Você pode usar um escudo como uma arma marcial, mas perde seu bônus na Defesa até o próximo turno.", 1, 6, 20, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.IMPACTO, Categoria.UMA_MAO, FacilidadeUso.ESCUDO, [], [], 1.5);
 
     static readonly ESPADA_LONGA = new Arma("Espada longa", 15, 2, "Arma típica de soldados e guerreiros, esta espada de dois gumes tem lâmina reta medindo entre 80cm e 1m.", 1, 8, 19, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.CORTE, Categoria.UMA_MAO, FacilidadeUso.MARCIAIS, [], [], 1.5);
 

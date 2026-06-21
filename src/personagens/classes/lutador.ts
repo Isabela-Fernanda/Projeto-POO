@@ -1,15 +1,19 @@
 import { Classe } from "./classe.ts";
-import { Habilidade} from '../../poderes/habilidades.ts';
+import { Habilidade } from '../../poderes/habilidades.ts';
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-
+import { TipoAtributo } from "../atributos/atributos.ts";
 
 export class Lutador extends Classe {
-    constructor(){
+    constructor() {
         super("Lutador");
     }
     getVidaInicial(): number {
         return 20;
+    }
+
+    getPVPorNivel(): number {
+        return 5;
     }
 
     getManaInicial(): number {
@@ -24,6 +28,10 @@ export class Lutador extends Classe {
         return [];
     }
 
+    getAtributoMagia(): null {
+        return null;
+    }
+
     getPericiasClasse(): Pericia[] {
         return [
             CatalogoPericias.FORTITUDE,
@@ -32,7 +40,7 @@ export class Lutador extends Classe {
     }
 
     getPericiasDisponiveis(): Pericia[] {
-        return[
+        return [
             CatalogoPericias.ACROBACIA,
             CatalogoPericias.ADESTRAMENTO,
             CatalogoPericias.ATLETISMO,

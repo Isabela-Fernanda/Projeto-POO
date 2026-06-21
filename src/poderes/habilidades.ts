@@ -1,3 +1,4 @@
+import { FacilidadeUso } from "../inventario/equipamento.ts";
 import { Personagem } from "../personagens/personagem.ts";
 
 export enum TipoAcao {
@@ -49,6 +50,10 @@ export abstract class Habilidade {
 
     getTipoAlvo(): TipoAlvo {
         return this.tipoAlvo;
+    }
+
+    concedeProficiencia(facilidade: FacilidadeUso): boolean {
+        return false;
     }
 
     abstract usar(usuario: Personagem, alvo?: Personagem): void;

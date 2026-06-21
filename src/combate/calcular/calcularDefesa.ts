@@ -15,6 +15,14 @@ export class CalculadoraDefesa {
 
         if (armadura) {
             defesa += armadura.getBonusDefesa();
+            
+            if(!personagem.possuiProficiencia(armadura.getFacilidade())){
+                defesa -= 5;
+            }
+
+            if(personagem.possuiHabilidade("Estilo de Arma e Escudo") && personagem.getEquipamento().getEscudo()){
+                defesa += 2;
+            }
         }
 
         if(escudo) {

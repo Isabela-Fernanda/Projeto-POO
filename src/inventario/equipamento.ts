@@ -2,6 +2,18 @@ import { Arma, Categoria } from "./itens/arma.ts";
 import { Armadura, TipoProtecao } from "./itens/armadura.ts";
 import { CatalogoArmas } from "./itens/catalogoArmas.ts";
 
+export enum FacilidadeUso {
+    SIMPLES,
+    MARCIAIS,
+    EXOTICAS,
+    DE_FOGO,
+
+    ESCUDO,
+
+    ARMADURA_LEVE,
+    ARMADURA_PESADA
+}
+
 export class Equipamento {
     private armaNatural?: Arma;
     private maoDireita: Arma = CatalogoArmas.DESARMADO;

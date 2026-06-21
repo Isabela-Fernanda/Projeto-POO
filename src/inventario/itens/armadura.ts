@@ -1,3 +1,4 @@
+import { FacilidadeUso } from "../equipamento.ts";
 import { Item, Modificacoes } from "./item.ts"
 
 export enum CategoriaArmadura {
@@ -18,6 +19,7 @@ export class Armadura extends Item {
         descricao: string = "",
         private bonusDefesa: number,
         private categoria: CategoriaArmadura,
+        private facilidade: FacilidadeUso,
         private tipo: TipoProtecao,
         private penalidade: number,
         modificacoes: Modificacoes[] = [],
@@ -31,6 +33,10 @@ export class Armadura extends Item {
 
     getCategoria(): CategoriaArmadura {
         return this.categoria;
+    }
+
+    getFacilidade(): FacilidadeUso {
+        return this.facilidade;
     }
 
     getTipo(): TipoProtecao {

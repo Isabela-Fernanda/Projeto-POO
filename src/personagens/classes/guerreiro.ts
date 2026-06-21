@@ -1,15 +1,21 @@
 import { Classe } from "./classe.ts";
-import { Habilidade} from '../../poderes/habilidades.ts';
+import { Habilidade } from '../../poderes/habilidades.ts';
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-
+import { TipoAtributo } from "../atributos/atributos.ts";
+import { FacilidadeUso } from "../../inventario/equipamento.ts";
 
 export class Guerreiro extends Classe {
-    constructor(){
+    constructor() {
         super("Guerreiro");
+        this.proficiencias.push(FacilidadeUso.MARCIAIS, FacilidadeUso.ARMADURA_PESADA, FacilidadeUso.ESCUDO);
     }
     getVidaInicial(): number {
         return 20;
+    }
+
+    getPVPorNivel(): number {
+        return 5;
     }
 
     getManaInicial(): number {
@@ -24,8 +30,12 @@ export class Guerreiro extends Classe {
         return [];
     }
 
+    getAtributoMagia(): null {
+        return null;
+    }
+
     getPericiasClasse(): Pericia[] {
-        return[
+        return [
             CatalogoPericias.LUTA,
             CatalogoPericias.PONTARIA,
             CatalogoPericias.FORTITUDE
@@ -33,7 +43,7 @@ export class Guerreiro extends Classe {
     }
 
     getPericiasDisponiveis(): Pericia[] {
-        return[
+        return [
             CatalogoPericias.ADESTRAMENTO,
             CatalogoPericias.ATLETISMO,
             CatalogoPericias.CAVALGAR,

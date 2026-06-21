@@ -1,11 +1,12 @@
 import { Habilidade } from "../../poderes/habilidades.ts";
 import { Pericia } from "../../pericias/pericia.ts";
-import { FacilidadeUso } from "../../inventario/itens/arma.ts";
+import { FacilidadeUso } from "../../inventario/equipamento.ts";
+import { TipoAtributo } from "../atributos/atributos.ts";
 
 export abstract class Classe {
     constructor(
         protected nome: string,
-        protected proficiencias: FacilidadeUso[] = [],
+        protected proficiencias: FacilidadeUso[] = [FacilidadeUso.SIMPLES, FacilidadeUso.ARMADURA_LEVE],
     ) { }
 
     getNome(): string {
@@ -13,11 +14,32 @@ export abstract class Classe {
     }
 
     abstract getVidaInicial(): number;
+    abstract getPVPorNivel(): number;
     abstract getManaInicial(): number;
+
     abstract getPericiasTreinadas(): number;
     abstract getHabilidadesClasse(): Habilidade[];
     abstract getPericiasClasse(): Pericia[];
     abstract getPericiasDisponiveis(): Pericia[];
+
+    abstract getAtributoMagia(): TipoAtributo | null;
+
+    possuiMagia(): boolean {
+        return this.getAtributoMagia() !== null;
+    }
+
+    getCirculoMaximo(nivel: number): number {
+        if (!this.possuiMagia()) {
+            return 0;
+        }
+
+        if (nivel < 5) return 1;
+        if (nivel < 9) return 2;
+        if (nivel < 13) return 3;
+        if (nivel < 17) return 4;
+
+        return 5;
+    }
 
     possuiProficiencia(facilidade: FacilidadeUso): boolean {
         return this.proficiencias.includes(facilidade);

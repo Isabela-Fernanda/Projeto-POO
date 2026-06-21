@@ -5,8 +5,8 @@ import { Classe } from "./classes/classe.ts";
 import { Atributos, TipoAtributo } from "./atributos/atributos.ts";
 
 import { Inventario } from "../inventario/inventario.ts";
-import { Equipamento } from "../inventario/equipamento.ts";
-import { Arma, FacilidadeUso } from "../inventario/itens/arma.ts";
+import { Equipamento, FacilidadeUso } from "../inventario/equipamento.ts";
+import { Arma } from "../inventario/itens/arma.ts";
 import { Armadura } from "../inventario/itens/armadura.ts";
 
 import { Pericia } from "../pericias/pericia.ts";
@@ -72,8 +72,8 @@ export abstract class Personagem {
         protected bonusPericias: Map<Pericia, number> = new Map(),
         protected habilidades: Habilidade[],
     ) {
-        this.vidaMaxima = (classe?.getVidaInicial() ?? 0) + this.getConstituicao();
-        this.manaMaxima = (classe?.getManaInicial() ?? 0);
+        this.vidaMaxima = (classe?.getVidaInicial() ?? 10) + ((classe?.getPVPorNivel() ?? 2) * ((this.nivel) - 1)) + this.getConstituicao();
+        this.manaMaxima = (classe?.getManaInicial() ?? 1) * this.nivel;
 
         this.vidaAtual = this.vidaMaxima;
         this.manaAtual = this.manaMaxima;
@@ -174,7 +174,7 @@ export abstract class Personagem {
     }
 
     getClasse(): Classe | null {
-        return this.classe;
+        return this.classe || null;
     }
 
     getRaca(): Raca {
@@ -186,11 +186,12 @@ export abstract class Personagem {
     }
 
     getCDMagia(): number {
-        return 10 + Math.floor(this.nivel / 2) + this.getModificadorAtributo(TipoAtributo.SABEDORIA);
+        if (!this.classe) {
+            return 10 + Math.floor(this.nivel / 2);
+        }
+        const atributo = this.classe.getAtributoMagia();
 
-        /* const atributo = this.classe?.getAtributoMagia() ?? TipoAtributo.SABEDORIA;
-
-        return 10 + Math.floor(this.nivel / 2) + this.getModificadorAtributo(atributo); */
+        return atributo === null ? 10 + Math.floor(this.nivel / 2) : 10 + Math.floor(this.nivel / 2) + this.getModificadorAtributo(atributo);
     }
 
     getResistencia(tipo: TipoDano): number {
@@ -447,6 +448,16 @@ export abstract class Personagem {
         return this.equipamento;
     }
 
+    possuiProficiencias(facilidade: FacilidadeUso): boolean {
+        if (this.classe?.possuiProficiencia(facilidade)) {
+            return true;
+        }
+
+        return this.habilidades.some(
+            habilidade => habilidade.concedeProficiencia(facilidade)
+        );
+    }
+
     getAlcanceAtaque(): number {
         let alcance = 1;
 
@@ -490,11 +501,13 @@ export abstract class Personagem {
     }
 
     getPenalidadeDuasArmas(): number {
+        let penalidade = -2;
+
         if (this.possuiHabilidade("Estilo de Duas Armas")) {
-            return 0;
+            penalidade += 2;
         }
 
-        return -2;
+        return penalidade;
     }
 
     equiparMaoDireita(arma: Arma): void {

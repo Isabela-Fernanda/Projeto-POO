@@ -1,15 +1,21 @@
 import { Classe } from "./classe.ts";
-import { Habilidade} from '../../poderes/habilidades.ts';
+import { Habilidade } from '../../poderes/habilidades.ts';
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-
+import { TipoAtributo } from "../atributos/atributos.ts";
+import { FacilidadeUso } from "../../inventario/equipamento.ts";
 
 export class Inventor extends Classe {
-    constructor(){
+    constructor() {
         super("Inventor");
+        this.proficiencias.push(FacilidadeUso.MARCIAIS);
     }
     getVidaInicial(): number {
         return 12;
+    }
+
+    getPVPorNivel(): number {
+        return 3;
     }
 
     getManaInicial(): number {
@@ -24,6 +30,10 @@ export class Inventor extends Classe {
         return [];
     }
 
+    getAtributoMagia(): null {
+        return null;
+    }
+
     getPericiasClasse(): Pericia[] {
         return [
             CatalogoPericias.OFICIO,
@@ -32,7 +42,7 @@ export class Inventor extends Classe {
     }
 
     getPericiasDisponiveis(): Pericia[] {
-        return[
+        return [
             CatalogoPericias.CONHECIMENTO,
             CatalogoPericias.CURA,
             CatalogoPericias.DIPLOMACIA,

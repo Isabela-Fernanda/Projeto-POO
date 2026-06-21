@@ -1,15 +1,21 @@
 import { Classe } from "./classe.ts";
-import { Habilidade} from '../../poderes/habilidades.ts';
+import { Habilidade } from '../../poderes/habilidades.ts';
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-
+import { TipoAtributo } from "../atributos/atributos.ts";
+import { FacilidadeUso } from "../../inventario/equipamento.ts";
 
 export class Clerigo extends Classe {
-    constructor(){
+    constructor() {
         super("Clérigo");
+        this.proficiencias.push(FacilidadeUso.ESCUDO);
     }
     getVidaInicial(): number {
         return 16;
+    }
+
+    getPVPorNivel(): number {
+        return 4;
     }
 
     getManaInicial(): number {
@@ -24,6 +30,10 @@ export class Clerigo extends Classe {
         return [];
     }
 
+    getAtributoMagia(): TipoAtributo {
+        return TipoAtributo.SABEDORIA;
+    }
+
     getPericiasClasse(): Pericia[] {
         return [
             CatalogoPericias.RELIGIAO,
@@ -32,7 +42,7 @@ export class Clerigo extends Classe {
     }
 
     getPericiasDisponiveis(): Pericia[] {
-        return[
+        return [
             CatalogoPericias.CONHECIMENTO,
             CatalogoPericias.CURA,
             CatalogoPericias.DIPLOMACIA,

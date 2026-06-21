@@ -1,5 +1,6 @@
 import { Item, Modificacoes } from "./item.ts"
 import { TipoDano } from "../../combate/tipoDano.ts";
+import { FacilidadeUso } from "../equipamento.ts";
 
 export enum TipoAtaque {
     CORPO_A_CORPO,
@@ -18,13 +19,6 @@ export enum Municao {
     FLECHA,
     VIROTE,
     BALA
-}
-
-export enum FacilidadeUso {
-    SIMPLES,
-    MARCIAIS,
-    EXOTICAS,
-    DE_FOGO
 }
 
 export enum PropriedadeArma {

@@ -1,15 +1,21 @@
 import { Classe } from "./classe.ts";
-import { Habilidade} from '../../poderes/habilidades.ts';
+import { Habilidade } from '../../poderes/habilidades.ts';
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-
+import { TipoAtributo } from "../atributos/atributos.ts";
+import { FacilidadeUso } from "../../inventario/equipamento.ts";
 
 export class Paladino extends Classe {
-    constructor(){
+    constructor() {
         super("Paladino");
+        this.proficiencias.push(FacilidadeUso.MARCIAIS, FacilidadeUso.ARMADURA_PESADA, FacilidadeUso.ESCUDO);
     }
     getVidaInicial(): number {
         return 20;
+    }
+
+    getPVPorNivel(): number {
+        return 5;
     }
 
     getManaInicial(): number {
@@ -24,6 +30,10 @@ export class Paladino extends Classe {
         return [];
     }
 
+    getAtributoMagia(): null {
+        return null;
+    }
+
     getPericiasClasse(): Pericia[] {
         return [
             CatalogoPericias.LUTA,
@@ -32,7 +42,7 @@ export class Paladino extends Classe {
     }
 
     getPericiasDisponiveis(): Pericia[] {
-        return[
+        return [
             CatalogoPericias.ADESTRAMENTO,
             CatalogoPericias.ATLETISMO,
             CatalogoPericias.CAVALGAR,
