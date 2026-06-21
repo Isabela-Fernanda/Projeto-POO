@@ -2,11 +2,11 @@ import { Raca } from "./raca.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-import { CriaDeMegalokk, ResistenciaVenenosa } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
-import { NaturezaVenenosa, OlharAtordoante } from "./habilidadesRaca/catalogoHabilidadesRaciais.ts";
+import { CriaDeMegalokk, ResistenciaVenenosa } from "./poderesRaciais/catalogoCaracteristicasRaciais.ts";
+import { NaturezaVenenosa, OlharAtordoante } from "./poderesRaciais/catalogoHabilidadesRaciais.ts";
 
 export class Medusa extends Raca {
     constructor() {
@@ -32,11 +32,11 @@ export class Medusa extends Raca {
         return 2;
     }
 
-    getBeneficiosRaciais(): BeneficioRacial[] {
+    getBeneficiosRaciais(): Beneficio[] {
         return [];
     }
 
-    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+    getCaracteristicasRaciais(): Caracteristica[] {
         return [
             new CriaDeMegalokk(),
             new ResistenciaVenenosa()

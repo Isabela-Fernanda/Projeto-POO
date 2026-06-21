@@ -2,11 +2,11 @@ import { Raca } from "./raca.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-import { ConnhecimentoDasRochas, TradicaoDeHeredrimm } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
-import { DevagarESempre, DuroComoPedra } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
+import { ConnhecimentoDasRochas, TradicaoDeHeredrimm } from "./poderesRaciais/catalogoBeneficiosRaciais.ts";
+import { DevagarESempre, DuroComoPedra } from "./poderesRaciais/catalogoCaracteristicasRaciais.ts";
 
 export class Anao extends Raca {
     constructor() {
@@ -32,14 +32,14 @@ export class Anao extends Raca {
         return 0;
     }
 
-    getBeneficiosRaciais(): BeneficioRacial[] {
+    getBeneficiosRaciais(): Beneficio[] {
         return [
             new ConnhecimentoDasRochas(),
             new TradicaoDeHeredrimm()
         ];
     }
 
-    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+    getCaracteristicasRaciais(): Caracteristica[] {
         return [
             new DevagarESempre(),
             new DuroComoPedra()

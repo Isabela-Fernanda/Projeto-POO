@@ -2,11 +2,11 @@ import { Raca } from "./raca.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-import { ArmaduraOssea, MemoriaPostuma, PrecoDaNaoVida } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
-import { NaturezaEsqueletica } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
+import { ArmaduraOssea, MemoriaPostuma, PrecoDaNaoVida } from "./poderesRaciais/catalogoBeneficiosRaciais.ts";
+import { NaturezaEsqueletica } from "./poderesRaciais/catalogoCaracteristicasRaciais.ts";
 
 export class Osteon extends Raca {
     private racaOriginal: string;
@@ -82,7 +82,7 @@ export class Osteon extends Raca {
         }
     }
 
-    getBeneficiosRaciais(): BeneficioRacial[] {
+    getBeneficiosRaciais(): Beneficio[] {
         return [
             new ArmaduraOssea(),
             new MemoriaPostuma(),
@@ -90,7 +90,7 @@ export class Osteon extends Raca {
         ];
     }
 
-    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+    getCaracteristicasRaciais(): Caracteristica[] {
         return [
             new NaturezaEsqueletica()
         ];

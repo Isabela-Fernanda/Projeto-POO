@@ -2,12 +2,12 @@ import { Raca } from "./raca.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-import { MagiaDasFadas } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
-import { AsasDeBorboleta, EspiritoDaNatureza } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
-import { Voo } from "./habilidadesRaca/catalogoHabilidadesRaciais.ts";
+import { MagiaDasFadas } from "./poderesRaciais/catalogoBeneficiosRaciais.ts";
+import { AsasDeBorboleta, EspiritoDaNatureza } from "./poderesRaciais/catalogoCaracteristicasRaciais.ts";
+import { Voo } from "./poderesRaciais/catalogoHabilidadesRaciais.ts";
 
 export class Silfide extends Raca {
     constructor() {
@@ -33,13 +33,13 @@ export class Silfide extends Raca {
         return 4;
     }
 
-    getBeneficiosRaciais(): BeneficioRacial[] {
+    getBeneficiosRaciais(): Beneficio[] {
         return [
             new MagiaDasFadas()
         ];
     }
 
-    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+    getCaracteristicasRaciais(): Caracteristica[] {
         return [
             new AsasDeBorboleta(),
             new EspiritoDaNatureza()

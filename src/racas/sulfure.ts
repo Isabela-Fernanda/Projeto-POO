@@ -2,11 +2,11 @@ import { Raca } from "./raca.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-import { SombrasProfanas } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
-import { HerancaDivina } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
+import { SombrasProfanas } from "./poderesRaciais/catalogoBeneficiosRaciais.ts";
+import { HerancaDivina } from "./poderesRaciais/catalogoCaracteristicasRaciais.ts";
 
 export class Sulfure extends Raca {
     constructor(){
@@ -32,13 +32,13 @@ export class Sulfure extends Raca {
         return 0;
     }
 
-    getBeneficiosRaciais(): BeneficioRacial[] {
+    getBeneficiosRaciais(): Beneficio[] {
         return [
             new SombrasProfanas()
         ];
     }
 
-    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+    getCaracteristicasRaciais(): Caracteristica[] {
         return [
             new HerancaDivina()
         ];

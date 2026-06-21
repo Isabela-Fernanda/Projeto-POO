@@ -3,16 +3,6 @@ import { Condicao } from "../combate/tipoCondicao.ts";
 import { Item } from "../inventario/itens/item.ts";
 import { TagEfeito } from "./tags.ts";
 
-export enum TipoEfeito {
-    CONDICAO,
-    BUFF,
-    DEBUFF,
-    CURA,
-    RESISTENCIA,
-    INVOCACAO,
-    TRANSFORMACAO
-}
-
 export abstract class Efeito {
     constructor(
         protected nome: string,

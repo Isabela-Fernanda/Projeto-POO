@@ -2,11 +2,12 @@ import { Raca } from "./raca.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-import { HerancaDivina } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
-import { LuzSagrada } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
+
+import { HerancaDivina } from "./poderesRaciais/catalogoCaracteristicasRaciais.ts";
+import { LuzSagrada } from "./poderesRaciais/catalogoBeneficiosRaciais.ts";
 
 
 export class Aggelus extends Raca {
@@ -33,12 +34,12 @@ export class Aggelus extends Raca {
         return 2;
     }
 
-    getBeneficiosRaciais(): BeneficioRacial[] {
+    getBeneficiosRaciais(): Beneficio[] {
         return [
             new LuzSagrada()
         ]
     }
-    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+    getCaracteristicasRaciais(): Caracteristica[] {
         return [
             new HerancaDivina()
         ]

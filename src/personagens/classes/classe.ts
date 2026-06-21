@@ -1,7 +1,22 @@
+import { Personagem } from "../personagem.ts";
 import { Habilidade } from "../../poderes/habilidades.ts";
 import { Pericia } from "../../pericias/pericia.ts";
 import { FacilidadeUso } from "../../inventario/equipamento.ts";
 import { TipoAtributo } from "../atributos/atributos.ts";
+import { Beneficio } from "../../poderes/beneficio.ts";
+import { Caracteristica } from "../../poderes/caracteristica.ts";
+
+enum Deus {
+    ALLIHANNA,
+    ARSENAL,
+    KALLYADRANOCH,
+}
+
+enum CaminhoArcano {
+    MAGO,
+    BRUXO,
+    FEITICEIRO
+}
 
 export abstract class Classe {
     constructor(
@@ -18,7 +33,11 @@ export abstract class Classe {
     abstract getManaInicial(): number;
 
     abstract getPericiasTreinadas(): number;
-    abstract getHabilidadesClasse(): Habilidade[];
+
+    abstract beneficios(): Beneficio[];
+    abstract caracteristicas(): Caracteristica[];
+    abstract habilidades(): Habilidade[];
+
     abstract getPericiasClasse(): Pericia[];
     abstract getPericiasDisponiveis(): Pericia[];
 

@@ -1,6 +1,6 @@
-import { Personagem } from "../../personagens/personagem.ts";
+import { Personagem } from "../personagens/personagem.ts";
 
-export abstract class BeneficioRacial {
+export abstract class Beneficio {
     constructor(
         protected nome: string,
         protected descricao: string,

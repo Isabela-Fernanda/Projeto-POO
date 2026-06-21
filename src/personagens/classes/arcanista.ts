@@ -4,10 +4,10 @@ import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
 import { TipoAtributo } from "../atributos/atributos.ts";
 
-
 export class Arcanista extends Classe {
     constructor() {
         super("Arcanista");
+
     }
     getVidaInicial(): number {
         return 8;
@@ -25,7 +25,7 @@ export class Arcanista extends Classe {
         return 1;
     }
 
-    getHabilidadesClasse(): Habilidade[] {
+    getHabilidadesNivel1(): Habilidade[] {
         return [];
     }
 

@@ -2,12 +2,12 @@ import { Raca } from "./raca.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-import { Reptiliano, SangueFrio } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
-import { Mordida } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
-import { MauCheiro } from "./habilidadesRaca/catalogoHabilidadesRaciais.ts";
+import { Reptiliano, SangueFrio } from "./poderesRaciais/catalogoBeneficiosRaciais.ts";
+import { Mordida } from "./poderesRaciais/catalogoCaracteristicasRaciais.ts";
+import { MauCheiro } from "./poderesRaciais/catalogoHabilidadesRaciais.ts";
 
 export class Trog extends Raca {
     constructor() {
@@ -33,14 +33,14 @@ export class Trog extends Raca {
         return 0;
     }
 
-    getBeneficiosRaciais(): BeneficioRacial[] {
+    getBeneficiosRaciais(): Beneficio[] {
         return [
             new Reptiliano(),
             new SangueFrio()
         ];
     }
 
-    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+    getCaracteristicasRaciais(): Caracteristica[] {
         return [
             new Mordida()
         ];

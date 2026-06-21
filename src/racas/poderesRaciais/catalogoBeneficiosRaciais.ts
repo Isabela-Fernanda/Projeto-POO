@@ -1,6 +1,6 @@
 import { Personagem } from "../../personagens/personagem.ts";
 
-import { BeneficioRacial } from "./beneficioRacial.ts";
+import { Beneficio } from "../../poderes/beneficio.ts";
 
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
@@ -16,7 +16,7 @@ import { TipoDano } from "../../combate/tipoDano.ts";
 /* ----------------------------------------------------------------- */
 /* ---------------------------- Aggelus ---------------------------- */
 /* ----------------------------------------------------------------- */
-export class LuzSagrada extends BeneficioRacial {
+export class LuzSagrada extends Beneficio {
     constructor() {
         super("Luz Sagrada", "Você recebe +2 em Diplomacia e Intuição. Além disso, pode lançar Luz (como uma magia divina; atributo-chave Carisma). Caso aprenda novamente essa magia, o custo para lançá-la diminui em –1 PM.");
     }
@@ -31,7 +31,7 @@ export class LuzSagrada extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ----------------------------- Anão ------------------------------ */
 /* ----------------------------------------------------------------- */
-export class ConnhecimentoDasRochas extends BeneficioRacial {
+export class ConnhecimentoDasRochas extends Beneficio {
     constructor() {
         super("Conhecimento das Rochas", " Você recebe visão no escuro e +2 em testes de Percepção e Sobrevivência realizados no subterrâneo.");
     }
@@ -42,7 +42,7 @@ export class ConnhecimentoDasRochas extends BeneficioRacial {
     }
 }
 
-export class TradicaoDeHeredrimm extends BeneficioRacial {
+export class TradicaoDeHeredrimm extends Beneficio {
     constructor() {
         super("Tradição de Heredrimm", "Você é perito nas armas tradicionais anãs, seja por ter treinado com elas, seja por usá-las como ferramentas de ofício. Para você, todos os machados, martelos, marretas e picaretas são armas simples. Você recebe +2 em ataques com essas armas.");
     }
@@ -55,7 +55,7 @@ export class TradicaoDeHeredrimm extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ---------------------------- Dahllan ---------------------------- */
 /* ----------------------------------------------------------------- */
-export class AmigaDasPlantas extends BeneficioRacial {
+export class AmigaDasPlantas extends Beneficio {
     constructor() {
         super("Amiga das Plantas", "Você pode lançar a magia Controlar Plantas (atributo-chave Sabedoria). Caso aprenda novamente essa magia, seu custo diminui em –1 PM.");
     }
@@ -68,7 +68,7 @@ export class AmigaDasPlantas extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ----------------------------- Goblin ---------------------------- */
 /* ----------------------------------------------------------------- */
-export class Engenhoso extends BeneficioRacial {
+export class Engenhoso extends Beneficio {
     constructor() {
         super("Engenhoso", "Você não sofre penalidades em testes de perícia por não usar kits. Se usar o kit, recebe +2 no teste de perícia.");
     }
@@ -81,7 +81,7 @@ export class Engenhoso extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ----------------------------- Golem ----------------------------- */
 /* ----------------------------------------------------------------- */
-export class Chassi extends BeneficioRacial {
+export class Chassi extends Beneficio {
     constructor() {
         super("Chassi", "Seu corpo artificial é resistente, mas rígido. Você recebe +2 na Defesa, mas possui penalidade de armadura –2 e seu deslocamento é 6m. Você leva um dia para vestir ou remover uma armadura (pois precisa acoplar as peças dela a seu chassi).");
     }
@@ -92,7 +92,7 @@ export class Chassi extends BeneficioRacial {
     }
 }
 
-export class EspiritoElemental extends BeneficioRacial {
+export class EspiritoElemental extends Beneficio {
     constructor(
         private energia: TipoEnergia
     ) {
@@ -107,7 +107,7 @@ export class EspiritoElemental extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ----------------------------- Humano ---------------------------- */
 /* ----------------------------------------------------------------- */
-export class Versatil extends BeneficioRacial {
+export class Versatil extends Beneficio {
     constructor() {
         super("Versátil", "Você se torna treinado em duas perícias a sua escolha (não precisam ser da sua classe). Você pode trocar uma dessas perícias por um poder geral a sua escolha.");
     }
@@ -143,7 +143,7 @@ export class Versatil extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ----------------------------- Hynne ----------------------------- */
 /* ----------------------------------------------------------------- */
-export class SorteSalvadora extends BeneficioRacial {
+export class SorteSalvadora extends Beneficio {
     constructor() {
         super("Sorte Salvadora", "Quando faz um teste de resistência, você pode gastar 1 PM para rolar este teste novamente.");
     }
@@ -153,7 +153,7 @@ export class SorteSalvadora extends BeneficioRacial {
     }
 }
 
-export class Arremessador extends BeneficioRacial {
+export class Arremessador extends Beneficio {
     constructor(){
         super("Arremessador", " Quando faz um ataque à distância com uma funda ou uma arma de arremesso, seu dano aumenta em um passo.")
     }
@@ -166,7 +166,7 @@ export class Arremessador extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ----------------------------- Kliren ---------------------------- */
 /* ----------------------------------------------------------------- */
-export class Hibrido extends BeneficioRacial {
+export class Hibrido extends Beneficio {
     constructor() {
         super("Híbrido", "Sua natureza multifacetada fez com que você aprendesse conhecimentos variados. Você se torna treinado em uma perícia a sua escolha (não precisa ser da sua classe).");
     }
@@ -192,7 +192,7 @@ export class Hibrido extends BeneficioRacial {
     }
 }
 
-export class LogicaGnomica extends BeneficioRacial {
+export class LogicaGnomica extends Beneficio {
     constructor() {
         super("Lógica Gnômica", "Quando faz um teste de atributo ou perícia, você pode gastar 2 PM para substituir o modificador de atributo utilizado por Inteligência. Por exemplo, ao fazer um teste de Atletismo você pode gastar 2 PM para usar seu modificador de Inteligência em vez do modificador de Força.");
     }
@@ -202,7 +202,7 @@ export class LogicaGnomica extends BeneficioRacial {
     }
 }
 
-export class OssosFrageis extends BeneficioRacial {
+export class OssosFrageis extends Beneficio {
     constructor() {
         super("Ossos Frágeis", "Você sofre 1 ponto de dano adicional por dado de dano de impacto. Por exemplo, se for atingido por uma clava (dano 1d6), sofre 1d6+1 pontos de dano. Se cair de 3m de altura (dano 2d6), sofre 2d6+2 pontos de dano.");
     }
@@ -212,7 +212,7 @@ export class OssosFrageis extends BeneficioRacial {
     }
 }
 
-export class Vanguardista extends BeneficioRacial {
+export class Vanguardista extends Beneficio {
     constructor() {
         super("Vanguardista", "Você recebe proficiência em armas de fogo e +2 em testes de Ofício (um qualquer, a sua escolha).");
     }
@@ -225,7 +225,7 @@ export class Vanguardista extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ----------------------------- Lefou ----------------------------- */
 /* ----------------------------------------------------------------- */
-export class CriaDaTormenta extends BeneficioRacial {
+export class CriaDaTormenta extends Beneficio {
     constructor() {
         super("Cria da Tormenta", "Você é uma criatura do tipo monstro e recebe +5 em testes de resistência contra efeitos causados por lefeu e pela Tormenta.");
     }
@@ -236,7 +236,7 @@ export class CriaDaTormenta extends BeneficioRacial {
     }
 }
 
-export class Deformidade extends BeneficioRacial {
+export class Deformidade extends Beneficio {
     constructor() {
         super("Deformidade", "Todo lefou possui defeitos físicos que, embora desagradáveis, conferem certas vantagens. Você recebe +2 em duas perícias a sua escolha. Cada um desses bônus conta como um poder da Tormenta. Você pode trocar um desses bônus por um poder da Tormenta a sua escolha. Esta habilidade não causa perda de Carisma.");
     }
@@ -291,7 +291,7 @@ export class Deformidade extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* --------------------------- Minotauro --------------------------- */
 /* ----------------------------------------------------------------- */
-export class Faro extends BeneficioRacial {
+export class Faro extends Beneficio {
     constructor() {
         super("Faro", "Você tem olfato apurado. Você não fica desprevenido e sofre apenas camuflagem (em vez de camuflagem total) contra inimigos em alcance curto que não possa ver.");
     }
@@ -300,7 +300,7 @@ export class Faro extends BeneficioRacial {
     }
 }
 
-export class MedoDeAltura extends BeneficioRacial {
+export class MedoDeAltura extends Beneficio {
     constructor() {
         super("Medo de Altura", "Se estiver adjacente a uma queda de 3m ou mais de altura (como um buraco ou penhasco), você fica abalado.");
     }
@@ -313,7 +313,7 @@ export class MedoDeAltura extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* --------------------------- Osteon --------------------------- */
 /* ----------------------------------------------------------------- */
-export class ArmaduraOssea extends BeneficioRacial {
+export class ArmaduraOssea extends Beneficio {
     constructor() {
         super("Armadura Óssea", " Você recebe resistência a corte, frio e perfuração 5.");
     }
@@ -325,7 +325,7 @@ export class ArmaduraOssea extends BeneficioRacial {
     }
 }
 
-export class MemoriaPostuma extends BeneficioRacial {
+export class MemoriaPostuma extends Beneficio {
     constructor() {
         super("Memória Póstuma", "Você se torna treinado em uma perícia (não precisa ser da sua classe) ou recebe um poder geral a sua escolha. Como alternativa, você pode ser um osteon de outra raça humanoide que não humano. Neste caso, você ganha uma habilidade dessa raça a sua escolha. Se a raça era de tamanho diferente de Médio, você também possui sua categoria de tamanho.");
     }
@@ -335,7 +335,7 @@ export class MemoriaPostuma extends BeneficioRacial {
     }
 }
 
-export class PrecoDaNaoVida extends BeneficioRacial {
+export class PrecoDaNaoVida extends Beneficio {
     constructor() {
         super("Preço da Não Vida", "Você precisa passar oito horas sob a luz de estrelas ou no subterrâneo. Se fizer isso, recupera PV e PM por descanso em condições normais (osteon não são afetados por condições boas ou ruins de descanso). Caso contrário, sofre os efeitos de fome.");
     }
@@ -348,7 +348,7 @@ export class PrecoDaNaoVida extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ---------------------------- Qareen ----------------------------- */
 /* ----------------------------------------------------------------- */
-export class ResistenciaElemental extends BeneficioRacial {
+export class ResistenciaElemental extends Beneficio {
     constructor(
         private tipo: TipoDano
     ) {
@@ -360,7 +360,7 @@ export class ResistenciaElemental extends BeneficioRacial {
     }
 }
 
-export class TatuagemMistica extends BeneficioRacial {
+export class TatuagemMistica extends Beneficio {
     constructor() {
         super("Tatuagem Mística", "Você pode lançar uma magia de 1º círculo a sua escolha (atributo-chave Carisma). Caso aprenda novamente essa magia, seu custo diminui em –1 PM.");
     }
@@ -370,7 +370,7 @@ export class TatuagemMistica extends BeneficioRacial {
     }
 }
 
-export class Desejos extends BeneficioRacial {
+export class Desejos extends Beneficio {
     constructor() {
         super("Desejos", "Se lançar uma magia que alguém tenha pedido desde seu último turno, o custo da magia diminui em –1 PM. Fazer um desejo ao qareen é uma ação livre.");
     }
@@ -383,7 +383,7 @@ export class Desejos extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ---------------------------- Sereia ----------------------------- */
 /* ----------------------------------------------------------------- */
-export class CancaoDosMares extends BeneficioRacial {
+export class CancaoDosMares extends Beneficio {
     constructor() {
         super("Canção dos Mares", "Você pode lançar duas das magias a seguir: Amedrontar, Comando, Despedaçar, Enfeitiçar, Hipnotismo ou Sono (atributo-chave Carisma). Caso aprenda novamente uma dessas magias, seu custo diminui em –1 PM.");
     }
@@ -393,7 +393,7 @@ export class CancaoDosMares extends BeneficioRacial {
     }
 }
 
-export class MestreDoTridente extends BeneficioRacial {
+export class MestreDoTridente extends Beneficio {
     constructor() {
         super("Mestre do Tridente", "Para você, o tridente é uma arma simples. Além disso, você recebe +2 em rolagens de dano com azagaias, lanças e tridentes.");
     }
@@ -403,7 +403,7 @@ export class MestreDoTridente extends BeneficioRacial {
     }
 }
 
-export class TransformacaoAnfibia extends BeneficioRacial {
+export class TransformacaoAnfibia extends Beneficio {
     constructor() {
         super("Transformação Anfíbia", "Você pode respirar debaixo d’água e possui uma cauda que fornece deslocamento de natação 12m. Quando fora d’água, sua cauda desaparece e dá lugar a pernas (deslocamento 9m). Se permanecer mais de um dia sem contato com água, você não recupera PM com descanso até voltar para a água (ou, pelo menos, tomar um bom banho!).");
     }
@@ -416,7 +416,7 @@ export class TransformacaoAnfibia extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ---------------------------- Sílfide ----------------------------- */
 /* ----------------------------------------------------------------- */
-export class MagiaDasFadas extends BeneficioRacial {
+export class MagiaDasFadas extends Beneficio {
     constructor() {
         super("Magia das Fadas", "Você pode lançar duas das magias a seguir (todas atributo-chave Carisma): Criar Ilusão, Enfeitiçar, Luz (como uma magia arcana) e Sono. Caso aprenda novamente uma dessas magias, seu custo diminui em –1 PM.");
     }
@@ -429,7 +429,7 @@ export class MagiaDasFadas extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ---------------------------- Sulfure ----------------------------- */
 /* ----------------------------------------------------------------- */
-export class SombrasProfanas extends BeneficioRacial {
+export class SombrasProfanas extends Beneficio {
     constructor() {
         super("Sombras Profanas", "Você recebe +2 em Enganação e Furtividade. Além disso, pode lançar Escuridão (como uma magia divina; atributo chave Inteligência). Caso aprenda novamente essa magia, o custo para lançá-la diminui em –1 PM.");
     }
@@ -444,7 +444,7 @@ export class SombrasProfanas extends BeneficioRacial {
 /* ----------------------------------------------------------------- */
 /* ---------------------------- Trog ----------------------------- */
 /* ----------------------------------------------------------------- */
-export class Reptiliano extends BeneficioRacial {
+export class Reptiliano extends Beneficio {
     constructor() {
         super("Reptiliano", "Você é uma criatura do tipo monstro e recebe visão no escuro, +1 na Defesa e, se estiver sem armadura ou roupas pesadas, +5 em Furtividade.");
     }
@@ -457,7 +457,7 @@ export class Reptiliano extends BeneficioRacial {
     }
 }
 
-export class SangueFrio extends BeneficioRacial {
+export class SangueFrio extends Beneficio {
     constructor() {
         super("Sangue Frio", "Você sofre 1 ponto de dano adicional por dado de dano de frio.");
     }

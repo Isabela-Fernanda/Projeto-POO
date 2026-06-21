@@ -1,7 +1,7 @@
 import { Habilidade } from "../poderes/habilidades.ts"
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
+import { CaracteristicaRacial } from "../poderes/caracteristica.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { BeneficioRacial } from "../poderes/beneficio.ts";
 
 export abstract class Raca {
     constructor(

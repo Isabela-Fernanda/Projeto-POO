@@ -13,6 +13,7 @@ import { Pericia } from "../pericias/pericia.ts";
 import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
 
 import { Habilidade } from "../poderes/habilidades.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
 import { Efeito } from "../poderes/efeito.ts";
 import { Condicao } from "../combate/tipoCondicao.ts";
 
@@ -52,6 +53,8 @@ export abstract class Personagem {
     private efeitos: Efeito[] = [];
     protected tags: Tags[] = [];
     protected imunidadesEnergia: TipoEnergia[] = [];
+
+    private caracteristicas: Caracteristica[] = [];
 
     private vidaTemporaria = 0;
     protected defesaTemporaria: number = 0;
@@ -175,6 +178,16 @@ export abstract class Personagem {
 
     getClasse(): Classe | null {
         return this.classe || null;
+    }
+
+    inicializarClasse(): void {
+        if (!this.classe) return;
+
+        const habilidades = this.classe.habilidades();
+
+        for (const hab of habilidades) {
+            this.adicionarHabilidade(hab);
+        }
     }
 
     getRaca(): Raca {
@@ -580,7 +593,7 @@ export abstract class Personagem {
     }
 
     /* ------------------------------------------------------------ */
-    /* -------------------- EFEITOS --------------------- */
+    /* -------------------------- EFEITOS ------------------------- */
     /* ------------------------------------------------------------ */
 
     adicionarEfeito(efeito: Efeito): void {
@@ -662,6 +675,9 @@ export abstract class Personagem {
         this.efeitos = novosEfeitos;
     }
 
+    /* ------------------------------------------------------------ */
+    /* ---------------------- BONUS DE EFEITOS -------------------- */
+    /* ------------------------------------------------------------ */
     //BONUS DE EFEITO
     getBonusIniciativa(): number {
         return this.efeitos.reduce((total, efeito) => total + efeito.getBonusIniciativa(), 0);
@@ -686,6 +702,9 @@ export abstract class Personagem {
         this.bonusAtributos.set(tipo, atual - valor);
     }
 
+    /* ------------------------------------------------------------ */
+    /* ----------------------- TEMPORARIOS ------------------------ */
+    /* ------------------------------------------------------------ */
     //TEMPORARIOS
     getVidaTemporaria(): number {
         return this.vidaTemporaria;
@@ -699,6 +718,23 @@ export abstract class Personagem {
         this.vidaTemporaria = 0;
     }
 
+    /* ------------------------------------------------------------ */
+    /* ---------------------- CARACTERÍSTICAS --------------------- */
+    /* ------------------------------------------------------------ */
+
+    adicionarCaracteristica(caracteristica: Caracteristica): void {
+        this.caracteristicas.push(caracteristica);
+    }
+
+    getCaracteristicas(): Caracteristica[] {
+        return this.caracteristicas;
+    }
+
+    possuiCaracteristica(nome: string): boolean {
+        return this.caracteristicas.some(
+            caracteristica => caracteristica.getNome() === nome
+        );
+    }
 }
 
 

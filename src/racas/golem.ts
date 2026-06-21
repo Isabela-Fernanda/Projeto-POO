@@ -2,13 +2,12 @@ import { Raca } from "./raca.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 import { TipoEnergia } from "../poderes/tipoEnergia.ts";
-
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-import { Chassi, EspiritoElemental } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
-import { CriaturaArtificial } from "./caracteristicasRaciais/catalogoCaracteristicasRaciais.ts";
-import { CanalizarReparos } from "./habilidadesRaca/catalogoHabilidadesRaciais.ts";
+import { Chassi, EspiritoElemental } from "./poderesRaciais/catalogoBeneficiosRaciais.ts";
+import { CriaturaArtificial } from "./poderesRaciais/catalogoCaracteristicasRaciais.ts";
+import { CanalizarReparos } from "./poderesRaciais/catalogoHabilidadesRaciais.ts";
 
 export class Golem extends Raca {
     private energiaElemental: TipoEnergia;
@@ -64,14 +63,14 @@ export class Golem extends Raca {
         return -2;
     }
 
-    getBeneficiosRaciais(): BeneficioRacial[] {
+    getBeneficiosRaciais(): Beneficio[] {
         return [
             new Chassi(),
             new EspiritoElemental(this.energiaElemental)
         ];
     }
 
-    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+    getCaracteristicasRaciais(): Caracteristica[] {
         return [
             new CriaturaArtificial()
         ];

@@ -3,10 +3,10 @@ import { Raca } from "./raca.ts";
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 import { TipoDano } from "../combate/tipoDano.ts";
 
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-import { ResistenciaElemental, TatuagemMistica, Desejos } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
+import { ResistenciaElemental, TatuagemMistica, Desejos } from "./poderesRaciais/catalogoBeneficiosRaciais.ts";
 
 export class Qareen extends Raca {
     private tipoDano: TipoDano
@@ -70,7 +70,7 @@ export class Qareen extends Raca {
         }
     }
 
-    getBeneficiosRaciais(): BeneficioRacial[] {
+    getBeneficiosRaciais(): Beneficio[] {
         return [
             new Desejos(),
             new ResistenciaElemental(this.tipoDano),
@@ -78,7 +78,7 @@ export class Qareen extends Raca {
         ];
     }
 
-    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+    getCaracteristicasRaciais(): Caracteristica[] {
         return [];
     }
 

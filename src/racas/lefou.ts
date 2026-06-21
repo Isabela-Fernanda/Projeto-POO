@@ -2,10 +2,10 @@ import { Raca } from "./raca.ts";
 
 import { TipoAtributo } from "../personagens/atributos/atributos.ts";
 
-import { CaracteristicaRacial } from "./caracteristicasRaciais/caracteristicaRacial.ts";
-import { BeneficioRacial } from "./beneficioRacial/beneficioRacial.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-import { CriaDaTormenta, Deformidade } from "./beneficioRacial/catalogoBeneficiosRaciais.ts";
+import { CriaDaTormenta, Deformidade } from "./poderesRaciais/catalogoBeneficiosRaciais.ts";
 
 export class Lefou extends Raca {
     constructor() {
@@ -31,14 +31,14 @@ export class Lefou extends Raca {
         return -2;
     }
 
-    getBeneficiosRaciais(): BeneficioRacial[] {
+    getBeneficiosRaciais(): Beneficio[] {
         return [
             new CriaDaTormenta(),
             new Deformidade()
         ];
     }
 
-    getCaracteristicasRaciais(): CaracteristicaRacial[] {
+    getCaracteristicasRaciais(): Caracteristica[] {
         return [];
     }
 
