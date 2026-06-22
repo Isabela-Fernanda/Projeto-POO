@@ -162,6 +162,22 @@ export class Mapa {
         return this.objetos;
     }
 
+    getObjetoEm(x: number, y: number): Objeto | undefined {
+        return this.objetos.find(o => o.getX() === x && o.getY() === y);
+    }
+
+    limparObjetos(): void {
+        this.objetos = [];
+    }
+
+    limparEntidades(): void {
+        this.entidades = [];
+    }
+
+    limparSalas(): void {
+        this.salas = [];
+    }
+
     renderizar(): void {
         const larguraVisivel = 20;
         const alturaVisivel = 15;

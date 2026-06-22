@@ -12,7 +12,7 @@ import { Condicao } from "../../../combate/tipoCondicao.ts";
 
 export class MagiaAmedrontar extends Magia {
     constructor() {
-        super("Enfeitiçar", "O alvo é envolvido por energias sombrias assustadoras. Se falhar na resistência, fica apavorado por 1d4 rodadas, depois abalado. Se passar, fica abalado por 1d4 rodadas.", 1, "Assusta o alvo com energias sombrias.", CirculoMagia.PRIMEIRO, TipoMagia.ARCANA, EscolaMagia.NECROMANCIA, TipoAcao.PADRAO, TipoAlvo.INIMIGO, AlcanceMagia.CURTO, DuracaoMagia.CENA);
+        super("Amedrontar", "O alvo é envolvido por energias sombrias assustadoras. Se falhar na resistência, fica apavorado por 1d4 rodadas, depois abalado. Se passar, fica abalado por 1d4 rodadas.", 1, "Assusta o alvo com energias sombrias.", CirculoMagia.PRIMEIRO, TipoMagia.ARCANA, EscolaMagia.NECROMANCIA, TipoAcao.PADRAO, TipoAlvo.INIMIGO, AlcanceMagia.CURTO, DuracaoMagia.CENA);
     }
 
     usar(usuario: Personagem, alvo?: Personagem): void {

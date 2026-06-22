@@ -34,9 +34,9 @@ export abstract class Classe {
 
     abstract getPericiasTreinadas(): number;
 
-    abstract beneficios(): Beneficio[];
-    abstract caracteristicas(): Caracteristica[];
-    abstract habilidades(): Habilidade[];
+    abstract getBeneficios(): Beneficio[];
+    abstract getCaracteristicas(): Caracteristica[];
+    abstract getHabilidades(): Habilidade[];
 
     abstract getPericiasClasse(): Pericia[];
     abstract getPericiasDisponiveis(): Pericia[];

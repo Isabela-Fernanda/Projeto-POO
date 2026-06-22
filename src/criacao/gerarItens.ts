@@ -7,8 +7,18 @@ import { CatalogoItensDiversos } from "../inventario/itens/catalogoItensDiverso.
 import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
 import { CatalogoArmaduras } from "../inventario/itens/catalogoArmadura.ts"
 
+export type ItensIniciais = {
+    mesa: Item[];
+    bau: Item[];
+    estante: Item[];
+}
+
 export class GeradorInicial {
-    private itensSorteados: Item[] = [];
+    private itensIniciais: ItensIniciais = {
+        mesa: [],
+        bau: [],
+        estante: []
+    };
 
     private itensBasicos: Item[] = [
         CatalogoItensDiversos.CORDA_10M,
@@ -137,14 +147,19 @@ export class GeradorInicial {
         "Goblin": [CatalogoItensDiversos.BOMBA]
     }
 
-    gerar(personagem: Jogador): Item[] {
-        this.itensSorteados = [];
+    gerar(personagem: Jogador): ItensIniciais {
+        this.itensIniciais = {
+            mesa: [],
+            bau: [],
+            estante: []
+        };
 
-        this.adicionarItensBasicos(this.itensBasicos);
+        this.itensIniciais.mesa.push(...this.itensBasicos);
+
         this.sortearClasse(personagem);
         this.sortearRaca(personagem);
 
-        return this.itensSorteados;
+        return this.itensIniciais;
     }
 
     private adicionarItensBasicos(itens: Item[]): void {
@@ -161,9 +176,9 @@ export class GeradorInicial {
         const arma = this.sortear(this.armasRaca[raca] ?? []);
         const item = this.sortear(this.itensRaca[raca] ?? []);
 
-        if (arma) this.itensSorteados.push(arma);
+        if (arma) this.itensIniciais.estante.push(arma);
 
-        if (item) this.itensSorteados.push(item);
+        if (item) this.itensIniciais.estante.push(item);
     }
 
     private sortearClasse(personagem: Jogador): void {
@@ -174,26 +189,26 @@ export class GeradorInicial {
         const item = this.sortear(this.itensClasse[classe] ?? []);
 
         if (arma) {
-            this.itensSorteados.push(arma);
+            this.itensIniciais.bau.push(arma);
             switch (arma) {
                 case CatalogoArmas.ARCO_CURTO:
                 case CatalogoArmas.ARCO_LONGO:
-                    this.itensSorteados.push(CatalogoItensDiversos.FLECHA_20);
+                    this.itensIniciais.bau.push(CatalogoItensDiversos.FLECHA_20);
                     break;
                 case CatalogoArmas.BESTA_LEVE:
                 case CatalogoArmas.BESTA_PESADA:
-                    this.itensSorteados.push(CatalogoItensDiversos.VIROTES_20);
+                    this.itensIniciais.bau.push(CatalogoItensDiversos.VIROTES_20);
                     break;
                 case CatalogoArmas.PISTOLA:
                 case CatalogoArmas.MOSQUETE:
-                    this.itensSorteados.push(CatalogoItensDiversos.MUNICAO_20);
+                    this.itensIniciais.bau.push(CatalogoItensDiversos.MUNICAO_20);
                     break;
             }
         }
 
-        if (armadura) this.itensSorteados.push(armadura);
+        if (armadura) this.itensIniciais.bau.push(armadura);
 
-        if (item) this.itensSorteados.push(item);
+        if (item) this.itensIniciais.estante.push(item);
     }
 
     private sortear<T>(lista: T[]): T | undefined {

@@ -6,6 +6,7 @@ export class CatalogoArmas {
     // Especial
     static readonly CHIFRE = new Arma("Chifre", 0, 0, "Arma natural dos Minotauros.", 1, 6, 20, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.PERFURACAO, Categoria.LEVE, FacilidadeUso.SIMPLES, [], [], 1);
     static readonly MORDIDA = new Arma("Mordida", 0, 0, "Arma natural dos Trogs.", 1, 6, 20, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.PERFURACAO, Categoria.LEVE, FacilidadeUso.SIMPLES, [], [], 1);
+    static readonly GARRA = new Arma("Garra", 0, 0, "", 1, 6, 20, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.CORTE, Categoria.LEVE, FacilidadeUso.SIMPLES, [], [], 1.5);
 
     // Armas Simples
     // Armas Simples - Leves

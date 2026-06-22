@@ -1,3 +1,6 @@
+import { Jogador } from "../personagens/jogador.ts";
+import { ResultadoInteracao } from "./catalogoObjetos.ts";
+
 export abstract class Objeto {
     constructor(
         protected nome: string,
@@ -32,7 +35,5 @@ export abstract class Objeto {
         return this.bloqueiaVisao;
     }
 
-    interagir(): void {
-        console.log(`Você interagiu com ${this.nome}`);
-    }
+    abstract interagir(jogador: Jogador): ResultadoInteracao;
 }

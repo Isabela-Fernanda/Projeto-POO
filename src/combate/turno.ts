@@ -12,7 +12,8 @@ import { Habilidade, TipoAlvo } from "../poderes/habilidades.ts";
 import { TipoAcao } from "../poderes/habilidades.ts";
 import { Mapa } from "../mapa/mapa.ts";
 import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
-import { AtaquePossivel, ModoAtaque } from "./testes/testeAtaque.ts";
+import { ModoAtaque } from "./testes/testeAtaque.ts";
+import { Monstro } from "../personagens/inimigo/monstro.ts";
 
 export class Turno {
     static executar(personagem: Personagem, participantes: Personagem[], mapa: Mapa): void {
@@ -29,8 +30,8 @@ export class Turno {
 
         if (personagem instanceof Jogador) {
             this.executarJogador(personagem, participantes, mapa, estado);
-        } else {
-            this.executarIA(personagem, participantes, estado, mapa);
+        } else if (personagem instanceof Monstro) {
+            personagem.executarTurno(participantes, mapa, estado);
         }
     }
 
@@ -182,7 +183,7 @@ export class Turno {
         }
     }
 
-    private static executarIA(inimigo: Personagem, participantes: Personagem[], estado: EstadoTurno, mapa: Mapa): void {
+    /* private static executarIA(inimigo: Personagem, participantes: Personagem[], estado: EstadoTurno, mapa: Mapa): void {
         const alvos = participantes.filter(p => p.getTime() !== inimigo.getTime() && p.estaVivo());
 
         if (alvos.length === 0) {
@@ -251,7 +252,7 @@ export class Turno {
 
             return danoAtual > danoMelhor ? atual : melhor;
         });
-    }
+    } */
 
     private static escolherAlvo(
         atacante: Personagem, participantes: Personagem[], mapa: Mapa, habilidade?: Habilidade): Personagem | undefined {
@@ -410,7 +411,7 @@ export class Turno {
 
         const escolha = Number(prompt("Escolha:"));
 
-        if(escolha === 0){
+        if (escolha === 0) {
             return;
         }
 

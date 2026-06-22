@@ -54,4 +54,24 @@ export class Jogador extends Personagem {
             this.resolverAtaque(alvo, ataque.arma, ataque.modoAtaque, this.getPenalidadeDuasArmas());
         }
     }
+
+    interagirComAmbiente(alvoX: number, alvoY: number, mapa: Mapa): void {
+        const objeto = mapa.getObjetoEm(alvoX, alvoY);
+
+        if(!objeto){
+            console.log("Não há nada para interagir nesta posição.");
+            return;
+        }
+
+        const distancia = mapa.calcularDistancia(this.getX(), this.getY(), alvoX, alvoY);
+
+        const ALCANCE_INTERACAO = 1.5;
+
+        if(distancia > ALCANCE_INTERACAO){
+            console.log(`Você está muito longe de ${objeto.getNome()} para interagir.`);
+            return;
+        }
+
+        objeto.interagir(this);
+    }
 }

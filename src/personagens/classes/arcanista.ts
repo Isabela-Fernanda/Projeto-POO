@@ -3,6 +3,8 @@ import { Habilidade } from '../../poderes/habilidades.ts';
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
 import { TipoAtributo } from "../atributos/atributos.ts";
+import { Beneficio } from "../../poderes/beneficio.ts";
+import { Caracteristica } from "../../poderes/caracteristica.ts";
 
 export class Arcanista extends Classe {
     constructor() {
@@ -25,7 +27,15 @@ export class Arcanista extends Classe {
         return 1;
     }
 
-    getHabilidadesNivel1(): Habilidade[] {
+    getBeneficios(): Beneficio[] {
+        return [];
+    }
+
+    getCaracteristicas(): Caracteristica[] {
+        return [];
+    }
+    
+    getHabilidades(): Habilidade[] {
         return [];
     }
 

@@ -169,7 +169,7 @@ export class CriacaoPersonagem {
         );
 
         habilidades.push(
-            ...classe.getHabilidadesClasse()
+            ...classe.getHabilidades()
         );
 
         return habilidades;

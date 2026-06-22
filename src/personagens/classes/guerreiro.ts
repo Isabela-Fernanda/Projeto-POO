@@ -1,4 +1,6 @@
 import { Classe } from "./classe.ts";
+import { Beneficio } from "../../poderes/beneficio.ts";
+import { Caracteristica } from "../../poderes/caracteristica.ts";
 import { Habilidade } from '../../poderes/habilidades.ts';
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
@@ -26,7 +28,15 @@ export class Guerreiro extends Classe {
         return 2;
     }
 
-    getHabilidadesClasse(): Habilidade[] {
+    getBeneficios(): Beneficio[] {
+        return [];
+    }
+
+    getCaracteristicas(): Caracteristica[] {
+        return [];
+    }
+    
+    getHabilidades(): Habilidade[] {
         return [];
     }
 

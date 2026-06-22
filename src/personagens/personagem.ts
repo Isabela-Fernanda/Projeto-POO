@@ -183,7 +183,7 @@ export abstract class Personagem {
     inicializarClasse(): void {
         if (!this.classe) return;
 
-        const habilidades = this.classe.habilidades();
+        const habilidades = this.classe.getHabilidades();
 
         for (const hab of habilidades) {
             this.adicionarHabilidade(hab);
@@ -234,6 +234,11 @@ export abstract class Personagem {
     /* ------------------------------------------------------------ */
     /* --------------------------- VIDA --------------------------- */
     /* ------------------------------------------------------------ */
+
+    setVidaMaxima(valor: number): void {
+        this.vidaMaxima = valor;
+        this.vidaAtual = valor;
+    }
 
     getVidaAtual(): number {
         return this.vidaAtual;
@@ -521,6 +526,10 @@ export abstract class Personagem {
         }
 
         return penalidade;
+    }
+
+    equiparArmaNatural(arma: Arma): void {
+        this.equipamento.equiparArmaNatura(arma);
     }
 
     equiparMaoDireita(arma: Arma): void {
