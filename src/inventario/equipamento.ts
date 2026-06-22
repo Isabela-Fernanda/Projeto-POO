@@ -34,7 +34,7 @@ export class Equipamento {
 
     equiparMaoEsquerda(arma: Arma): void {
         if (this.maoDireita === this.maoEsquerda && this.maoDireita !== CatalogoArmas.DESARMADO) {
-            this.maoDireita = CatalogoArmas.DESARMADO;
+            this.maoEsquerda = CatalogoArmas.DESARMADO;
         }
         this.maoEsquerda = arma;
     }

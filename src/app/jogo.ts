@@ -14,6 +14,8 @@ import { Time } from "../personagens/time.ts";
 import { GerenciadorTutorial } from "../mapa/salas/gerenciadorTutorial.ts";
 import { ResultadoInteracao } from "../mapa/catalogoObjetos.ts";
 
+import { SistemaEncontros } from "../combate/sistemaEncontros.ts";
+
 export class Jogo {
     private tutorial!: GerenciadorTutorial;
 
@@ -114,6 +116,18 @@ export class Jogo {
                     console.log("Ação inválida!");
                     prompt("\nPressione Enter para continuar...");
                     break;
+            }
+
+            const inimigos = SistemaEncontros.verificarEncontro(jogador, mapa);
+            if (inimigos) {
+                const participantes = [jogador, ...inimigos];
+                const combate = new Combate(mapa, participantes);
+                combate.iniciar();
+                if (!jogador.estaVivo()) {
+                    console.log("Game Over");
+                    return;
+                }
+                
             }
         }
     }

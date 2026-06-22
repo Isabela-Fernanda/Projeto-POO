@@ -10,6 +10,9 @@ export class Mapa {
     private objetos: Objeto[] = [];
     private salas: Sala[] = [];
 
+    private largura = 100;
+    private altura = 100;
+
     calcularDistancia(x1: number, y1: number, x2: number, y2: number): number {
         const dx = x2 - x1;
         const dy = y2 - y1;
@@ -43,6 +46,15 @@ export class Mapa {
     }
 
     moverEntidade(entidade: Personagem, destinoX: number, destinoY: number): boolean {
+        const salaAtual = this.getSalaDaEntidade(entidade);
+        if (salaAtual) {
+            const naBordaX = destinoX === salaAtual.getXInicial() || destinoX === salaAtual.getXInicial() + salaAtual.getLargura();
+            const naBordaY = destinoY === salaAtual.getYInicial() || destinoY === salaAtual.getYInicial() + salaAtual.getAltura();
+
+            if (!salaAtual.contem(destinoX, destinoY) || naBordaX || naBordaY) {
+                return false;
+            }
+        }
         if (!this.posicaoValida(destinoX, destinoY)) {
             return false;
         }
@@ -77,8 +89,6 @@ export class Mapa {
         });
     }
 
-    private largura = 100;
-    private altura = 100;
     posicaoValida(x: number, y: number): boolean {
         return (
             x >= 0 &&
@@ -90,14 +100,9 @@ export class Mapa {
 
     estaOcupada(x: number, y: number): boolean {
         const personagemOcupando = this.entidades.some(entidade => entidade.getX() === x && entidade.getY() === y);
-
         const objetoBloqueando = this.objetos.some(objeto => objeto.getX() === x && objeto.getY() === y && objeto.getBloqueiaMovimento());
 
-        if (personagemOcupando || objetoBloqueando) {
-            return true;
-        }
-
-        return false;
+        return personagemOcupando || objetoBloqueando;
     }
 
     adicionarEfeitoArea(efeito: EfeitoArea): void {
@@ -118,7 +123,6 @@ export class Mapa {
 
             efeito.reduzirDuracao();
         }
-
         this.efeitosArea = this.efeitosArea.filter(efeito => !efeito.expirou());
     }
 
@@ -182,45 +186,106 @@ export class Mapa {
         const larguraVisivel = 20;
         const alturaVisivel = 15;
 
+        const jogador = this.entidades.find(e => e instanceof Jogador);
+
+        let cameraX = 0;
+        let cameraY = 0;
+
+        if (jogador) {
+            const sala = this.getSalaDaEntidade(jogador);
+            if (sala) {
+                const totalQuadrosSalaX = sala.getLargura() + 1;
+                const totalQuadrosSalaY = sala.getAltura() + 1;
+
+                if (totalQuadrosSalaX < larguraVisivel) {
+                    cameraX = sala.getXInicial() - Math.floor((larguraVisivel - totalQuadrosSalaX) / 2);
+                } else {
+                    cameraX = jogador.getX() - Math.floor(larguraVisivel / 2);
+                    cameraX = Math.max(cameraX, sala.getXInicial());
+                    cameraX = Math.min(cameraX, sala.getXInicial() + sala.getLargura() - larguraVisivel + 1);
+                }
+
+                if (totalQuadrosSalaY < alturaVisivel) {
+                    cameraY = sala.getYInicial() - Math.floor((alturaVisivel - totalQuadrosSalaY) / 2);
+                } else {
+                    cameraY = jogador.getY() - Math.floor(alturaVisivel / 2);
+                    cameraY = Math.max(cameraY, sala.getYInicial());
+                    cameraY = Math.min(cameraY, sala.getYInicial() + sala.getAltura() - alturaVisivel + 1);
+                }
+            } else {
+                cameraX = jogador.getX() - Math.floor(larguraVisivel / 2);
+                cameraY = jogador.getY() - Math.floor(alturaVisivel / 2);
+            }
+        }
+
         console.log("\n=== MAPA ===");
 
         let cabecalho = "   ";
 
-        for (let x = 0; x < larguraVisivel; x++) {
-            cabecalho += x.toString().padStart(2, " ") + " ";
+        for (let vx = 0; vx < larguraVisivel; vx++) {
+            const absX = cameraX + vx;
+            if (absX < 0 || absX >= this.largura) {
+                cabecalho += "   ";
+            } else {
+                cabecalho += absX.toString().padStart(2, " ") + " ";
+            }
         }
 
         console.log(cabecalho);
 
-        for (let y = 0; y < alturaVisivel; y++) {
-            let linha = y.toString().padStart(2, " ") + " ";
+        for (let vy = 0; vy < alturaVisivel; vy++) {
+            const absY = cameraY + vy;
+            let linha = "";
 
-            for (let x = 0; x < larguraVisivel; x++) {
-                const entidade = this.entidades.find(e => e.getX() === x && e.getY() === y);
+            if (absY < 0 || absY >= this.altura) {
+                linha += "   ";
+            } else {
+                linha += absY.toString().padStart(2, " ") + " ";
+            }
 
-                if (entidade) {
-                    if (entidade instanceof Jogador) {
-                        linha += "J  ";
-                    } else {
-                        linha += "I  ";
+            for (let vx = 0; vx < larguraVisivel; vx++) {
+                const absX = cameraX + vx;
+
+                if (absX < 0 || absY < 0 || absX >= this.largura || absY >= this.altura) {
+                    linha += "   ";
+                    continue;
+                }
+
+                const salaDoJogador = jogador ? this.getSalaDaEntidade(jogador) : null;
+
+                if (salaDoJogador) {
+                    if (!salaDoJogador.contem(absX, absY)) {
+                        linha += "   ";
+                        continue;
                     }
+
+                    const naBordaX = absX === salaDoJogador.getXInicial() || absX === salaDoJogador.getXInicial() + salaDoJogador.getLargura();
+                    const naBordaY = absY === salaDoJogador.getYInicial() || absY === salaDoJogador.getYInicial() + salaDoJogador.getAltura();
+
+                    if (naBordaX || naBordaY) {
+                        linha += "#  ";
+                        continue;
+                    }
+                }
+                const entidade = this.entidades.find(e => e.getX() === absX && e.getY() === absY);
+                if (entidade) {
+                    linha += (entidade instanceof Jogador ? "J  " : "I  ");
                     continue;
                 }
 
-                const objeto = this.objetos.find(o => o.getX() === x && o.getY() === y);
+                const objeto = this.objetos.find(o => o.getX() === absX && o.getY() === absY);
                 if (objeto) {
-                    linha += "#  ";
+                    linha += "O  ";
                     continue;
                 }
+
                 linha += ".  ";
             }
             console.log(linha);
         }
 
         console.log("\nLegenda:");
-        console.log("J = Jogador");
-        console.log("I = Inimigo");
-        console.log("# = Obstáculo");
-        console.log(". = Espaço livre");
+        console.log("J = Jogador | I = Inimigo | O = Obstáculo");
+        console.log(". = Espaço livre | # = Parede da Sala");
     }
 }

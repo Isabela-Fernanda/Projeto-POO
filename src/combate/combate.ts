@@ -38,9 +38,9 @@ export class Combate {
     }
 
     private combateAtivo(): boolean {
-        const vivos = this.participantes.filter(p => p.estaVivo());
+        const timesVivos = new Set(this.participantes.filter(p => p.estaVivo()).map(p => p.getTime()));
 
-        return vivos.length > 1;
+        return timesVivos.size > 1;
     }
 
     private removerDerrotados(): void {
@@ -53,32 +53,3 @@ export class Combate {
         this.participantes = this.participantes.filter(p => p.estaVivo());
     }
 }
-
-/* export class Combate {
-    atacar(atacante: Personagem, alvo: Personagem): void {
-        const resultado = TesteAtaque.executarAtaque(atacante, alvo);
-
-        console.log(`${atacante.getNome()} ataca ${alvo.getNome()}`);
-
-        console.log(`Ataque: ${resultado.totalAtaque} (d20=${resultado.rolagem}).`)
-
-        if(!resultado.acertou) {
-            console.log("ERROU!");
-            return;
-        }
-
-        if(resultado.critico) {
-            console.log("ACERTO CRÍTICO!");
-        }
-
-        alvo.receberDano(resultado.dano);
-
-        console.log(`${alvo.getNome()} sofreu ${resultado.dano} de dano.`);
-
-        console.log(`PV: ${alvo.getVidaAtual()}/${alvo.getVidaMaxima()}`);
-        
-        if(!alvo.estaVivo()) {
-            console.log(`${alvo.getNome()} foi derrotado!`);
-        }
-    }
-} */

@@ -25,6 +25,7 @@ import { Mapa } from "../mapa/mapa.ts";
 import { ModoAtaque, TesteAtaque } from "../combate/testes/testeAtaque.ts";
 
 import { AtaquePossivel } from "../combate/testes/testeAtaque.ts";
+import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
 
 export interface AtaqueBonus {
     nome: string;
@@ -96,7 +97,14 @@ export abstract class Personagem {
     }
 
     protected resolverAtaque(alvo: Personagem, arma: Arma, modoAtaque: ModoAtaque, penalidade: number = 0): void {
+        console.log(`Modo ataque: ${ModoAtaque[modoAtaque]} com ${arma.getNome()}`);
+        
         const resultado = TesteAtaque.executarAtaque(this, alvo, arma, modoAtaque, penalidade);
+
+        if (modoAtaque === ModoAtaque.ARREMESSO) {
+            this.removerArma(arma);
+            console.log(`${this.nome} lançou ${arma.getNome()}, e agora está desarmado.`);
+        }
 
         console.log(`${this.getNome()} ataca ${alvo.getNome()}`);
 
@@ -534,28 +542,61 @@ export abstract class Personagem {
 
     equiparMaoDireita(arma: Arma): void {
         this.equipamento.equiparMaoDireita(arma);
+        this.inventario.removerItem(arma);
     }
 
     equiparMaoEsquerda(arma: Arma): void {
         this.equipamento.equiparMaoEsquerda(arma);
+        this.inventario.removerItem(arma);
     }
 
     equiparDuasMãos(arma: Arma): void {
         this.equipamento.equiparDuasMaos(arma);
+        this.inventario.removerItem(arma);
     }
 
     equiparProtecao(armadura: Armadura): void {
         this.equipamento.equiparProtecao(armadura);
+        this.inventario.removerItem(armadura);
     }
 
-    removerArmaEquipada(arma: Arma): void {
+    removerArma(arma: Arma): void {
+        if (this.equipamento.getArmaPrincipal() === arma && this.equipamento.getArmaSecundaria() === arma) {
+            this.equipamento.desequiparDuasMaos();
+            this.equipamento.equiparDuasMaos(CatalogoArmas.DESARMADO);
+            return
+        }
+
         if (this.equipamento.getArmaPrincipal() === arma) {
             this.equipamento.desequiparMaoDireita();
+            this.equipamento.equiparMaoDireita(CatalogoArmas.DESARMADO);
             return;
         }
 
         if (this.equipamento.getArmaSecundaria() === arma) {
             this.equipamento.desequiparMaoEsquerda();
+            this.equipamento.equiparMaoEsquerda(CatalogoArmas.DESARMADO);
+            return;
+        }
+    }
+
+    desequiparArma(arma: Arma): void {
+        if (this.equipamento.getArmaPrincipal() === arma && this.equipamento.getArmaSecundaria() === arma) {
+            this.equipamento.desequiparDuasMaos();
+            this.inventario.adicionar(arma);
+            return
+        }
+
+        if (this.equipamento.getArmaPrincipal() === arma) {
+            this.equipamento.desequiparMaoDireita();
+            this.inventario.adicionar(arma);
+            return;
+        }
+
+        if (this.equipamento.getArmaSecundaria() === arma) {
+            this.equipamento.desequiparMaoEsquerda();
+            this.inventario.adicionar(arma);
+            return;
         }
     }
 

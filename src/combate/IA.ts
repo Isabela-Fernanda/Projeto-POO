@@ -47,6 +47,10 @@ export abstract class IABase implements ComportamentoIA {
             const novoX = criatura.getX() + (Math.sign(alvo.getX() - criatura.getX()) * direcaoMultiplicador);
             const novoY = criatura.getY() + (Math.sign(alvo.getY() - criatura.getY()) * direcaoMultiplicador);
 
+            console.log(
+                `${criatura.getNome()} tentando mover para (${novoX}, ${novoY})`
+            );
+
             if (!mapa.moverEntidade(criatura, novoX, novoY)) {
                 break;
             }
@@ -94,14 +98,27 @@ export class IAAgressiva extends IABase {
         let distancia = mapa.calcularDistancia(inimigo.getX(), inimigo.getY(), alvo.getX(), alvo.getY());
         const alcance = inimigo.getAlcanceAtaque();
 
+        console.log(
+            `${inimigo.getNome()} -> Distância: ${distancia} | Alcance: ${alcance}`
+        );
         if (estado.possuiAcaoMovimento() && distancia > alcance) {
             if (this.moverEmDirecao(inimigo, alvo, mapa, true)) {
+                console.log("Movimento bem sucedido");
                 estado.usarAcaoMovimento();
             }
         }
 
         distancia = mapa.calcularDistancia(inimigo.getX(), inimigo.getY(), alvo.getX(), alvo.getY());
         const ataquesPossiveis = inimigo.obterAtaquesPossiveis(distancia);
+
+        console.log(
+            "Ataques possíveis:",
+            ataquesPossiveis.map(a => a.arma.getNome())
+        );
+        console.log(
+            "Arma principal:",
+            inimigo.getEquipamento().getArmaPrincipal().getNome()
+        );
 
         if (estado.possuiAcaoPadrao() && ataquesPossiveis.length > 0) {
             const ataque = this.escolherMelhorAtaque(ataquesPossiveis);
@@ -168,7 +185,7 @@ export class IAConjuradora extends IABase {
 
             if (habilidade) {
                 const sucesso = habilidade.executar(conjurador, alvo);
-                if(sucesso) {
+                if (sucesso) {
                     estado.usarAcaoPadrao();
                 }
             }

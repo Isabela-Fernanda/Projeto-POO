@@ -118,27 +118,29 @@ export class Turno {
                         }
                     const ehAtaqueCorpoACorpo = ataquesPossiveis.some(ataque => ataque.modoAtaque === ModoAtaque.CORPO_A_CORPO);
                     if (ehAtaqueCorpoACorpo) {
-                        const escolha = prompt("Deseja gastar 1PM para realizar um ataque com sua arma natural? (s/n)");
+                        if (jogador.getRaca().getNome() === "Minotauro" || jogador.getRaca().getNome() === "Trog") {
+                            const escolha = prompt("Deseja gastar 1PM para realizar um ataque com sua arma natural? (s/n)");
 
-                        if (escolha?.toLowerCase() !== "s") {
-                            estado.usarAcaoPadrao();
-                            break;
-                        }
+                            if (escolha?.toLowerCase() !== "s") {
+                                estado.usarAcaoPadrao();
+                                break;
+                            }
 
-                        if (!jogador.gastarMana(1)) {
-                            console.log("Mana insuficente! Não é possível realizar o ataque.");
-                            estado.usarAcaoPadrao();
-                            break;
-                        }
+                            if (!jogador.gastarMana(1)) {
+                                console.log("Mana insuficente! Não é possível realizar o ataque.");
+                                estado.usarAcaoPadrao();
+                                break;
+                            }
 
-                        for (const ataqueBonus of jogador.getAtaquesBonus()) {
-                            jogador.atacar(alvo, mapa, ataqueBonus.arma, ModoAtaque.CORPO_A_CORPO);
-                        }
-                        if (jogador.getRaca().getNome() === "Minotauro") {
-                            jogador.removerAtaqueBonus("Chifrada");
-                        }
-                        if (jogador.getRaca().getNome() === "Trog") {
-                            jogador.removerAtaqueBonus("Mordida");
+                            for (const ataqueBonus of jogador.getAtaquesBonus()) {
+                                jogador.atacar(alvo, mapa, ataqueBonus.arma, ModoAtaque.CORPO_A_CORPO);
+                            }
+                            if (jogador.getRaca().getNome() === "Minotauro") {
+                                jogador.removerAtaqueBonus("Chifrada");
+                            }
+                            if (jogador.getRaca().getNome() === "Trog") {
+                                jogador.removerAtaqueBonus("Mordida");
+                            }
                         }
                     }
                     estado.usarAcaoPadrao()
@@ -182,77 +184,6 @@ export class Turno {
             console.log("Não foi possível mover.");
         }
     }
-
-    /* private static executarIA(inimigo: Personagem, participantes: Personagem[], estado: EstadoTurno, mapa: Mapa): void {
-        const alvos = participantes.filter(p => p.getTime() !== inimigo.getTime() && p.estaVivo());
-
-        if (alvos.length === 0) {
-            return;
-        }
-        let alvoEscolhido: Personagem = alvos[0];
-        let menorDistancia = mapa.calcularDistancia(inimigo.getX(), inimigo.getY(), alvoEscolhido.getX(), alvoEscolhido.getY());
-
-
-        for (const alvo of alvos) {
-            const distancia = mapa.calcularDistancia(inimigo.getX(), inimigo.getY(), alvo.getX(), alvo.getY());
-
-            if (distancia < menorDistancia) {
-                menorDistancia = distancia;
-                alvoEscolhido = alvo;
-            }
-        }
-
-        const alcance = inimigo.getAlcanceAtaque();
-
-
-
-        if (estado.possuiAcaoMovimento() && menorDistancia > alcance) {
-            const deslocamento = inimigo.getDeslocamento();
-
-            for (let i = 0; i < deslocamento; i++) {
-                const novoX = inimigo.getX() + Math.sign(alvoEscolhido.getX() - inimigo.getX());
-
-                const novoY = inimigo.getY() + Math.sign(alvoEscolhido.getY() - inimigo.getY());
-
-                if (!mapa.moverEntidade(inimigo, novoX, novoY)) {
-                    break;
-                }
-
-                const distanciaAtual = mapa.calcularDistancia(inimigo.getX(), inimigo.getY(), alvoEscolhido.getX(), alvoEscolhido.getY());
-
-                if (distanciaAtual <= alcance) {
-                    break;
-                }
-            }
-        }
-
-        const distancia = mapa.calcularDistancia(inimigo.getX(), inimigo.getY(), alvoEscolhido.getX(), alvoEscolhido.getY());
-
-        const ataquesPossiveis = inimigo.obterAtaquesPossiveis(distancia);
-
-        if (estado.possuiAcaoPadrao() && ataquesPossiveis.length > 0) {
-            if (inimigo.getEquipamento().estaUsandoDuasArmas()) {
-                inimigo.atacarComDuasArmas(alvoEscolhido, mapa, ataquesPossiveis);
-            } else {
-                const ataque = this.escolherMelhorAtaque(ataquesPossiveis);
-                for (let i = 0; i < inimigo.getQuantidadeAtaques(); i++) {
-                    inimigo.atacar(alvoEscolhido, mapa, ataque.arma, ataque.modoAtaque);
-                }
-                inimigo.consumirAtaquesExtrasTemporarios();
-            }
-            estado.usarAcaoPadrao();
-        }
-    }
-
-    private static escolherMelhorAtaque(ataques: AtaquePossivel[]): AtaquePossivel {
-        return ataques.reduce((melhor, atual) => {
-            const danoMelhor = melhor.arma.getQuantidadeDados() * melhor.arma.getFacesDado();
-
-            const danoAtual = atual.arma.getQuantidadeDados() * atual.arma.getFacesDado();
-
-            return danoAtual > danoMelhor ? atual : melhor;
-        });
-    } */
 
     private static escolherAlvo(
         atacante: Personagem, participantes: Personagem[], mapa: Mapa, habilidade?: Habilidade): Personagem | undefined {
