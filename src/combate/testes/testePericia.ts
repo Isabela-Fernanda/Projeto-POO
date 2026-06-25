@@ -32,11 +32,11 @@ export class TestePericia {
 
         const total = rolagem + modificador;
 
-        console.log(`\n=== TESTE DE ${pericia.getNome().toLocaleUpperCase()} ===`);
-        console.log(`Rolagem: ${rolagem}`);
+        console.log(`${personagem.getNome()} tenta resistir e faz um Teste de ${pericia.getNome().toLocaleUpperCase()}.`)
+        /* console.log(`Rolagem: ${rolagem}`);
         console.log(`Modificador: ${modificador}`);
         console.log(`Total: ${total}`);
-        console.log(`CD: ${cd}`);
+        console.log(`CD: ${cd}`); */
 
         let sucesso = total >= cd;
 

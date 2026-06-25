@@ -62,10 +62,6 @@ export class Turno {
         }
 
         while (true) {
-            if (this.combateEncerrado(participantes)) {
-                console.log("Todos os inimigos foram derrotados! Combate encerrado.")
-                return;
-            }
             console.log("\n1 - Mover")
             console.log("2 - Atacar");
             console.log("3 - Inventário");
@@ -128,7 +124,6 @@ export class Turno {
                     }
 
                     if (ataquesPossiveis)
-
                         if (jogador.getEquipamento().estaUsandoDuasArmas()) {
                             for (let i = 0; i < jogador.getQuantidadeAtaques(); i++) {
                                 jogador.atacarComDuasArmas(alvo, mapa, ataquesPossiveis);
@@ -140,7 +135,9 @@ export class Turno {
                             }
                             jogador.consumirAtaquesExtrasTemporarios();
                         }
+
                     const ehAtaqueCorpoACorpo = ataquesPossiveis.some(ataque => ataque.modoAtaque === ModoAtaque.CORPO_A_CORPO);
+
                     if (ehAtaqueCorpoACorpo) {
                         if (jogador.getRaca().getNome() === "Minotauro" || jogador.getRaca().getNome() === "Trog") {
                             const escolha = prompt("Deseja gastar 1PM para realizar um ataque com sua arma natural? (s/n)");

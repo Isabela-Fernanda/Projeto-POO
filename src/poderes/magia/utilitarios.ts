@@ -14,7 +14,6 @@ export class UtilitarioMagia {
         const resistencia = alvo.getResistencia(tipo);
         dano = Math.max(0, dano - resistencia);
         alvo.receberDano(dano);
-        console.log(`${alvo.getNome()} sofreu ${dano} de dano ${tipo}.`);
     }
 }
 
@@ -92,7 +91,7 @@ export class UtilitarioCondicao {
                 break;
         }
 
-        if (efeito) {
+        if (efeito && alvo.estaVivo()) {
             alvo.adicionarEfeito(efeito);
             console.log(`O efeito de [${efeito.getNome()}] foi aplicado em ${alvo.getNome()} por ${duracao} rodadas.`);
         }
@@ -112,6 +111,10 @@ export class UtilitarioInvocacao {
         console.log(`${conjurador.getNome()} invocou ${criatura.getNome()}`);
     }
 }
+
+// ======================================================================
+// AREA
+// ======================================================================
 
 export interface AreaMagica {
     obterAlvos(centroX: number, centroY: number, conjurador: Personagem, criaturas: Personagem[]): Personagem[];
@@ -136,9 +139,7 @@ export class AreaTodos implements AreaMagica {
 }
 
 export class AreaCircular implements AreaMagica {
-    constructor(
-        private raio: number
-    ) { }
+    constructor(private raio: number) { }
     getRaio(): number {
         return this.raio;
     }

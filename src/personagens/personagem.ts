@@ -174,6 +174,8 @@ export abstract class Personagem {
             this.vidaAtual = 0;
         }
 
+        console.log(`${this.nome} sofreu ${dano} de dano.`);
+
         if (!this.estaVivo()) {
             console.log(`${this.nome} foi derrotado!`)
         }
@@ -370,8 +372,6 @@ export abstract class Personagem {
         if (resultado.critico) {
             console.log("ACERTO CRÍTICO!");
         }
-
-        console.log(`${alvo.getNome()} sofreu ${resultado.dano} dano`);
     }
 
     /* ------------------------------------------------------------ */

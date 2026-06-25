@@ -69,7 +69,7 @@ export class EscolherMagias {
         console.log(`Escolha ${quantidade} magias iniciais.`)
         while (magiasEscolhidas.length < quantidade) {
             magias.forEach((magia, indice) =>
-                console.log(`${indice + 1} - ${magia.getNome()}: ${magia.getDescricao()}`));
+                console.log(`${indice + 1} - ${magia.getNome()} | Custo: ${magia.getCustoMana()}\n${magia.getDescricao()}\n`));
 
             const escolha = Number(prompt("Escolha:")) - 1;
             const magia = magias[escolha];
