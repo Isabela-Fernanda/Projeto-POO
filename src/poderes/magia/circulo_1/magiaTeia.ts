@@ -23,7 +23,7 @@ export class MagiaTeia extends MagiaArea {
         const sucesso = UtilitarioResistencia.testar(alvo, TipoDano.RESTRICAO, usuario.getCDMagia());
 
         if (!sucesso) {
-            UtilitarioCondicao.aplicar(alvo, "Preso em Teia", Condicao.ENREDADO, 3);
+            UtilitarioCondicao.aplicar(alvo, Condicao.ENREDADO, 3);
         }
     }
 

@@ -6,11 +6,12 @@ import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from
 import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
 import { TipoDano } from "../../../combate/tipoDano.ts";
 
-import { AreaCircular, UtilitarioMagia, FiltroInimigos } from "../utilitarios.ts";
+import { AreaCircular, UtilitarioMagia, FiltroInimigos, UtilitarioCondicao } from "../utilitarios.ts";
+import { Condicao } from "../../../combate/tipoCondicao.ts";
 
 export class MagiaExplosaoDeChamas extends MagiaArea {
     constructor() {
-        super("Explosão de Chamas", "Um leque de chamas irrompe de suas mãos, causando 2d6 pontos de dano de fogo às criaturas na área.", 1, "", CirculoMagia.PRIMEIRO, TipoMagia.ARCANA, EscolaMagia.EVOCACAO, TipoAcao.PADRAO, TipoAlvo.QUALQUER, AlcanceMagia.CURTO, DuracaoMagia.INSTANTANEA);
+        super("Explosão de Chamas", "Um leque de chamas irrompe de suas mãos, causando 2-12 pontos de dano de fogo às criaturas na área.", 1, "", CirculoMagia.PRIMEIRO, TipoMagia.ARCANA, EscolaMagia.EVOCACAO, TipoAcao.PADRAO, TipoAlvo.QUALQUER, AlcanceMagia.CURTO, DuracaoMagia.INSTANTANEA);
     }
 
     protected obterArea(): AreaCircular {
@@ -21,6 +22,7 @@ export class MagiaExplosaoDeChamas extends MagiaArea {
         const dano = Dado.rolarVarios(2, 6);
 
         UtilitarioMagia.causarDano(alvo, dano, TipoDano.FOGO);
+        UtilitarioCondicao.aplicar(alvo, Condicao.QUEIMANDO, 1);
     }
 
     override usarEmArea(usuario: Personagem, criaturas: Personagem[]): void {

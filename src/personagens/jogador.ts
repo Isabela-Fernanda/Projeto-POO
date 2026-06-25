@@ -1,16 +1,17 @@
 import { Personagem } from "./personagem.ts";
 import { Time } from "./time.ts";
-import { Raca } from "../racas/raca.ts";
+import { Raca } from "./racas/raca.ts";
 import { Classe } from "./classes/classe.ts";
 import { Atributos } from "./atributos/atributos.ts";
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
-import { Pericia } from "../pericias/pericia.ts";
-import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
-import { Combate } from "../combate/combate.ts"
+import { Pericia, GrauTreinamento } from "../pericias/pericia.ts";
 
-import { AtaquePossivel, ModoAtaque, TesteAtaque } from "../combate/testes/testeAtaque.ts";
+import { Beneficio } from "../poderes/beneficio.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
+import { Habilidade } from "../poderes/habilidades.ts";
+
+import { AtaquePossivel, ModoAtaque } from "../combate/testes/testeAtaque.ts";
 import { Mapa } from "../mapa/mapa.ts";
 import { Arma } from "../inventario/itens/arma.ts";
 
@@ -28,6 +29,8 @@ export class Jogador extends Personagem {
         equipamento: Equipamento,
         pericias: Map<Pericia, GrauTreinamento>,
         bonusPericias: Map<Pericia, number>,
+        beneficios: Beneficio[],
+        caracteristicas: Caracteristica[],
         habilidades: Habilidade[]
     ) {
         super(nome, nivel, Time.HEROIS, raca, classe, atributos, inventario, equipamento, pericias, bonusPericias, habilidades);
@@ -58,7 +61,7 @@ export class Jogador extends Personagem {
     interagirComAmbiente(alvoX: number, alvoY: number, mapa: Mapa): void {
         const objeto = mapa.getObjetoEm(alvoX, alvoY);
 
-        if(!objeto){
+        if (!objeto) {
             console.log("Não há nada para interagir nesta posição.");
             return;
         }
@@ -67,11 +70,19 @@ export class Jogador extends Personagem {
 
         const ALCANCE_INTERACAO = 1.5;
 
-        if(distancia > ALCANCE_INTERACAO){
+        if (distancia > ALCANCE_INTERACAO) {
             console.log(`Você está muito longe de ${objeto.getNome()} para interagir.`);
             return;
         }
 
         objeto.interagir(this);
+    }
+
+    adicionarPericia(pericia: Pericia): void {
+        this.pericias.set(pericia, GrauTreinamento.TREINADO);
+    }
+
+    adicionarHabilidade(habilidade: Habilidade): void {
+        this.habilidades.push(habilidade);
     }
 }

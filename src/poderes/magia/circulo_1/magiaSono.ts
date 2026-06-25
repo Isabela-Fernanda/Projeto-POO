@@ -18,10 +18,10 @@ export class MagiaSono extends Magia {
         const sucesso = UtilitarioResistencia.testar(alvo, TipoDano.MENTAL, usuario.getCDMagia());
 
         if (sucesso) {
-            UtilitarioCondicao.aplicar(alvo, "Fatigado", Condicao.VULNERAVEL, 1);
+            UtilitarioCondicao.aplicar(alvo, Condicao.VULNERAVEL, 1);
         } else {
-            UtilitarioCondicao.aplicar(alvo, "Inconsciente", Condicao.INCONSCIENTE, 10);
-            UtilitarioCondicao.aplicar(alvo, "Caído", Condicao.CAIDO, 10);
+            UtilitarioCondicao.aplicar(alvo, Condicao.INCONSCIENTE, 10);
+            UtilitarioCondicao.aplicar(alvo, Condicao.CAIDO, 10);
         }
     }
 }

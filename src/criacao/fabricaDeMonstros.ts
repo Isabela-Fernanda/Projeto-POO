@@ -2,15 +2,12 @@ import { Time } from "../personagens/time.ts";
 import { Monstro } from "../personagens/inimigo/monstro.ts";
 import { DadosMonstro } from "../personagens/inimigo/catalogoMonstros.ts";
 
-import { Monstruosa } from "../racas/monstruosa.ts";
+import { Monstruosa } from "../personagens/racas/monstruosa.ts";
 
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
-import { Arma } from "../inventario/itens/arma.ts";
-import { Armadura } from "../inventario/itens/armadura.ts";
 
-import { Pericia } from "../pericias/pericia.ts";
-import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
+import { GrauTreinamento } from "../pericias/pericia.ts";
 
 export class FabricaMonstros {
     static criar(dados: DadosMonstro): Monstro {
@@ -28,6 +25,7 @@ export class FabricaMonstros {
             dados.habilidades ?? [],
             dados.xp,
             dados.tamanho,
+            false,
             dados.comportamento,
         );
 

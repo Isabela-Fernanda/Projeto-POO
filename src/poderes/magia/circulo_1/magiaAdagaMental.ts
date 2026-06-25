@@ -11,7 +11,7 @@ import { Condicao } from "../../../combate/tipoCondicao.ts";
 
 export class MagiaAdagaMental extends Magia {
     constructor() {
-        super("Adaga Mental", "Você manifesta e dispara uma adaga imaterial contra a mente do alvo, que sofre 2d6 pontos de dano mental e fica pasmo por uma rodada. Se passar no teste de resistência, sofre apenas metade do dano e não fica pasmo.", 1, "", CirculoMagia.PRIMEIRO, TipoMagia.ARCANA, EscolaMagia.ENCANTAMENTO, TipoAcao.PADRAO, TipoAlvo.INIMIGO, AlcanceMagia.CURTO, DuracaoMagia.INSTANTANEA)
+        super("Adaga Mental", "Você manifesta e dispara uma adaga imaterial contra a mente do alvo, que sofre 2-12 pontos de dano mental e fica pasmo por uma rodada. Se passar no teste de resistência, sofre apenas metade do dano e não fica pasmo.", 1, "", CirculoMagia.PRIMEIRO, TipoMagia.ARCANA, EscolaMagia.ENCANTAMENTO, TipoAcao.PADRAO, TipoAlvo.INIMIGO, AlcanceMagia.CURTO, DuracaoMagia.INSTANTANEA)
     }
 
     usar(usuario: Personagem, alvo?: Personagem): void {
@@ -28,6 +28,6 @@ export class MagiaAdagaMental extends Magia {
             UtilitarioMagia.causarDano(alvo, dano, TipoDano.MENTAL);
         }
 
-        UtilitarioCondicao.aplicar(alvo, "Pasmo", Condicao.PASMO, 1);
+        UtilitarioCondicao.aplicar(alvo, Condicao.PASMO, 2);
     }
 }

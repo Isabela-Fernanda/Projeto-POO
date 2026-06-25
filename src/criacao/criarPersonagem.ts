@@ -5,88 +5,56 @@ import { Atributos, TipoAtributo } from "../personagens/atributos/atributos.ts";
 import { GeradorAtributos } from "./geradorAtributos.ts";
 
 // Raças
-import { Raca } from "../racas/raca.ts";
-import { Aggelus } from "../racas/aggelus.ts";
-import { Anao } from "../racas/anao.ts";
-import { Dahllan } from "../racas/dahllan.ts";
-import { Elfo } from "../racas/elfo.ts";
-import { Goblin } from "../racas/goblin.ts";
-import { Golem } from "../racas/golem.ts";
-import { Humano } from "../racas/humano.ts";
-import { Hynne } from "../racas/hynne.ts";
-import { Kliren } from "../racas/kliren.ts";
-import { Lefou } from "../racas/lefou.ts";
-import { Medusa } from "../racas/medusa.ts";
-import { Minotauro } from "../racas/minotauro.ts";
-import { Osteon } from "../racas/osteon.ts";
-import { Qareen } from "../racas/qareen.ts";
-import { SereiaTritao } from "../racas/sereia-tritao.ts";
-import { Silfide } from "../racas/silfide.ts";
-import { Sulfure } from "../racas/sulfure.ts";
-import { Trog } from "../racas/trog.ts";
+import { Raca } from "../personagens/racas/raca.ts";
 
 // Classes
 import { Classe } from "../personagens/classes/classe.ts";
-import { Arcanista } from "../personagens/classes/arcanista.ts";
-import { Barbaro } from "../personagens/classes/barbaro.ts";
-import { Bardo } from "../personagens/classes/bardo.ts";
-import { Bucaneiro } from "../personagens/classes/bucaneiro.ts";
-import { Cacador } from "../personagens/classes/cacador.ts";
-import { Cavaleiro } from "../personagens/classes/cavaleiro.ts";
-import { Clerigo } from "../personagens/classes/clerigo.ts";
-import { Druida } from "../personagens/classes/druida.ts";
-import { Guerreiro } from "../personagens/classes/guerreiro.ts";
-import { Inventor } from "../personagens/classes/inventor.ts";
-import { Ladino } from "../personagens/classes/ladino.ts";
-import { Lutador } from "../personagens/classes/lutador.ts";
-import { Nobre } from "../personagens/classes/nobre.ts";
-import { Paladino } from "../personagens/classes/paladino.ts";
 
-// Habilidades
+// Beneficios, Caracteristicas e Habilidades
+import { Beneficio } from "../poderes/beneficio.ts";
+import { Caracteristica } from "../poderes/caracteristica.ts";
 import { Habilidade } from "../poderes/habilidades.ts";
-
-// Perícias
-import { Pericia } from "../pericias/pericia.ts";
 
 // Inventario
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
-import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
-import { CatalogoArmaduras } from "../inventario/itens/catalogoArmadura.ts";
-import { GrauTreinamento } from "../pericias/grauTreinamento.ts";
+
+import { SelecionarRaca } from "./escolher/escolherRaca.ts";
+import { EscolherClasse } from "./escolher/escolherClasse.ts";
+import { EscolherPericia } from "./escolher/escolherPericia.ts";
+import { EscolherMagias } from "./escolher/escolherMagias.ts";
+import { AplicarBeneficioRacial } from "./aplicarBeneficiosRaciais.ts";
 
 export class CriacaoPersonagem {
-
     static criar(): Jogador {
         const nome = this.escolherNome();
-
-        const atributos = this.gerarAtributos();
-
-        const raca = this.escolherRaca();
+        const atributos = GeradorAtributos.gerarAtributos();
+        const raca = SelecionarRaca.escolherRaca();
 
         if (raca.precisaEscolherBonus()) {
             this.configurarBonusRaciais(atributos, raca.getAtributosProibidos());
         }
 
-        const classe = this.escolherClasse();
+        const classe = EscolherClasse.escolher();
+        const pericias = new EscolherPericia().escolher(classe);
 
+        const caracteristicas = this.aplicarCaracteristicas(raca, classe);
+
+        const beneficios = this.aplicarBeneficios(raca, classe);
         const habilidades = this.gerarHabilidades(raca, classe);
-        this.mostrarHabilidades(habilidades);
 
-        const pericias = this.escolherPericias(classe);
+        if (classe.getNome() === "Arcanista" || classe.getNome() === "Bardo" || classe.getNome() === "Clérigo" || classe.getNome() === "Druida") {
+            const magias = new EscolherMagias().escolher(classe);
+            habilidades.push(...magias);
+        }
 
-        const jogador = new Jogador(
-            nome,
-            1,
-            raca,
-            classe,
-            atributos,
-            new Inventario(),
-            new Equipamento(),
-            pericias,
-            new Map(),
-            habilidades
-        )
+        const jogador = new Jogador(nome, 1, raca, classe, atributos, new Inventario(), new Equipamento(), pericias, new Map(), beneficios, caracteristicas, habilidades);
+
+        jogador.getBeneficios().forEach(beneficio => {
+            beneficio.aplicar(jogador);
+        });
+
+        this.aplicarEscolhasRaciais(jogador);
 
         return jogador;
     }
@@ -96,69 +64,30 @@ export class CriacaoPersonagem {
         return nome ?? "Herói";
     }
 
-    private static gerarAtributos(): Atributos {
-        let atributos;
-        console.log("\n=== Gerar Atributos ===");
-        console.log("1 - Gerar por Sorte\n2 - Gerar por pontos");
-
-        const opcao = prompt("Escolha o método:");
-
-        switch (opcao) {
-            case "2":
-                atributos = GeradorAtributos.gerarPorPontos();
-                break;
-            default:
-                atributos = GeradorAtributos.gerarPorRolagem();
-        };
-        return atributos;
-    };
-
-    private static escolherRaca(): Raca {
-        console.log("\n=== RAÇA ===");
-        console.log("1 - Aggelus |   2 - Anão\n3 - Dahllan |   4 - Elfo\n5 - Goblin |   6 - Golem\n7 - Humano |   8 - Hynne\n9 - Kliren |   10 - Lefou\n11 - Medusa |   12 - Minotauro\n13 - Osteon |   14 - Qareen\n15 - Sereia |   16 - Silfide\n17 - Sulfure |   18 - Trog\n");
-
-        const opcao = prompt("Escolha a Raça:");
-
-        switch (opcao) {
-            case "1":
-                return new Aggelus();
-            case "2":
-                return new Anao();
-            case "3":
-                return new Dahllan();
-            case "4":
-                return new Elfo();
-            case "5":
-                return new Goblin();
-            case "6":
-                return new Golem();
-            case "7":
-                return new Humano();
-            case "8":
-                return new Hynne();
-            case "9":
-                return new Kliren();
-            case "10":
-                return new Lefou();
-            case "11":
-                return new Medusa();
-            case "12":
-                return new Minotauro();
-            case "13":
-                return new Osteon();
-            case "14":
-                return new Qareen();
-            case "15":
-                return new SereiaTritao();
-            case "16":
-                return new Silfide();
-            case "17":
-                return new Sulfure();
-            case "18":
-                return new Trog();
-            default:
-                return new Humano();
+    private static aplicarEscolhasRaciais(jogador: Jogador): void {
+        if (jogador.getRaca().getNome() === "Humano") {
+            AplicarBeneficioRacial.aplicarVersatil(jogador);
         }
+    }
+
+    private static aplicarBeneficios(raca: Raca, classe: Classe): Beneficio[] {
+        const beneficios: Beneficio[] = [];
+
+        beneficios.push(...raca.getBeneficiosRaciais());
+
+        beneficios.push(...classe.getBeneficios());
+
+        return beneficios;
+    }
+
+    private static aplicarCaracteristicas(raca: Raca, classe: Classe): Caracteristica[] {
+        const caracteristicas: Caracteristica[] = [];
+
+        caracteristicas.push(...raca.getCaracteristicasRaciais());
+
+        caracteristicas.push(...classe.getCaracteristicas());
+
+        return caracteristicas;
     }
 
     private static gerarHabilidades(raca: Raca, classe: Classe): Habilidade[] {
@@ -240,93 +169,6 @@ export class CriacaoPersonagem {
             console.log("Atributos aualizados:");
             atributos.mostrar();
         }
-    }
-
-    private static escolherClasse(): Classe {
-        console.log("\n=== CLASSE ===");
-        console.log("1 - Arcanista  |   2 - Bárbaro\n3 - Bardo  |   4 - Bucaneiro\n5 - Caçador  |   6 - Cavaleiro\n7 - Clérigo  |   8 - Druida\n9 - Guerreiro   |   10 - Inventor\n11 - Ladino  |   12 - Lutador\n13 - Nobre    |   14 - Paladino");
-
-        const opcao = prompt("Escolha a classe:");
-
-        switch (opcao) {
-            case "1":
-                return new Arcanista();
-            case "2":
-                return new Barbaro();
-            case "3":
-                return new Bardo();
-            case "4":
-                return new Bucaneiro();
-            case "5":
-                return new Cacador();
-            case "6":
-                return new Cavaleiro();
-            case "7":
-                return new Clerigo();
-            case "8":
-                return new Druida();
-            case "9":
-                return new Guerreiro();
-            case "10":
-                return new Inventor();
-            case "11":
-                return new Ladino();
-            case "12":
-                return new Lutador();
-            case "13":
-                return new Nobre();
-            case "14":
-                return new Paladino();
-            default:
-                return new Guerreiro();
-        }
-
-    }
-
-    private static escolherPericias(classe: Classe): Map<Pericia, GrauTreinamento> {
-        const pericias = new Map<Pericia, GrauTreinamento>();
-
-        const disponiveis = classe.getPericiasDisponiveis();
-
-        const quantidade = classe.getPericiasTreinadas();
-
-        for (let i = 0; i < quantidade; i++) {
-            console.log(`\nEscolha a perícia ${i + 1}:`);
-
-            disponiveis.forEach((pericia, indice) => {
-                console.log(`${indice + 1} - ${pericia.getNome()}`);
-            }
-            );
-
-            const escolha = Number(prompt("Escolha:"));
-
-            const pericia = disponiveis[escolha - 1];
-
-            if (!pericia) {
-                console.log("Perícia inválida.");
-                i--;
-                continue;
-            }
-
-            if (pericias.has(pericia)) {
-                console.log("Você já escolheu essa perícia.");
-                i--;
-                continue;
-            }
-
-            pericias.set(pericia, GrauTreinamento.TREINADO);
-        }
-
-        console.log(
-            "\n=== PERÍCIAS ESCOLHIDAS ==="
-        );
-
-        pericias.forEach((_, pericia) => {
-            console.log(pericia.getNome());
-        }
-        );
-
-        return pericias;
     }
 
 }

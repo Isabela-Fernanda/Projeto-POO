@@ -18,7 +18,7 @@ export class MagiaHipnotismo extends Magia {
         const sucesso = UtilitarioResistencia.testar(alvo, TipoDano.MENTAL, usuario.getCDMagia());
 
         if(!sucesso){
-            UtilitarioCondicao.aplicar(alvo, "Hipnotizado", 10, Condicao.FATIGADO);
+            UtilitarioCondicao.aplicar(alvo, Condicao.FATIGADO, 6);
         }
     }
 }

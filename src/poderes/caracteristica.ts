@@ -5,6 +5,8 @@ export abstract class Caracteristica {
         protected nome: string,
         protected descricao:string,
     ){}
+    
+    abstract aplicar(personagem: Personagem): void;
 
     getNome(): string {
         return this.nome;
@@ -13,6 +15,4 @@ export abstract class Caracteristica {
     getDescricao(): string {
         return this.descricao;
     }
-
-    abstract aplicar(personagem: Personagem): void;
 }

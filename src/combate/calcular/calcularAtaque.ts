@@ -1,8 +1,9 @@
 import { Dado } from "../dado.ts";
 import { Personagem } from "../../personagens/personagem.ts";
-import { Arma, TipoAtaque } from "../../inventario/itens/arma.ts";
+import { Arma, Categoria } from "../../inventario/itens/arma.ts";
 import { TipoAtributo } from "../../personagens/atributos/atributos.ts";
 import { ModoAtaque } from "../testes/testeAtaque.ts";
+import { Tags } from "../../poderes/tags.ts";
 
 export class CalcularAtaque {
     static calcular(atacante: Personagem, arma: Arma, modoAtaque: ModoAtaque): {
@@ -21,7 +22,7 @@ export class CalcularAtaque {
 
         switch (modoAtaque) {
             case ModoAtaque.CORPO_A_CORPO:
-                modificador = arma.ehAgil() ? atacante.getModificadorAtributo(TipoAtributo.DESTREZA) : atacante.getModificadorAtributo(TipoAtributo.FORCA);
+                modificador = arma.ehAgil() || (arma.getCategoria() === Categoria.LEVE && atacante.possuiHabilidade("Acuidade com Arma") && atacante.getAtributo(TipoAtributo.DESTREZA) >= 13) ? atacante.getModificadorAtributo(TipoAtributo.DESTREZA) : atacante.getModificadorAtributo(TipoAtributo.FORCA);
                 break;
             case ModoAtaque.ARREMESSO:
                 modificador = atacante.getModificadorAtributo(TipoAtributo.FORCA);
@@ -36,7 +37,11 @@ export class CalcularAtaque {
             bonusEfeito += efeito.getBonusAtaque();
         }
 
-        const total = rolagem + modificador + arma.getBonusAtaque() + bonusEfeito + penalidadeProficiencia;
+        if (atacante.possuiTag(Tags.TRADICAO_HEREDRIMM) && arma.ehTradicionalAna()) {
+            bonusEfeito += 2;
+        }
+
+        const total = rolagem + modificador + arma.getBonusAtaque() + bonusEfeito + atacante.getBonusAtaqueHabilidades() + atacante.getBonusAtaqueArma(arma) + penalidadeProficiencia;
 
         return {
             rolagem,

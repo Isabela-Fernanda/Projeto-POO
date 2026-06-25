@@ -1,16 +1,8 @@
 import { Mapa } from "../mapa/mapa.ts";
-import { SalaInicial } from "../mapa/salas/salaInicial.ts";
-
-import { Tela } from "../ui/tela.ts";
 import { Jogador } from "../personagens/jogador.ts";
-
-import { Item } from "../inventario/itens/item.ts";
-import { Arma } from "../inventario/itens/arma.ts";
-import { Armadura } from "../inventario/itens/armadura.ts";
 
 import { CriacaoPersonagem } from "../criacao/criarPersonagem.ts";
 import { Combate } from "../combate/combate.ts";
-import { Time } from "../personagens/time.ts";
 import { GerenciadorTutorial } from "../mapa/salas/gerenciadorTutorial.ts";
 import { ResultadoInteracao } from "../mapa/catalogoObjetos.ts";
 

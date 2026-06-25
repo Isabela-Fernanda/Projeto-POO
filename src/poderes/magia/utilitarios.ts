@@ -5,7 +5,9 @@ import { TipoAtributo } from "../../personagens/atributos/atributos.ts";
 import { CalcularResistencia } from "../../combate/calcular/calcularResistencia.ts"
 
 import { Condicao } from "../../combate/tipoCondicao.ts";
-import { EfeitoCondicao } from "../efeitos/efeitoCondicao.ts"
+
+import { Efeito } from "../efeito.ts";
+import { EfeitoAbalado, EfeitoAmedrontado, EfeitoApavorado, EfeitoAtordoado, EfeitoCaido, EfeitoCamuflado, EfeitoCego, EfeitoDesequilibrado, EfeitoEnredado, EfeitoEnvenenado, EfeitoFatigado, EfeitoFascinado, EfeitoInconsciente, EfeitoOfuscado, EfeitoParalisado, EfeitoPasmo, EfeitoQueimando, EfeitoSangrando, EfeitoVulneravel } from "../efeitos/efeitoCondicao.ts"
 
 export class UtilitarioMagia {
     static causarDano(alvo: Personagem, dano: number, tipo: TipoDano): void {
@@ -24,8 +26,76 @@ export class UtilitarioResistencia {
 }
 
 export class UtilitarioCondicao {
-    static aplicar(alvo: Personagem, nome: string, condicao: Condicao, duracao: number): void {
-        alvo.adicionarEfeito(new EfeitoCondicao(nome, condicao, duracao));
+    static aplicar(alvo: Personagem, condicao: Condicao, duracao: number): void {
+        let efeito: Efeito | null = null;
+
+        switch (condicao) {
+            case Condicao.ABALADO:
+                efeito = new EfeitoAbalado(duracao);
+                break;
+            case Condicao.AMEDRONTADO:
+                efeito = new EfeitoAmedrontado(duracao);
+                break;
+            case Condicao.APAVORADO:
+                efeito = new EfeitoApavorado(duracao);
+                break;
+            case Condicao.ATORDOADO:
+                efeito = new EfeitoAtordoado(duracao);
+                break;
+            case Condicao.CAIDO:
+                efeito = new EfeitoCaido(duracao);
+                break;
+            case Condicao.CAMUFLADO:
+                efeito = new EfeitoCamuflado(duracao);
+                break;
+            case Condicao.CEGO:
+                efeito = new EfeitoCego(duracao);
+                break;
+            case Condicao.DESEQUILIBRADO:
+                efeito = new EfeitoDesequilibrado(duracao);
+                break;
+            case Condicao.ENREDADO:
+                efeito = new EfeitoEnredado(duracao);
+                break;
+            case Condicao.ENVENENADO:
+                efeito = new EfeitoEnvenenado(duracao);
+                break;
+            case Condicao.FATIGADO:
+                efeito = new EfeitoFatigado(duracao);
+                break;
+            case Condicao.FASCINADO:
+                efeito = new EfeitoFascinado(duracao);
+                break;
+            case Condicao.INCONSCIENTE:
+                efeito = new EfeitoInconsciente(duracao);
+                break;
+            case Condicao.OFUSCADO:
+                efeito = new EfeitoOfuscado(duracao);
+                break;
+            case Condicao.PARALISADO:
+                efeito = new EfeitoParalisado(duracao);
+                break;
+            case Condicao.PASMO:
+                efeito = new EfeitoPasmo(duracao);
+                break;
+            case Condicao.QUEIMANDO:
+                efeito = new EfeitoQueimando(duracao);
+                break;
+            case Condicao.SANGRANDO:
+                efeito = new EfeitoSangrando(duracao);
+                break;
+            case Condicao.VULNERAVEL:
+                efeito = new EfeitoVulneravel(duracao);
+                break;
+            default:
+                console.warn(`Condição genérica ou não mapeada recebida: ${condicao}`);
+                break;
+        }
+
+        if (efeito) {
+            alvo.adicionarEfeito(efeito);
+            console.log(`O efeito de [${efeito.getNome()}] foi aplicado em ${alvo.getNome()} por ${duracao} rodadas.`);
+        }
     }
 }
 

@@ -28,6 +28,8 @@ export abstract class Classe {
         return this.nome;
     }
 
+    abstract getResumo(): string;
+
     abstract getVidaInicial(): number;
     abstract getPVPorNivel(): number;
     abstract getManaInicial(): number;

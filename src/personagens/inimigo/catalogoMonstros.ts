@@ -1,12 +1,6 @@
-
-import { Equipamento } from "../../inventario/equipamento.ts";
-import { Inventario } from "../../inventario/inventario.ts";
 import { CatalogoArmas } from "../../inventario/itens/catalogoArmas.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-import { Monstruosa } from "../../racas/monstruosa.ts";
 import { Atributos } from "../atributos/atributos.ts";
-import { Time } from "../time.ts";
-import { Monstro } from "./monstro.ts";
 
 import { Pericia } from "../../pericias/pericia.ts";
 import { Arma } from "../../inventario/itens/arma.ts";

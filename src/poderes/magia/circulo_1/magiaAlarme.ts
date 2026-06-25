@@ -4,10 +4,8 @@ import { MagiaArea } from "../magiaArea.ts";
 import { EfeitoArea } from "../../efeitoArea.ts";
 import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.ts";
 import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
-import { TipoDano } from "../../../combate/tipoDano.ts";
 
-import { AreaCircular, UtilitarioResistencia, UtilitarioCondicao } from "../utilitarios.ts";
-import { Condicao } from "../../../combate/tipoCondicao.ts";
+import { AreaCircular } from "../utilitarios.ts";
 import { EfeitoAlarme } from "../../efeitos/efeitoArea/efeitoAlarme.ts";
 
 export class MagiaAlarme extends MagiaArea {

@@ -8,7 +8,6 @@ import { TipoDano } from "../../../combate/tipoDano.ts";
 
 import { AreaCircular, UtilitarioResistencia, UtilitarioCondicao } from "../utilitarios.ts";
 import { Condicao } from "../../../combate/tipoCondicao.ts";
-import { EfeitoNevoa } from "../../efeitos/efeitoArea/efeitoNevoa.ts";
 import { EfeitoAreaEscorregadia } from "../../efeitos/efeitoArea/efeitoAreaEscorregadia.ts";
 
 export class MagiaAreaEscorregadia extends MagiaArea {
@@ -23,7 +22,7 @@ export class MagiaAreaEscorregadia extends MagiaArea {
         const sucesso = UtilitarioResistencia.testar(alvo, TipoDano.EQUILIBRIO, usuario.getCDMagia());
 
         if (!sucesso) {
-            UtilitarioCondicao.aplicar(alvo, "Desequilibrado", Condicao.DESEQUILIBRADO, 1);
+            UtilitarioCondicao.aplicar(alvo, Condicao.DESEQUILIBRADO, 1);
         }
 
     }

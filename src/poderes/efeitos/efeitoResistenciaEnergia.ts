@@ -1,5 +1,5 @@
 import { Efeito } from "../efeito.ts";
-import { TipoEnergia } from "../tipoEnergia";
+import { TipoEnergia } from "../tipoEnergia.ts";
 
 export class EfeitoResistenciaEnergia extends Efeito {
     constructor(

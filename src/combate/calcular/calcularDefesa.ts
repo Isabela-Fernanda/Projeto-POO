@@ -29,6 +29,8 @@ export class CalculadoraDefesa {
             defesa += escudo.getBonusDefesa();
         }
 
+        defesa += personagem.getBonusDefesa() + personagem.getBonusDefesaHabilidades();
+
         return defesa;
 
     }

@@ -18,9 +18,9 @@ export class MagiaRaioDoEnfraquecimento extends Magia {
         const sucesso = UtilitarioResistencia.testar(alvo, TipoDano.ESSENCIA, usuario.getCDMagia());
 
         if(sucesso){
-            UtilitarioCondicao.aplicar(alvo, "Vulnerável", Condicao.VULNERAVEL, 10);
+            UtilitarioCondicao.aplicar(alvo, Condicao.VULNERAVEL, 10);
         } else {
-            UtilitarioCondicao.aplicar(alvo, "Fatigado", Condicao.FASCINADO, 10);
+            UtilitarioCondicao.aplicar(alvo, Condicao.FASCINADO, 10);
         }
     }
 }

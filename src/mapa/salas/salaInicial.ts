@@ -1,5 +1,5 @@
 import { Mapa } from "../mapa.ts";
-import { Sala } from "../sala.ts";
+import { Luminosidade, Sala, TipoAmbiente } from "../sala.ts";
 
 import { Mesa } from "../catalogoObjetos.ts";
 import { Bau } from "../catalogoObjetos.ts";
@@ -12,7 +12,7 @@ import { Jogador } from "../../personagens/jogador.ts";
 
 export class SalaInicial {
     construir(mapa: Mapa, jogador: Jogador): void {
-        mapa.adicionarSala(new Sala("Câmara do Despertar", 0, 0, 10, 10));
+        mapa.adicionarSala(new Sala("Câmara do Despertar", TipoAmbiente.NORMAL, Luminosidade.ILUMINADO, 0, 0, 10, 10));
 
         const gerador = new GeradorInicial();
         const itens = gerador.gerar(jogador);

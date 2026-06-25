@@ -6,8 +6,6 @@ import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from
 import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
 
 import { AreaCircular } from "../utilitarios.ts";
-import { Condicao } from "../../../combate/tipoCondicao.ts";
-import { EfeitoCondicao } from "../../efeitos/efeitoCondicao.ts";
 import { EfeitoNevoa } from "../../efeitos/efeitoArea/efeitoNevoa.ts";
 
 export class MagiaNevoa extends MagiaArea {

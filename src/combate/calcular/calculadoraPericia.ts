@@ -1,5 +1,4 @@
-import { Pericia } from "../../pericias/pericia.ts";
-import { GrauTreinamento } from "../../pericias/grauTreinamento.ts";
+import { Pericia, GrauTreinamento } from "../../pericias/pericia.ts";
 
 import { Personagem } from "../../personagens/personagem.ts";
 

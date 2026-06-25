@@ -2,7 +2,7 @@ import { Jogador } from "../personagens/jogador.ts";
 import { Personagem } from "../personagens/personagem.ts";
 import { EfeitoArea } from "../poderes/efeitoArea.ts";
 import { Objeto } from "./objeto.ts";
-import { Sala } from "./sala.ts"
+import { Sala, Porta, EstadoPorta } from "./sala.ts";
 
 export class Mapa {
     private entidades: Personagem[] = [];
@@ -19,8 +19,11 @@ export class Mapa {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    adicionarEntidade(Entidade: Personagem): void {
-        this.entidades.push(Entidade);
+    adicionarEntidade(entidade: Personagem): void {
+        if (this.entidades.includes(entidade)) {
+            return;
+        }
+        this.entidades.push(entidade);
     }
 
     removerEntidade(entidade: Personagem): void {
@@ -41,25 +44,60 @@ export class Mapa {
         return this.entidades;
     }
 
+    getEntidadesDaSala(sala: Sala): Personagem[]{
+        return this.entidades.filter(entidade => entidade.getSalaAtual() === sala);
+    }
+
     getEntidadePorNome(nome: string): Personagem | undefined {
         return this.entidades.find(entidade => entidade.getNome() === nome);
     }
 
     moverEntidade(entidade: Personagem, destinoX: number, destinoY: number): boolean {
+        if (!this.posicaoValida(destinoX, destinoY)) return false;
+        if (this.estaOcupada(destinoX, destinoY)) return false;
+
         const salaAtual = this.getSalaDaEntidade(entidade);
         if (salaAtual) {
-            const naBordaX = destinoX === salaAtual.getXInicial() || destinoX === salaAtual.getXInicial() + salaAtual.getLargura();
-            const naBordaY = destinoY === salaAtual.getYInicial() || destinoY === salaAtual.getYInicial() + salaAtual.getAltura();
+            const salaDestino = this.getSalaPorPosicao(destinoX, destinoY);
 
-            if (!salaAtual.contem(destinoX, destinoY) || naBordaX || naBordaY) {
+            if (!salaDestino) {
                 return false;
             }
-        }
-        if (!this.posicaoValida(destinoX, destinoY)) {
-            return false;
-        }
-        if (this.estaOcupada(destinoX, destinoY)) {
-            return false;
+
+            // Procura se o passo interage com uma Conexão/Porta cadastrada
+            const conexao = salaAtual.getConexoes().find(c => {
+                if ('ehPassagem' in c || 'estado' in c) {
+                    const p = c as unknown as Porta;
+                    return (p.x === destinoX && p.y === destinoY) || (p.x === entidade.getX() && p.y === entidade.getY());
+                }
+                return typeof c.contem === 'function' && (c.contem(destinoX, destinoY) || c.contem(entidade.getX(), entidade.getY()));
+            });
+
+            // Se for uma porta, valida o estado físico de bloqueio
+            if (conexao) {
+                if ('estado' in conexao || 'ehPassagem' in conexao) {
+                    const porta = conexao as unknown as Porta;
+                    if (!porta.ehPassagem && porta.estado !== EstadoPorta.ABERTA) {
+                        if (entidade instanceof Jogador) {
+                            // Verifica se o jogador possui o atributo de inventário para chave de forma dinâmica
+                            const temChave = (entidade as any).temChave || false;
+                            const mensagem = porta.interagir(temChave);
+                            console.log(`\n[Interação] ${mensagem}`);
+                        }
+                        return false; // Bloqueia o movimento no turno em que interage para abrir
+                    }
+                }
+            }
+
+            // Se não for uma conexão direta, impede atravessar as paredes delimitadoras da sala
+            if (!conexao) {
+                const naBordaX = destinoX === salaAtual.getXInicial() || destinoX === salaAtual.getXInicial() + salaAtual.getLargura() - 1;
+                const naBordaY = destinoY === salaAtual.getYInicial() || destinoY === salaAtual.getYInicial() + salaAtual.getAltura() - 1;
+
+                if (naBordaX || naBordaY) {
+                    return false;
+                }
+            }
         }
 
         const dx = destinoX - entidade.getX();
@@ -71,6 +109,7 @@ export class Mapa {
         }
 
         entidade.setPosicao(destinoX, destinoY);
+        this.getSalaDaEntidade(entidade);
         return true;
     }
 
@@ -120,7 +159,6 @@ export class Mapa {
                     efeito.afetar(criatura);
                 }
             }
-
             efeito.reduzirDuracao();
         }
         this.efeitosArea = this.efeitosArea.filter(efeito => !efeito.expirou());
@@ -129,7 +167,6 @@ export class Mapa {
     possuiLinhaDeVisao(origem: Personagem, alvo: Personagem): boolean {
         const x1 = origem.getX();
         const y1 = origem.getY();
-
         const x2 = alvo.getX();
         const y2 = alvo.getY();
 
@@ -145,42 +182,38 @@ export class Mapa {
         return true;
     }
 
-    adicionarSala(sala: Sala): void {
-        this.salas.push(sala);
-    }
-
-    getSalaDaEntidade(entidade: Personagem): Sala | null {
+    getSalaPorPosicao(x: number, y: number): Sala | null {
         for (const sala of this.salas) {
-            if (sala.contem(entidade.getX(), entidade.getY())) {
+            if (sala.contem(x, y)) {
                 return sala;
             }
         }
         return null;
     }
 
-    adicionarObjeto(objeto: Objeto): void {
-        this.objetos.push(objeto);
+    adicionarSala(sala: Sala): void { this.salas.push(sala); }
+
+    getSalaDaEntidade(entidade: Personagem): Sala | null {
+        for (const sala of this.salas) {
+            if (sala.contem(entidade.getX(), entidade.getY())) {
+                entidade.setSalaAtual(sala);
+                return sala;
+            }
+        }
+        return null;
     }
 
-    getObjetos(): Objeto[] {
-        return this.objetos;
-    }
+    adicionarObjeto(objeto: Objeto): void { this.objetos.push(objeto); }
 
-    getObjetoEm(x: number, y: number): Objeto | undefined {
-        return this.objetos.find(o => o.getX() === x && o.getY() === y);
-    }
+    getObjetos(): Objeto[] { return this.objetos; }
 
-    limparObjetos(): void {
-        this.objetos = [];
-    }
+    getObjetoEm(x: number, y: number): Objeto | undefined { return this.objetos.find(o => o.getX() === x && o.getY() === y); }
 
-    limparEntidades(): void {
-        this.entidades = [];
-    }
+    limparObjetos(): void { this.objetos = []; }
 
-    limparSalas(): void {
-        this.salas = [];
-    }
+    limparEntidades(): void { this.entidades = []; }
+
+    limparSalas(): void { this.salas = []; }
 
     renderizar(): void {
         const larguraVisivel = 20;
@@ -214,14 +247,13 @@ export class Mapa {
                 }
             } else {
                 cameraX = jogador.getX() - Math.floor(larguraVisivel / 2);
-                cameraY = jogador.getY() - Math.floor(alturaVisivel / 2);
+                cameraY = Math.floor(larguraVisivel / 2);
             }
         }
 
         console.log("\n=== MAPA ===");
 
         let cabecalho = "   ";
-
         for (let vx = 0; vx < larguraVisivel; vx++) {
             const absX = cameraX + vx;
             if (absX < 0 || absX >= this.largura) {
@@ -230,7 +262,6 @@ export class Mapa {
                 cabecalho += absX.toString().padStart(2, " ") + " ";
             }
         }
-
         console.log(cabecalho);
 
         for (let vy = 0; vy < alturaVisivel; vy++) {
@@ -253,39 +284,68 @@ export class Mapa {
 
                 const salaDoJogador = jogador ? this.getSalaDaEntidade(jogador) : null;
 
-                if (salaDoJogador) {
-                    if (!salaDoJogador.contem(absX, absY)) {
-                        linha += "   ";
-                        continue;
-                    }
-
-                    const naBordaX = absX === salaDoJogador.getXInicial() || absX === salaDoJogador.getXInicial() + salaDoJogador.getLargura();
-                    const naBordaY = absY === salaDoJogador.getYInicial() || absY === salaDoJogador.getYInicial() + salaDoJogador.getAltura();
-
-                    if (naBordaX || naBordaY) {
-                        linha += "#  ";
-                        continue;
-                    }
-                }
-                const entidade = this.entidades.find(e => e.getX() === absX && e.getY() === absY);
-                if (entidade) {
-                    linha += (entidade instanceof Jogador ? "J  " : "I  ");
+                // 1. Limite visual da Sala do Jogador
+                if (salaDoJogador && !salaDoJogador.contem(absX, absY)) {
+                    linha += "   ";
                     continue;
                 }
 
+                // 2. Personagens (Alta Prioridade)
+                const sniper = this.entidades.find(e => e.getX() === absX && e.getY() === absY);
+                if (sniper) {
+                    linha += (sniper instanceof Jogador ? "J  " : "I  ");
+                    continue;
+                }
+
+                // 3. Obstáculos/Objetos estáticos
                 const objeto = this.objetos.find(o => o.getX() === absX && o.getY() === absY);
                 if (objeto) {
                     linha += "O  ";
                     continue;
                 }
 
+                // 4. Portas e Passagens (Interrompem as paredes estruturais)
+                if (salaDoJogador) {
+                    const conexaoPorta = salaDoJogador.getConexoes().find(c => {
+                        if ('ehPassagem' in c || 'estado' in c) {
+                            const p = c as unknown as Porta;
+                            return p.x === absX && p.y === absY;
+                        }
+                        return typeof c.contem === 'function' && c.contem(absX, absY);
+                    });
+
+                    if (conexaoPorta) {
+                        if ('getSimbolo' in conexaoPorta) {
+                            const porta = conexaoPorta as unknown as Porta;
+                            if (porta.ehPassagem) {
+                                linha += ".  "; // Renderiza como espaço livre/chão comum
+                            } else {
+                                linha += porta.getSimbolo() + "  ";
+                            }
+                        } else {
+                            linha += "+  ";
+                        }
+                        continue;
+                    }
+
+                    // 5. Paredes Perimetrais
+                    const naBordaX = absX === salaDoJogador.getXInicial() || absX === salaDoJogador.getXInicial() + salaDoJogador.getLargura() - 1;
+                    const naBordaY = absY === salaDoJogador.getYInicial() || absY === salaDoJogador.getYInicial() + salaDoJogador.getAltura() - 1;
+
+                    if (naBordaX || naBordaY) {
+                        linha += "#  ";
+                        continue;
+                    }
+                }
+
+                // 6. Espaço vazio interno comum
                 linha += ".  ";
             }
             console.log(linha);
         }
 
         console.log("\nLegenda:");
-        console.log("J = Jogador | I = Inimigo | O = Obstáculo");
-        console.log(". = Espaço livre | # = Parede da Sala");
+        console.log("J = Jogador | I = Inimigo | O = Obstáculo | + = Porta Fechada | / = Porta Aberta | X = Porta Trancada");
+        console.log(". = Espaço livre / Passagem | # = Parede da Sala");
     }
 }

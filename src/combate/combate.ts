@@ -2,6 +2,7 @@ import { Mapa } from "../mapa/mapa.ts";
 import { Personagem } from "../personagens/personagem.ts";
 import { OrdemTurnos } from "./turno.ts";
 import { Rodada } from "./rodada.ts";
+import { Monstro } from "../personagens/inimigo/monstro.ts";
 
 export class Combate {
     constructor(
@@ -11,30 +12,28 @@ export class Combate {
 
     iniciar(): void {
         let ordem = OrdemTurnos.determinar(this.participantes);
-
+        
         console.log("\n=== INICIATIVA ===");
 
-        ordem.forEach((personagem, indice) => {
-            console.log(`${indice + 1}º ${personagem.getNome()}`);
-        }
-        );
+        ordem.forEach((personagem, indice) => {console.log(`${indice + 1}º ${personagem.getNome()}`);});
 
         let numeroRodada = 1;
 
         while (this.combateAtivo()) {
             console.log(`\n===== RODADA ${numeroRodada} =====`);
-
             const rodada = new Rodada(ordem, this.mapa);
-
             rodada.executar();
-
             this.removerDerrotados();
-
             ordem = ordem.filter(p => p.estaVivo());
-
             numeroRodada++;
         }
         console.log("\nCombate encerrado.");
+
+        for (const participante of this.participantes) {
+            if (participante instanceof Monstro) {
+                participante.sairDoAlerta();
+            }
+        }
     }
 
     private combateAtivo(): boolean {

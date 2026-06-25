@@ -8,7 +8,7 @@ import { Dado } from "../../../combate/dado.ts";
 
 export class MagiaToqueChocante extends Magia {
     constructor() {
-        super("Toque Chocante", "Arcos elétricos envolvem sua mão, causando 2d8+2 pontos de dano de eletricidade. Se o alvo usa armadura de metal (ou carrega muito metal, a critério do mestre), sofre uma penalidade de –5 no teste de resistência. ", 1, "", CirculoMagia.PRIMEIRO, TipoMagia.ARCANA, EscolaMagia.EVOCACAO, TipoAcao.PADRAO, TipoAlvo.INIMIGO, AlcanceMagia.TOQUE, DuracaoMagia.INSTANTANEA)
+        super("Toque Chocante", "Arcos elétricos envolvem sua mão, causando 4-18 pontos de dano de eletricidade. Se o alvo usa armadura de metal (ou carrega muito metal, a critério do mestre), sofre uma penalidade de –5 no teste de resistência. ", 1, "", CirculoMagia.PRIMEIRO, TipoMagia.ARCANA, EscolaMagia.EVOCACAO, TipoAcao.PADRAO, TipoAlvo.INIMIGO, AlcanceMagia.TOQUE, DuracaoMagia.INSTANTANEA)
     }
 
     usar(usuario: Personagem, alvo?: Personagem): void {

@@ -4,7 +4,6 @@ import { Caracteristica } from "../../poderes/caracteristica.ts";
 import { Habilidade } from '../../poderes/habilidades.ts';
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-import { TipoAtributo } from "../atributos/atributos.ts";
 import { FacilidadeUso } from "../../inventario/equipamento.ts";
 
 export class Guerreiro extends Classe {
@@ -28,6 +27,10 @@ export class Guerreiro extends Classe {
         return 2;
     }
 
+    getResumo(): string {
+        return `Combatente especializado em armas e armaduras.\n\nPV Inicial: 20\nPM Inicial: 3\n\nAtributo Principal:\n• Força ou Destreza\n\nPerícias:\n• Escolhe 2 perícias\n\nHabilidades Iniciais:\n• Ataque Especial\n\nEstilo:\n• Combate corpo a corpo\n• Alta resistência`;
+    }
+
     getBeneficios(): Beneficio[] {
         return [];
     }
@@ -35,7 +38,7 @@ export class Guerreiro extends Classe {
     getCaracteristicas(): Caracteristica[] {
         return [];
     }
-    
+
     getHabilidades(): Habilidade[] {
         return [];
     }

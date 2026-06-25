@@ -2,6 +2,22 @@ import { Atributos } from "../personagens/atributos/atributos.ts";
 import { Dado } from "../combate/dado.ts";
 
 export class GeradorAtributos {
+    static gerarAtributos(): Atributos {
+        let atributos;
+        console.log("\n=== Gerar Atributos ===");
+        console.log("1 - Gerar por Sorte\n2 - Gerar por pontos");
+
+        const opcao = prompt("Escolha o método:");
+
+        switch (opcao) {
+            case "2":
+                atributos = GeradorAtributos.gerarPorPontos();
+                break;
+            default:
+                atributos = GeradorAtributos.gerarPorRolagem();
+        };
+        return atributos;
+    };
 
     private static readonly custos =
         new Map<number, number>([

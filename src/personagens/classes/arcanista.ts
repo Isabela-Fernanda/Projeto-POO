@@ -27,6 +27,10 @@ export class Arcanista extends Classe {
         return 1;
     }
 
+    getResumo(): string {
+        return `Conjurador arcano especializado em magia.\n\nPV Inicial: 8\nPM Inicial: 6\n\nAtributo Principal:\n• Inteligência\n\nPerícias:\n• Escolhe 2 perícias\n\nHabilidades Iniciais:\n• Magias Arcanas\n\nEstilo:\n• Controle\n• Dano mágico\n• Utilidade`;
+    }
+
     getBeneficios(): Beneficio[] {
         return [];
     }
@@ -34,7 +38,7 @@ export class Arcanista extends Classe {
     getCaracteristicas(): Caracteristica[] {
         return [];
     }
-    
+
     getHabilidades(): Habilidade[] {
         return [];
     }

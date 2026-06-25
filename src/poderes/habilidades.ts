@@ -1,4 +1,5 @@
 import { FacilidadeUso } from "../inventario/equipamento.ts";
+import { Arma } from "../inventario/itens/arma.ts";
 import { Personagem } from "../personagens/personagem.ts";
 
 export enum TipoAcao {
@@ -19,6 +20,8 @@ export enum TipoAlvo {
 }
 
 export abstract class Habilidade {
+    protected ativo = false;
+
     constructor(
         protected nome: string,
         protected descricao: string,
@@ -50,6 +53,66 @@ export abstract class Habilidade {
 
     getTipoAlvo(): TipoAlvo {
         return this.tipoAlvo;
+    }
+
+    getBonusAtaque(): number {
+        return 0;
+    }
+
+    getBonusAtaqueArma(arma: Arma): number {
+        return 0;
+    }
+
+    getBonusAtaqueComArma(): number {
+        return 0;
+    }
+
+    getBonusDano(): number {
+        return 0;
+    }
+
+    getBonusDefesa(): number {
+        return 0;
+    }
+
+    getBonusFortitude(): number {
+        return 0;
+    }
+
+    getBonusIniciativa(): number {
+        return 0;
+    }
+
+    getBonusReflexos(): number {
+        return 0;
+    }
+
+    getBonusVontade(): number {
+        return 0;
+    }
+
+    getBonusPVPorNivel(): number {
+        return 0;
+    }
+
+    getBonusPMPorNivel(): number {
+        return 0;
+    }
+
+    getAcoesMovimentoExtrasPrimeiroTurno(): number {
+        return 0;
+    }
+
+    estaAtiva(): boolean {
+        return false;
+    }
+
+    alternar(): void {
+        this.ativo = !this.ativo;
+    }
+
+    podeAlternar(): boolean {
+        return false;
     }
 
     concedeProficiencia(facilidade: FacilidadeUso): boolean {

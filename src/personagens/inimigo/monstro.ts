@@ -3,13 +3,12 @@ import { Inimigo } from "./inimigo.ts";
 import { Mapa } from "../../mapa/mapa.ts";
 
 import { Time } from "../time.ts";
-import { Raca } from "../../racas/raca.ts";
+import { Raca } from "../racas/raca.ts";
 import { Classe } from "../classes/classe.ts";
 import { Atributos } from "../atributos/atributos.ts";
 import { Equipamento } from "../../inventario/equipamento.ts";
 import { Inventario } from "../../inventario/inventario.ts";
-import { Pericia } from "../../pericias/pericia.ts";
-import { GrauTreinamento } from "../../pericias/grauTreinamento.ts";
+import { Pericia, GrauTreinamento } from "../../pericias/pericia.ts";
 import { Habilidade } from "../../poderes/habilidades.ts";
 import { AtaquePossivel, ModoAtaque } from "../../combate/testes/testeAtaque.ts";
 import { Arma } from "../../inventario/itens/arma.ts";
@@ -34,9 +33,22 @@ export class Monstro extends Inimigo {
         xpConcedido: number,
 
         private tamanho: Tamanho,
+        private alerta: boolean = false,
         private comportamento: ComportamentoIA,
     ) {
         super(nome, nivel, time, raca, classe, atributos, inventario, equipamento, pericias, bonusPericias, habilidades, xpConcedido);
+    }
+
+    estaEmAlerta(): boolean {
+        return this.alerta;
+    }
+
+    entrarEmAlerta(): void {
+        this.alerta = true;
+    }
+
+    sairDoAlerta(): void {
+        this.alerta = false;
     }
 
     executarTurno(participantes: Personagem[], mapa: Mapa, estado: EstadoTurno): void {

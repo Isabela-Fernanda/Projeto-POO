@@ -14,10 +14,15 @@ import { Mapa } from "../mapa/mapa.ts";
 import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
 import { ModoAtaque } from "./testes/testeAtaque.ts";
 import { Monstro } from "../personagens/inimigo/monstro.ts";
+import { Time } from "../personagens/time.ts";
 
 export class Turno {
     static executar(personagem: Personagem, participantes: Personagem[], mapa: Mapa): void {
         const estado = new EstadoTurno();
+
+        if (personagem.possuiHabilidade("Reflexos de Combate")) {
+            estado.adicionarAcaoMovimentoExtra()
+        }
 
         console.log(`\n=== TURNO DE ${personagem.getNome()} ===`);
 
@@ -35,13 +40,32 @@ export class Turno {
         }
     }
 
+    private static obterNomeAcao(tipo: TipoAcao): string {
+        switch (tipo) {
+            case TipoAcao.LIVRE: return "Livre";
+            case TipoAcao.MOVIMENTO: return "Movimento";
+            case TipoAcao.PADRAO: return "Padrão";
+            case TipoAcao.COMPLETA: return "Completa";
+            case TipoAcao.REACAO: return "Reação";
+        }
+    }
+
     private static executarJogador(jogador: Jogador, participantes: Personagem[], mapa: Mapa, estado: EstadoTurno) {
         mapa.renderizar();
-        for (const entidade of mapa.getEntidades()) {
+
+        const salaAtual = jogador.getSalaAtual();
+
+        if (!salaAtual) { return; }
+
+        for (const entidade of mapa.getEntidadesDaSala(salaAtual)) {
             console.log(`${entidade.getNome()} (${entidade.getX()}, ${entidade.getY()})`);
         }
 
         while (true) {
+            if (this.combateEncerrado(participantes)) {
+                console.log("Todos os inimigos foram derrotados! Combate encerrado.")
+                return;
+            }
             console.log("\n1 - Mover")
             console.log("2 - Atacar");
             console.log("3 - Inventário");
@@ -163,7 +187,7 @@ export class Turno {
                     jogador.listarEfeitos();
                     break;
                 case "5":
-                    this.usarHabilidade(jogador, participantes, estado, mapa);
+                    this.abrirMenuHabilidades(jogador, participantes, estado, mapa);
                     break;
                 case "6":
                     return;
@@ -326,7 +350,7 @@ export class Turno {
         return false;
     }
 
-    private static usarHabilidade(jogador: Jogador, participantes: Personagem[], estado: EstadoTurno, mapa: Mapa): void {
+    private static abrirMenuHabilidades(jogador: Jogador, participantes: Personagem[], estado: EstadoTurno, mapa: Mapa): void {
         const habilidades = jogador.getHabilidades();
 
         if (habilidades.length === 0) {
@@ -334,28 +358,58 @@ export class Turno {
             return;
         }
 
-        console.log("\n=== HABILIDADES ===");
-        console.log("0 - Voltar");
-        habilidades.forEach((habilidade, indice) =>
-            console.log(`${indice + 1} - ${habilidade.getNome()} (${habilidade.getCustoMana()} PM)`)
-        );
+        while (true) {
+            console.log("\n=== HABILIDADES ===");
+            console.log("0 - Voltar");
+            console.log("D - Ver descrições\n");
 
-        const escolha = Number(prompt("Escolha:"));
+            habilidades.forEach((habilidade, indice) => {
+                const status = habilidade.estaAtiva() ? " [ATIVA]" : "";
 
-        if (escolha === 0) {
+                console.log(`${indice + 1} - ${habilidade.getNome()}${status} (${habilidade.getCustoMana()}PM)`);
+            });
+
+            const escolha = prompt("Escolha:");
+
+            if (escolha === "0") {
+                return;
+            }
+
+            if (escolha?.toUpperCase() === "D") {
+                this.exibirDescricoesHabilidades(habilidades);
+                continue;
+            }
+
+            const indice = Number(escolha) - 1;
+            const habilidade = habilidades[indice];
+
+            if (!habilidade) {
+                continue;
+            }
+
+            this.executarHabilidade(jogador, habilidade, participantes, estado, mapa);
+
             return;
         }
+    }
 
-        const habilidade = habilidades[escolha - 1];
+    private static exibirDescricoesHabilidades(habilidades: Habilidade[]): void {
+        console.log("\n=== DESCRIÇÕES ===");
 
-        if (!habilidade) {
-            return;
-        }
+        habilidades.forEach((habilidade, indice) => {
+            console.log(`\n${indice + 1} - ${habilidade.getNome()}`);
+            console.log(`Tipo: ${this.obterNomeAcao(habilidade.getTipoAcao())}`);
+            console.log(`Custo: ${habilidade.getCustoMana()} PM`);
+            console.log(habilidade.getDescricao());
+        });
 
+        prompt("\nEnter para voltar...");
+    }
+
+    private static executarHabilidade(jogador: Jogador, habilidade: Habilidade, participantes: Personagem[], estado: EstadoTurno, mapa: Mapa): void {
         let alvo: Personagem | undefined;
 
         if (habilidade.getPrecisaAlvo()) {
-
             alvo = this.escolherAlvo(jogador, participantes, mapa, habilidade);
 
             if (!alvo) {
@@ -371,17 +425,21 @@ export class Turno {
                     console.log("Você já usou sua ação padrão.");
                     return;
                 }
+
                 sucesso = habilidade.executar(jogador, alvo);
+
                 if (sucesso) {
                     estado.usarAcaoPadrao();
                 }
                 return;
             case TipoAcao.MOVIMENTO:
                 if (!estado.possuiAcaoMovimento()) {
-                    console.log("Você já usou sua ação movimento.");
+                    console.log("Você já usou sua ação de movimento.");
                     return;
                 }
+
                 sucesso = habilidade.executar(jogador, alvo);
+
                 if (sucesso) {
                     estado.usarAcaoMovimento();
                 }
@@ -396,6 +454,18 @@ export class Turno {
                 console.log("Ações completas ainda não implementadas.");
                 return;
         }
+    }
+
+    private static combateEncerrado(participantes: Personagem[]): boolean {
+        const jogadoresVivos = participantes.some(
+            p => p.getTime() === Time.HEROIS && p.estaVivo()
+        );
+
+        const inimigosVivos = participantes.some(
+            p => p.getTime() === Time.INIMIGOS && p.estaVivo()
+        );
+
+        return !jogadoresVivos || !inimigosVivos;
     }
 }
 

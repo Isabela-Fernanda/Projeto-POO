@@ -36,11 +36,31 @@ export enum PropriedadeArma {
     MONTADA
 }
 
+export enum GrupoArma {
+    ADAGA,
+    ARCO,
+    BESTA,
+    CLAVA,
+    ESPADA,
+    FERRAMENTA_AGRICOLA,
+    LANCA,
+    MACA,
+    MACHADO,
+    MARRETA,
+    MARTELO,
+    PICARETA,
+
+
+    NENHUM,
+}
+
 export class Arma extends Item {
     constructor(
         nome: string,
         preco: number,
         peso: number,
+
+        private grupo: GrupoArma,
         descricao: string = "",
 
         private quantidadeDados: number,
@@ -68,6 +88,10 @@ export class Arma extends Item {
         super(nome, preco, peso, descricao, modificacoes);
     }
 
+    getGrupo(): GrupoArma {
+        return this.grupo;
+    }
+
     getQuantidadeDados(): number {
         return this.quantidadeDados;
     }
@@ -90,7 +114,7 @@ export class Arma extends Item {
 
     getAlcance(): number {
         let alcance = this.alcance;
-        if(this.ehAlongada()){
+        if (this.ehAlongada()) {
             alcance += 1;
         }
         return alcance;
@@ -114,6 +138,15 @@ export class Arma extends Item {
 
     ehDesbalanceada(): boolean {
         return this.propriedades.includes(PropriedadeArma.DESBALANCEADA);
+    }
+
+    ehTradicionalAna(): boolean {
+        return [
+            GrupoArma.MACHADO,
+            GrupoArma.MARTELO,
+            GrupoArma.MARRETA,
+            GrupoArma.PICARETA
+        ].includes(this.grupo);
     }
 
     podeArremessar(): boolean {
