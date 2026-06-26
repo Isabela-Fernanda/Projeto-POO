@@ -561,7 +561,8 @@ export abstract class Personagem {
             }
 
             this.equipamento.equiparDuasMaos(arma);
-            this.inventario.remover(arma);
+            this.inventario.equiparArmaPrincipal(arma);
+            this.inventario.equiparArmaSecundaria(arma);
             return true;
         }
 
@@ -575,7 +576,7 @@ export abstract class Personagem {
                     this.inventario.adicionar(armaPrincipal);
                 }
                 this.equipamento.equiparMaoDireita(arma);
-                this.inventario.remover(arma);
+                this.inventario.equiparArmaPrincipal(arma);
                 return true;
             }
 
@@ -584,7 +585,7 @@ export abstract class Personagem {
                     this.inventario.adicionar(armaSecundaria);
                 }
                 this.equipamento.equiparMaoEsquerda(arma);
-                this.inventario.remover(arma);
+                this.inventario.equiparArmaSecundaria(arma);
                 return true;
             }
         }
@@ -596,7 +597,7 @@ export abstract class Personagem {
 
     equiparProtecao(armadura: Armadura): boolean {
         this.equipamento.equiparProtecao(armadura);
-        this.inventario.remover(armadura);
+        this.inventario.equiparArmadura(armadura);
         return true;
     }
 

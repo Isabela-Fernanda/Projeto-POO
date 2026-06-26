@@ -9,6 +9,8 @@ export class MenuInventario {
 
             const inventario = personagem.getInventario();
 
+            inventario.listarEquipamento();
+
             inventario.listarItens();
 
             console.log("0 - Voltar");
