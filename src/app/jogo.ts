@@ -7,6 +7,7 @@ import { GerenciadorTutorial } from "../mapa/salas/gerenciadorTutorial.ts";
 import { ResultadoInteracao } from "../mapa/catalogoObjetos.ts";
 
 import { SistemaEncontros } from "../combate/sistemaEncontros.ts";
+import { MenuInventario } from "../inventario/menuInventario.ts";
 
 export class Jogo {
     private tutorial!: GerenciadorTutorial;
@@ -93,12 +94,7 @@ export class Jogo {
                     }
                     break;
                 case "I":
-                    console.clear();
-                    console.log("=== INVENTÁRIO ===");
-                    for (const item of jogador.getInventario().getItens()) {
-                        console.log(item.getNome());
-                    }
-                    prompt("\nPressione Enter para voltar ao mapa...");
+                    MenuInventario.abrir(jogador);
                     break;
                 case "Q":
                     jogando = false;

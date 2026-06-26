@@ -1,3 +1,4 @@
+import { Personagem } from "../../personagens/personagem.ts";
 import { Efeito } from "../../poderes/efeito.ts";
 
 export enum Modificacoes {
@@ -38,7 +39,12 @@ export enum Modificacoes {
     MITRAL
 }
 
-export class Item {
+export interface AcaoItem {
+    nome: string;
+    executar(personagem: Personagem): boolean;
+}
+
+export abstract class Item {
     private efeitos: Efeito[] = [];
 
     constructor(
@@ -61,6 +67,34 @@ export class Item {
         return this.descricao;
     }
 
+    examinar(): void {
+        console.log(this.descricao)
+    }
+
+    protected acaoExaminar(): AcaoItem {
+        return {
+            nome: "Examinar",
+            executar: () => {
+                this.examinar();
+                return false;
+            }
+        };
+    }
+
+    protected acaoSoltar(personagem: Personagem): AcaoItem {
+        return {
+            nome: "Soltar",
+            executar: () => {
+                personagem.getInventario().remover(this);
+                return true;
+            }
+        };
+    }
+    
+    abstract getAcoes(personagem: Personagem): AcaoItem[];
+
+    podeEmpilhar(): boolean { return true; }
+
     getMultiplicadores(): Modificacoes[] {
         return this.modificacoes;
     }
@@ -71,7 +105,7 @@ export class Item {
         this.efeitos = this.efeitos.filter(e => {
             const possuiTagAnulada = e.getTags().some(tag => taganuladas.includes(tag));
 
-            if(possuiTagAnulada) {
+            if (possuiTagAnulada) {
                 console.log(`${efeito.getNome()} anulou ${e.getNome()}`);
             }
             return !possuiTagAnulada;

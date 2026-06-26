@@ -1,56 +1,61 @@
 import { Item } from "./itens/item.ts";
 import { Personagem } from "../personagens/personagem.ts";
+import { ItemInventario } from "./itemInventario.ts";
 
 export class Inventario {
-    private itens: Item[] = [];
+    private itens: ItemInventario[] = [];
 
-    adicionar(item: Item): void {
-        this.itens.push(item);
+    estaVazio(): boolean {
+        return this.itens.length === 0;
     }
 
-    removerItem(item: Item): void {
-        const index = this.itens.indexOf(item);
-        if (index >= 0) {
-            this.itens.splice(index, 1);
+    adicionar(item: Item): void {
+        if (item.podeEmpilhar()) {
+            const pilha = this.encontrarPilha(item);
+
+            if (pilha) {
+                pilha.quantidade++;
+                return;
+            }
+        }
+        this.itens.push(new ItemInventario(item));
+    }
+
+    remover(item: Item): void {
+        const pilha = this.encontrarPilha(item);
+
+        if (!pilha) return;
+
+        pilha.quantidade--;
+
+        if (pilha.quantidade <= 0) {
+            this.itens = this.itens.filter(i => i !== pilha);
         }
     }
 
-    getItens(): Item[] {
+    getItens(): ItemInventario[] {
         return this.itens;
+    }
+
+    getItem(indice: number): ItemInventario | undefined {
+        return this.itens[indice];
     }
 
     listarItens(): void {
         console.log("\n=== INVENTÁRIO ===");
-        if (this.itens.length === 0) {
+        if (this.estaVazio()) {
             console.log("Vazio.");
             return;
         }
-        this.itens.forEach((item, indice) => {
-            console.log(`${indice + 1} - ${item.getNome()}`);
+
+        this.itens.forEach((i, indice) => {
+            i.exibir(indice + 1);
         });
     }
 
-    static escolherObjetoInventario(jogador: Personagem): Item {
-        while (true) {
-            const itens = jogador.getInventario().getItens();
-
-            if (itens.length === 0) {
-                throw new Error("O inventário está vazio.");
-            }
-
-            console.log("\n=== INVENTÁRIO ===");
-
-            itens.forEach((item, indice) =>
-                console.log(`${indice + 1} - ${item.getNome()}`));
-
-            const escolha = Number(prompt("Escolha um item:"));
-
-            const item = itens[escolha - 1];
-            if (item) {
-                return item;
-            }
-
-            console.log("Escolha invalida! Tente novamente.");
-        }
+    private encontrarPilha(item: Item): ItemInventario | undefined {
+        return this.itens.find(i =>
+            i.item.constructor === item.constructor && i.item.getNome() === item.getNome()
+        );
     }
 }

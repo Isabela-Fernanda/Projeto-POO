@@ -13,7 +13,7 @@ import { Sala } from "../mapa/sala.ts";
 // Sistema de Inventário e Itens
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento, FacilidadeUso } from "../inventario/equipamento.ts";
-import { Arma } from "../inventario/itens/arma.ts";
+import { Arma, Categoria } from "../inventario/itens/arma.ts";
 import { Armadura } from "../inventario/itens/armadura.ts";
 import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
 
@@ -358,7 +358,7 @@ export abstract class Personagem {
             console.log(`${this.nome} lançou ${arma.getNome()}, e agora está desarmado.`);
         } else if (modoAtaque === ModoAtaque.CORPO_A_CORPO) {
             console.log(`${this.nome} atacou com ${arma.getNome()}.`)
-        } else if(modoAtaque === ModoAtaque.DISTANCIA) {
+        } else if (modoAtaque === ModoAtaque.DISTANCIA) {
             console.log(`${this.nome} disparou contra ${alvo.getNome()} com ${arma.getNome()}.`)
         }
 
@@ -547,28 +547,57 @@ export abstract class Personagem {
         return penalidade;
     }
 
+    equiparArma(arma: Arma): boolean {
+        const armaPrincipal = this.equipamento.getArmaPrincipal();
+        const armaSecundaria = this.equipamento.getArmaSecundaria();
+
+        if (arma.getCategoria() === Categoria.DUAS_MAOS) {
+            if (armaPrincipal !== CatalogoArmas.DESARMADO) {
+                this.inventario.adicionar(armaPrincipal);
+            }
+
+            if (armaSecundaria !== CatalogoArmas.DESARMADO) {
+                this.inventario.adicionar(armaSecundaria);
+            }
+
+            this.equipamento.equiparDuasMaos(arma);
+            this.inventario.remover(arma);
+            return true;
+        }
+
+        while (true) {
+            console.log("1 - Mão direita");
+            console.log("2 - Mão esquerda");
+            const escolha = prompt("Escolha:");
+
+            if (escolha == "1") {
+                if (armaPrincipal !== CatalogoArmas.DESARMADO) {
+                    this.inventario.adicionar(armaPrincipal);
+                }
+                this.equipamento.equiparMaoDireita(arma);
+                this.inventario.remover(arma);
+                return true;
+            }
+
+            if (escolha == "2") {
+                if (armaSecundaria !== CatalogoArmas.DESARMADO) {
+                    this.inventario.adicionar(armaSecundaria);
+                }
+                this.equipamento.equiparMaoEsquerda(arma);
+                this.inventario.remover(arma);
+                return true;
+            }
+        }
+    }
+
     equiparArmaNatural(arma: Arma): void {
         this.equipamento.equiparArmaNatura(arma);
     }
 
-    equiparMaoDireita(arma: Arma): void {
-        this.equipamento.equiparMaoDireita(arma);
-        this.inventario.removerItem(arma);
-    }
-
-    equiparMaoEsquerda(arma: Arma): void {
-        this.equipamento.equiparMaoEsquerda(arma);
-        this.inventario.removerItem(arma);
-    }
-
-    equiparDuasMãos(arma: Arma): void {
-        this.equipamento.equiparDuasMaos(arma);
-        this.inventario.removerItem(arma);
-    }
-
-    equiparProtecao(armadura: Armadura): void {
+    equiparProtecao(armadura: Armadura): boolean {
         this.equipamento.equiparProtecao(armadura);
-        this.inventario.removerItem(armadura);
+        this.inventario.remover(armadura);
+        return true;
     }
 
     removerArma(arma: Arma): void {

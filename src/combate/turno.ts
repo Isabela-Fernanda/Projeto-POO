@@ -3,10 +3,6 @@ import { Jogador } from "../personagens/jogador.ts";
 import { EstadoTurno } from "./estadoTurno.ts";
 import { RodadaIniciativa } from "./rodadaIniciativas.ts";
 
-import { Item } from "../inventario/itens/item.ts";
-import { Arma, Categoria } from "../inventario/itens/arma.ts";
-import { Armadura } from "../inventario/itens/armadura.ts";
-
 import { Habilidade, TipoAlvo } from "../poderes/habilidades.ts";
 
 import { TipoAcao } from "../poderes/habilidades.ts";
@@ -15,6 +11,8 @@ import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
 import { ModoAtaque } from "./testes/testeAtaque.ts";
 import { Monstro } from "../personagens/inimigo/monstro.ts";
 import { Time } from "../personagens/time.ts";
+
+import { MenuInventario } from "../inventario/menuInventario.ts";
 
 export class Turno {
     static executar(personagem: Personagem, participantes: Personagem[], mapa: Mapa): void {
@@ -171,7 +169,9 @@ export class Turno {
                         console.log("Você já usou sua ação de movimento.");
                         break;
                     }
-                    this.abrirInventario(jogador, estado);
+                    if (MenuInventario.abrir(jogador)) {
+                        estado.usarAcaoMovimento();
+                    }
                     break;
                 case "4":
                     const sala = mapa.getSalaDaEntidade(jogador);
@@ -239,112 +239,6 @@ export class Turno {
         const escolha = Number(prompt("Escolha:"));
 
         return alvos[escolha - 1];
-    }
-
-    private static abrirInventario(jogador: Jogador, estado: EstadoTurno): void {
-        const itens = jogador.getInventario().getItens();
-
-        if (itens.length === 0) {
-            console.log("Inventário vazio.");
-            return;
-        }
-
-        console.log("\n=== INVENTÁRIO ===");
-
-        console.log("0 - Voltar");
-
-        itens.forEach((item, indice) =>
-            console.log(`${indice + 1} - ${item.getNome()}`));
-
-        const escolha = Number(prompt("Escolha um item:"));
-
-        if (escolha === 0) {
-            return
-        }
-
-        const item = itens[escolha - 1];
-        if (!item) {
-            return;
-        }
-
-        const sucesso = this.usarItem(jogador, item);
-        if (sucesso) {
-            estado.usarAcaoMovimento();
-        }
-    }
-
-    private static usarItem(jogador: Jogador, item: Item): boolean {
-        if (item instanceof Arma) {
-            if (item.getCategoria() === Categoria.DUAS_MAOS) {
-                const atualDireita = jogador.getEquipamento().getArmaPrincipal();
-                const atualEsquerda = jogador.getEquipamento().getArmaSecundaria();
-                if (atualDireita !== CatalogoArmas.DESARMADO && atualEsquerda !== CatalogoArmas.DESARMADO) {
-                    const confirmar = prompt(`Substituir ${atualDireita.getNome()} e ${atualEsquerda.getNome()} por ${item.getNome()}? (s/n)`);
-
-                    if (confirmar?.toLowerCase() !== "s") {
-                        return false;
-                    }
-                } else if (atualDireita !== CatalogoArmas.DESARMADO && atualEsquerda === CatalogoArmas.DESARMADO) {
-                    const confirmar = prompt(`Substituir ${atualDireita.getNome()} por ${item.getNome()}? (s/n)`);
-
-                    if (confirmar?.toLowerCase() !== "s") {
-                        return false;
-                    }
-                } else if (atualEsquerda !== CatalogoArmas.DESARMADO && atualDireita === CatalogoArmas.DESARMADO) {
-                    const confirmar = prompt(`Substituir ${atualEsquerda.getNome()} por ${item.getNome()}? (s/n)`);
-
-                    if (confirmar?.toLowerCase() !== "s") {
-                        return false;
-                    }
-                }
-                jogador.equiparDuasMãos(item);
-            } else {
-                while (true) {
-                    console.log("1 - Equipar Mão Direita.");
-                    console.log("2 - Equipar Mão Esquerda.");
-                    let escolha = prompt("Escolha:");
-
-                    if (escolha === "1") {
-                        const atual = jogador.getEquipamento().getArmaPrincipal();
-                        if (atual !== CatalogoArmas.DESARMADO) {
-                            const confirmar = prompt(`Substituir ${atual.getNome()} por ${item.getNome()}? (s/n)`);
-                            if (confirmar?.toLowerCase() !== "s") {
-                                return false;
-                            }
-                        }
-                        jogador.equiparMaoDireita(item);
-                        break;
-                    }
-                    if (escolha === "2") {
-                        const atual = jogador.getEquipamento().getArmaSecundaria();
-                        if (atual !== CatalogoArmas.DESARMADO) {
-                            const confirmar = prompt(`Substituir ${atual.getNome()} por ${item.getNome()}? (s/n)`);
-                            if (confirmar?.toLowerCase() !== "s") {
-                                return false;
-                            }
-                        }
-                        jogador.equiparMaoEsquerda(item);
-                        break;
-                    }
-
-                    console.log("Escolha invalida. Escolha novamente.");
-                }
-            }
-
-            console.log(`${item.getNome()} equipada.`);
-
-            return true;
-        }
-
-        if (item instanceof Armadura) {
-            jogador.equiparProtecao(item);
-
-            console.log(`${item.getNome()} equipada.`);
-
-            return true;
-        }
-
-        return false;
     }
 
     private static abrirMenuHabilidades(jogador: Jogador, participantes: Personagem[], estado: EstadoTurno, mapa: Mapa): void {

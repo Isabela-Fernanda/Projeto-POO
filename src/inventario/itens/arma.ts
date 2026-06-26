@@ -1,6 +1,7 @@
-import { Item, Modificacoes } from "./item.ts"
+import { AcaoItem, Item, Modificacoes } from "./item.ts"
 import { TipoDano } from "../../combate/tipoDano.ts";
 import { FacilidadeUso } from "../equipamento.ts";
+import { Personagem } from "../../personagens/personagem.ts";
 
 export enum TipoAtaque {
     CORPO_A_CORPO,
@@ -86,6 +87,21 @@ export class Arma extends Item {
         private bonusDano: number = 0,
     ) {
         super(nome, preco, peso, descricao, modificacoes);
+    }
+
+    override podeEmpilhar(): boolean {
+        return false;
+    }
+
+    getAcoes(personagem: Personagem): AcaoItem[] {
+        return [
+            {
+                nome: "Equipar",
+                executar: () => personagem.equiparArma(this)
+            },
+            this.acaoExaminar(),
+            this.acaoSoltar(personagem)
+        ];
     }
 
     getGrupo(): GrupoArma {

@@ -1,5 +1,6 @@
+import { Personagem } from "../../personagens/personagem.ts";
 import { FacilidadeUso } from "../equipamento.ts";
-import { Item, Modificacoes } from "./item.ts"
+import { AcaoItem, Item, Modificacoes } from "./item.ts"
 
 export enum CategoriaArmadura {
     LEVE,
@@ -23,8 +24,23 @@ export class Armadura extends Item {
         private tipo: TipoProtecao,
         private penalidade: number,
         modificacoes: Modificacoes[] = [],
-    ){
+    ) {
         super(nome, preco, peso, descricao, modificacoes);
+    }
+
+    override podeEmpilhar(): boolean {
+        return false;
+    }
+
+    getAcoes(personagem: Personagem): AcaoItem[] {
+        return [
+            {
+                nome: "Equipar",
+                executar: () => personagem.equiparProtecao(this)
+            },
+            this.acaoExaminar(),
+            this.acaoSoltar(personagem)
+        ];
     }
 
     getBonusDefesa(): number {

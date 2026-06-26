@@ -51,13 +51,13 @@ export class FabricaMonstros {
         }
 
         if (dados.armaPrincipal) {
-            monstro.equiparMaoDireita(
+            monstro.getEquipamento().equiparMaoDireita(
                 dados.armaPrincipal
             );
         }
 
         if (dados.armaSecundaria) {
-            monstro.equiparMaoEsquerda(
+            monstro.getEquipamento().equiparMaoEsquerda(
                 dados.armaSecundaria
             );
         }
