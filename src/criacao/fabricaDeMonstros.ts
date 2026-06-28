@@ -8,9 +8,10 @@ import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
 
 import { GrauTreinamento } from "../pericias/pericia.ts";
+import { Loot } from "../personagens/inimigo/loot.ts";
 
 export class FabricaMonstros {
-    static criar(dados: DadosMonstro): Monstro {
+    static criar(dados: DadosMonstro, loot: Loot[] = []): Monstro {
         const monstro = new Monstro(
             dados.nome,
             dados.nivel,
@@ -24,6 +25,7 @@ export class FabricaMonstros {
             new Map(),
             dados.habilidades ?? [],
             dados.xp,
+            loot,
             dados.tamanho,
             false,
             dados.comportamento,

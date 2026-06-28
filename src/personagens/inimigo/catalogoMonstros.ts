@@ -1,14 +1,19 @@
-import { CatalogoArmas } from "../../inventario/itens/catalogoArmas.ts";
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
 import { Atributos } from "../atributos/atributos.ts";
 
 import { Pericia } from "../../pericias/pericia.ts";
-import { Arma } from "../../inventario/itens/arma.ts";
-import { Armadura } from "../../inventario/itens/armadura.ts";
+import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
+
 import { Habilidade } from "../../poderes/habilidades.ts";
 
+import { Arma } from "../../itens/arma.ts";
+import { CatalogoArmas } from "../../itens/catalogoArmas.ts";
+
+import { Armadura } from "../../itens/armadura.ts";
+import { CatalogoArmaduras } from "../../itens/catalogoArmadura.ts";
+
 import { ComportamentoIA, IAAgressiva, IAArqueira, IAConjuradora } from "../../combate/IA.ts";
-import { CatalogoArmaduras } from "../../inventario/itens/catalogoArmadura.ts";
+
+import { Loot } from "./loot.ts";
 
 export enum Tamanho {
     PEQUENO,
@@ -19,10 +24,10 @@ export enum Tamanho {
 export interface DadosMonstro {
     nome: string;
     nivel: number;
-    nd: number,
+    nd: number;
     xp: number;
     vida: number;
-    tamanho: Tamanho,
+    tamanho: Tamanho;
     deslocamento: number;
     atributos: Atributos;
     pericias: {

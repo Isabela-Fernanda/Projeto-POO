@@ -1,7 +1,8 @@
 import { Objeto } from "./objeto.ts";
-import { Item } from "../inventario/itens/item.ts";
+import { Item } from "../itens/item.ts";
 import { Jogador } from "../personagens/jogador.ts";
 import { Mapa } from "./mapa.ts";
+import { Inventario } from "../inventario/inventario.ts";
 
 export class Mesa extends Objeto {
     private itens: Item[];
@@ -89,7 +90,8 @@ export class Estante extends Objeto {
 
 export enum ResultadoInteracao {
     NENHUM,
-    ENTRAR_MASMORRA
+    ENTRAR_MASMORRA,
+    FIM_DE_JOGO,
 }
 
 export class Portal extends Objeto {
@@ -99,6 +101,7 @@ export class Portal extends Objeto {
         nome: string,
         x: number,
         y: number,
+        private resultado: ResultadoInteracao,
         ativo: boolean = true,
     ) {
         super(nome, x, y, false, false);
@@ -123,7 +126,42 @@ export class Portal extends Objeto {
             return ResultadoInteracao.NENHUM;
         }
 
-        return ResultadoInteracao.ENTRAR_MASMORRA;
+        return this.resultado;
+    }
+}
+
+export class Espolio extends Objeto {
+    constructor(
+        x: number,
+        y: number,
+        private inventario: Inventario
+    ) {
+        super("Espólio", x, y, false, false);
+    }
+
+    getInventario(): Inventario {
+        return this.inventario;
+    }
+
+    possuiItens(): boolean {
+        return !this.inventario.estaVazio();
+    }
+
+    interagir(jogador: Jogador): ResultadoInteracao {
+        if(!this.possuiItens()) {
+            console.log("Isso não deveria aparecer.")
+            return ResultadoInteracao.NENHUM;
+        }
+        
+        for (const item of this.inventario.getItens()) {
+            jogador.getInventario().adicionar(item.item);
+        }
+
+        this.inventario.limpar();
+
+        console.log("Você recolheu o espólio.");
+
+        return ResultadoInteracao.NENHUM;
     }
 }
 

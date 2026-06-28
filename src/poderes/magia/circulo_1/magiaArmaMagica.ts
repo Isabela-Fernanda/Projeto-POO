@@ -2,7 +2,7 @@ import { Personagem } from "../../../personagens/personagem.ts";
 import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
 import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, Magia, TipoMagia } from "../magia.ts";
 
-import { CatalogoArmas } from "../../../inventario/itens/catalogoArmas.ts";
+import { CatalogoArmas } from "../../../itens/catalogoArmas.ts";
 import { EfeitoArmaMagica } from "../../efeitos/efeitoArmaMagica.ts";
 
 export class MagiaArmaMagica extends Magia {

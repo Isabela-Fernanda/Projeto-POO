@@ -1,6 +1,6 @@
 import { Personagem } from "../../personagens/personagem.ts";
 import { Habilidade, TipoAcao, TipoAlvo } from "../habilidades.ts";
-import { Arma } from "../../inventario/itens/arma.ts";
+import { Arma } from "../../itens/arma.ts";
 
 // ======================================================================
 // Primeiro

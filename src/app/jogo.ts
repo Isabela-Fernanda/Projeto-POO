@@ -4,10 +4,11 @@ import { Jogador } from "../personagens/jogador.ts";
 import { CriacaoPersonagem } from "../criacao/criarPersonagem.ts";
 import { Combate } from "../combate/combate.ts";
 import { GerenciadorTutorial } from "../mapa/salas/gerenciadorTutorial.ts";
-import { ResultadoInteracao } from "../mapa/catalogoObjetos.ts";
+import { Espolio, ResultadoInteracao } from "../mapa/catalogoObjetos.ts";
 
 import { SistemaEncontros } from "../combate/sistemaEncontros.ts";
 import { MenuInventario } from "../inventario/menuInventario.ts";
+import { Objeto } from "../mapa/objeto.ts";
 
 export class Jogo {
     private tutorial!: GerenciadorTutorial;
@@ -65,32 +66,38 @@ export class Jogo {
                         return distancia <= 1.5;
                     });
 
+                    let objeto: Objeto | undefined;
+
                     if (objetosAdjacentes.length === 0) {
                         console.log("Não há objetos por perto.");
-                    } else if (objetosAdjacentes.length === 1) {
-                        const resultado = objetosAdjacentes[0].interagir(jogador);
+                        prompt("\nPressione Enter para continuar...");
+                        break;
+                    }
+
+                    if (objetosAdjacentes.length === 1) {
+                        objeto = objetosAdjacentes[0];
+                    } else {
+                        objetosAdjacentes.forEach((obj, i) =>
+                            console.log(`${i + 1} - ${obj.getNome()}`)
+                        );
+
+                        const escolha = Number(prompt("Escolha um objeto:"));
+                        objeto = objetosAdjacentes[escolha - 1];
+                    }
+
+                    if (objeto) {
+                        const resultado = objeto.interagir(jogador);
+
                         switch (resultado) {
                             case ResultadoInteracao.ENTRAR_MASMORRA:
                                 this.tutorial.processarInteracao(resultado);
                                 break;
                         }
-                        prompt("\nPressione Enter para continuar...");
-                    } else {
-                        objetosAdjacentes.forEach((objeto, indice) =>
-                            console.log(`${indice + 1} - ${objeto.getNome()}`));
 
-                        const escolha = Number(prompt("Escolha um objeto:"));
-
-                        const objeto = objetosAdjacentes[escolha - 1];
-                        if (objeto) {
-                            const resultado = objeto.interagir(jogador);
-                            switch (resultado) {
-                                case ResultadoInteracao.ENTRAR_MASMORRA:
-                                    this.tutorial.processarInteracao(resultado);
-                                    break;
-                            }
-                            prompt("\nPressione Enter para continuar...");
+                        if (objeto instanceof Espolio && !objeto.possuiItens()) {
+                            mapa.removerObjeto(objeto);
                         }
+                        prompt("\nPressione Enter para continuar...");
                     }
                     break;
                 case "I":
@@ -115,7 +122,7 @@ export class Jogo {
                     console.log("Game Over");
                     return;
                 }
-                
+
             }
         }
     }

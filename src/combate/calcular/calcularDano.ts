@@ -1,7 +1,7 @@
 import { Dado } from "../dado.ts";
 import { Personagem } from "../../personagens/personagem.ts";
 import { TipoAtributo } from "../../personagens/atributos/atributos.ts";
-import { Arma } from "../../inventario/itens/arma.ts";
+import { Arma } from "../../itens/arma.ts";
 import { ModoAtaque } from "../testes/testeAtaque.ts";
 
 export class CalcularDano {

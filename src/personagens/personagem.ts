@@ -13,9 +13,9 @@ import { Sala } from "../mapa/sala.ts";
 // Sistema de Inventário e Itens
 import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento, FacilidadeUso } from "../inventario/equipamento.ts";
-import { Arma, Categoria } from "../inventario/itens/arma.ts";
-import { Armadura } from "../inventario/itens/armadura.ts";
-import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
+import { Arma, Categoria } from "../itens/arma.ts";
+import { Armadura } from "../itens/armadura.ts";
+import { CatalogoArmas } from "../itens/catalogoArmas.ts";
 
 // Sistema de Perícias
 import { Pericia, GrauTreinamento } from "../pericias/pericia.ts";

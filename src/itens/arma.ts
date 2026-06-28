@@ -1,7 +1,8 @@
 import { AcaoItem, Item, Modificacoes } from "./item.ts"
-import { TipoDano } from "../../combate/tipoDano.ts";
-import { FacilidadeUso } from "../equipamento.ts";
-import { Personagem } from "../../personagens/personagem.ts";
+import { TipoDano } from "../combate/tipoDano.ts";
+import { FacilidadeUso } from "../inventario/equipamento.ts";
+import { Personagem } from "../personagens/personagem.ts";
+import { Municao } from "./municao.ts";
 
 export enum TipoAtaque {
     CORPO_A_CORPO,
@@ -14,12 +15,6 @@ export enum Categoria {
     UMA_MAO,
     DUAS_MAOS,
     DISPARO
-}
-
-export enum Municao {
-    FLECHA,
-    VIROTE,
-    BALA
 }
 
 export enum PropriedadeArma {
@@ -40,8 +35,10 @@ export enum PropriedadeArma {
 export enum GrupoArma {
     ADAGA,
     ARCO,
+    ATIRAR,
     BESTA,
     CLAVA,
+    DE_FOGO,
     ESPADA,
     FERRAMENTA_AGRICOLA,
     LANCA,

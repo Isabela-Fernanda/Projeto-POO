@@ -13,7 +13,7 @@ import { Habilidade } from "../poderes/habilidades.ts";
 
 import { AtaquePossivel, ModoAtaque } from "../combate/testes/testeAtaque.ts";
 import { Mapa } from "../mapa/mapa.ts";
-import { Arma } from "../inventario/itens/arma.ts";
+import { Arma } from "../itens/arma.ts";
 
 export class Jogador extends Personagem {
     protected experiencia: number = 0;

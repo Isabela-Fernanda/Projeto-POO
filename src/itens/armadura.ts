@@ -1,5 +1,5 @@
-import { Personagem } from "../../personagens/personagem.ts";
-import { FacilidadeUso } from "../equipamento.ts";
+import { Personagem } from "../personagens/personagem.ts";
+import { FacilidadeUso } from "../inventario/equipamento.ts";
 import { AcaoItem, Item, Modificacoes } from "./item.ts"
 
 export enum CategoriaArmadura {

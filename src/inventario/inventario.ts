@@ -1,9 +1,10 @@
-import { Item } from "./itens/item.ts";
+import { Item } from "../itens/item.ts";
 import { Personagem } from "../personagens/personagem.ts";
 import { ItemInventario } from "./itemInventario.ts";
-import { Arma } from "./itens/arma.ts";
-import { Armadura } from "./itens/armadura.ts";
-import { CatalogoArmas } from "./itens/catalogoArmas.ts";
+import { Arma } from "../itens/arma.ts";
+import { Armadura } from "../itens/armadura.ts";
+import { CatalogoArmas } from "../itens/catalogoArmas.ts";
+import { Chave } from "../itens/chave.ts";
 
 export class Inventario {
     private itens: ItemInventario[] = [];
@@ -38,6 +39,10 @@ export class Inventario {
         if (pilha.quantidade <= 0) {
             this.itens = this.itens.filter(i => i !== pilha);
         }
+    }
+
+    limpar(): void {
+        this.itens = [];
     }
 
     equiparArmaPrincipal(arma: Arma) {
@@ -76,6 +81,16 @@ export class Inventario {
 
     getItem(indice: number): ItemInventario | undefined {
         return this.itens[indice];
+    }
+
+    possuiChave(id: string): Chave | undefined {
+        for (const item of this.itens) {
+            if (item.item instanceof Chave && item.item.getId() === id) {
+                return item.item;
+            }
+        }
+
+        return undefined;
     }
 
     listarEquipamento(): void {

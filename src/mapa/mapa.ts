@@ -2,13 +2,20 @@ import { Jogador } from "../personagens/jogador.ts";
 import { Personagem } from "../personagens/personagem.ts";
 import { EfeitoArea } from "../poderes/efeitoArea.ts";
 import { Objeto } from "./objeto.ts";
-import { Sala, Porta, EstadoPorta } from "./sala.ts";
+import { Sala } from "./sala.ts";
+import { Conexao } from "./conexao.ts";
+import { Espolio } from "./catalogoObjetos.ts";
+import { Inventario } from "../inventario/inventario.ts";
+import { Item } from "../itens/item.ts";
+
+import { TileMapa } from "./tileMapa.ts";
 
 export class Mapa {
     private entidades: Personagem[] = [];
     private efeitosArea: EfeitoArea[] = [];
     private objetos: Objeto[] = [];
     private salas: Sala[] = [];
+    private conexoes: Conexao[] = [];
 
     private largura = 100;
     private altura = 100;
@@ -35,6 +42,10 @@ export class Mapa {
         if (this.estaOcupada(x, y)) return false;
 
         entidade.setPosicao(x, y);
+
+        const sala = this.encontrarSala(x, y);
+        if(sala) entidade.setSalaAtual(sala);
+
         this.adicionarEntidade(entidade);
 
         return true;
@@ -44,7 +55,7 @@ export class Mapa {
         return this.entidades;
     }
 
-    getEntidadesDaSala(sala: Sala): Personagem[]{
+    getEntidadesDaSala(sala: Sala): Personagem[] {
         return this.entidades.filter(entidade => entidade.getSalaAtual() === sala);
     }
 
@@ -56,48 +67,14 @@ export class Mapa {
         if (!this.posicaoValida(destinoX, destinoY)) return false;
         if (this.estaOcupada(destinoX, destinoY)) return false;
 
-        const salaAtual = this.getSalaDaEntidade(entidade);
-        if (salaAtual) {
-            const salaDestino = this.getSalaPorPosicao(destinoX, destinoY);
+        const tile = this.getTile(destinoX, destinoY);
 
-            if (!salaDestino) {
+        const conexao = this.getConexao(destinoX, destinoY);
+        if (conexao) {
+            if (!conexao.podeAtravessar(entidade))
                 return false;
-            }
-
-            // Procura se o passo interage com uma Conexão/Porta cadastrada
-            const conexao = salaAtual.getConexoes().find(c => {
-                if ('ehPassagem' in c || 'estado' in c) {
-                    const p = c as unknown as Porta;
-                    return (p.x === destinoX && p.y === destinoY) || (p.x === entidade.getX() && p.y === entidade.getY());
-                }
-                return typeof c.contem === 'function' && (c.contem(destinoX, destinoY) || c.contem(entidade.getX(), entidade.getY()));
-            });
-
-            // Se for uma porta, valida o estado físico de bloqueio
-            if (conexao) {
-                if ('estado' in conexao || 'ehPassagem' in conexao) {
-                    const porta = conexao as unknown as Porta;
-                    if (!porta.ehPassagem && porta.estado !== EstadoPorta.ABERTA) {
-                        if (entidade instanceof Jogador) {
-                            // Verifica se o jogador possui o atributo de inventário para chave de forma dinâmica
-                            const temChave = (entidade as any).temChave || false;
-                            const mensagem = porta.interagir(temChave);
-                            console.log(`\n[Interação] ${mensagem}`);
-                        }
-                        return false; // Bloqueia o movimento no turno em que interage para abrir
-                    }
-                }
-            }
-
-            // Se não for uma conexão direta, impede atravessar as paredes delimitadoras da sala
-            if (!conexao) {
-                const naBordaX = destinoX === salaAtual.getXInicial() || destinoX === salaAtual.getXInicial() + salaAtual.getLargura() - 1;
-                const naBordaY = destinoY === salaAtual.getYInicial() || destinoY === salaAtual.getYInicial() + salaAtual.getAltura() - 1;
-
-                if (naBordaX || naBordaY) {
-                    return false;
-                }
-            }
+        } else if (tile === TileMapa.PAREDE || tile === TileMapa.VAZIO) {
+            return false;
         }
 
         const dx = destinoX - entidade.getX();
@@ -109,7 +86,14 @@ export class Mapa {
         }
 
         entidade.setPosicao(destinoX, destinoY);
-        this.getSalaDaEntidade(entidade);
+
+        const novaSala = this.encontrarSala(destinoX, destinoY);
+        if (novaSala) {
+            entidade.setSalaAtual(novaSala);
+
+            if (entidade instanceof Jogador) novaSala.descobrir();
+        }
+
         return true;
     }
 
@@ -144,13 +128,9 @@ export class Mapa {
         return personagemOcupando || objetoBloqueando;
     }
 
-    adicionarEfeitoArea(efeito: EfeitoArea): void {
-        this.efeitosArea.push(efeito);
-    }
+    adicionarEfeitoArea(efeito: EfeitoArea): void { this.efeitosArea.push(efeito); }
 
-    getEfeitosArea(): EfeitoArea[] {
-        return this.efeitosArea;
-    }
+    getEfeitosArea(): EfeitoArea[] { return this.efeitosArea; }
 
     processarEfeitosArea(): void {
         for (const efeito of this.efeitosArea) {
@@ -193,14 +173,16 @@ export class Mapa {
 
     adicionarSala(sala: Sala): void { this.salas.push(sala); }
 
-    getSalaDaEntidade(entidade: Personagem): Sala | null {
-        for (const sala of this.salas) {
-            if (sala.contem(entidade.getX(), entidade.getY())) {
-                entidade.setSalaAtual(sala);
-                return sala;
-            }
-        }
-        return null;
+    adicionarConexao(conexao: Conexao): void {
+        this.conexoes.push(conexao);
+    }
+
+    getConexao(x: number, y: number) {
+        return this.conexoes.find(c => c.contem(x, y));
+    }
+
+    getConexoes() {
+        return this.conexoes;
     }
 
     adicionarObjeto(objeto: Objeto): void { this.objetos.push(objeto); }
@@ -209,41 +191,120 @@ export class Mapa {
 
     getObjetoEm(x: number, y: number): Objeto | undefined { return this.objetos.find(o => o.getX() === x && o.getY() === y); }
 
+    criarEspolio(x: number, y: number, itens: Item[]): void {
+        if (itens.length === 0) {
+            return;
+        }
+
+        const inventario = new Inventario();
+
+        for (const item of itens) {
+            inventario.adicionar(item);
+        }
+
+        this.adicionarObjeto(new Espolio(x, y, inventario));
+    }
+
+    removerObjeto(objeto: Objeto): void {
+        this.objetos = this.objetos.filter(o => o !== objeto);
+    }
+
     limparObjetos(): void { this.objetos = []; }
 
     limparEntidades(): void { this.entidades = []; }
 
     limparSalas(): void { this.salas = []; }
 
+    private getTile(x: number, y: number): TileMapa {
+        // existe alguma conexão?
+        const conexao = this.getConexao(x, y);
+
+        if (conexao) {
+            return conexao.getTipo();
+        }
+
+        // existe alguma sala?
+        const sala = this.getSalaPorPosicao(x, y);
+
+        if (!sala)
+            return TileMapa.VAZIO;
+
+        const naBorda =
+            x === sala.getX() ||
+            x === sala.getX() + sala.getLargura() - 1 ||
+            y === sala.getY() ||
+            y === sala.getY() + sala.getAltura() - 1;
+
+        if (naBorda)
+            return TileMapa.PAREDE;
+
+        return TileMapa.CHAO;
+    }
+
+    private desenharTile(x: number, y: number): string {
+        const tile = this.getTile(x, y);
+
+        switch (tile) {
+            case TileMapa.VAZIO: return " ";
+            case TileMapa.CHAO: return ".";
+            case TileMapa.PAREDE: return "#";
+            case TileMapa.PASSAGEM: return ".";
+            case TileMapa.PORTA: {
+                const porta = this.getConexao(x, y);
+                if(!porta) return "+";
+                if(!porta.deveDesenhar(x, y)) return ".";
+                return porta?.getSimbolo() ?? "+";
+            }
+        }
+    }
+
+    private podeVer(x: number, y: number, personagem: Personagem) {
+        const sala = this.getSalaPorPosicao(x, y);
+        if (!sala) return false;
+
+        const salaJogador = personagem.getSalaAtual();
+        if (sala == salaJogador) return true;
+
+        return sala.foiDescoberta();
+    }
+
+    private encontrarSala(x: number, y: number): Sala | null {
+        return this.salas.find(s => s.contem(x, y)) ?? null;
+    }
+
     renderizar(): void {
         const larguraVisivel = 20;
         const alturaVisivel = 15;
 
         const jogador = this.entidades.find(e => e instanceof Jogador);
+        if (!jogador) {
+            console.log("Nenhum jogador encontrado.");
+            return;
+        }
 
         let cameraX = 0;
         let cameraY = 0;
 
         if (jogador) {
-            const sala = this.getSalaDaEntidade(jogador);
+            const sala = jogador.getSalaAtual();
             if (sala) {
                 const totalQuadrosSalaX = sala.getLargura() + 1;
                 const totalQuadrosSalaY = sala.getAltura() + 1;
 
                 if (totalQuadrosSalaX < larguraVisivel) {
-                    cameraX = sala.getXInicial() - Math.floor((larguraVisivel - totalQuadrosSalaX) / 2);
+                    cameraX = sala.getX() - Math.floor((larguraVisivel - totalQuadrosSalaX) / 2);
                 } else {
                     cameraX = jogador.getX() - Math.floor(larguraVisivel / 2);
-                    cameraX = Math.max(cameraX, sala.getXInicial());
-                    cameraX = Math.min(cameraX, sala.getXInicial() + sala.getLargura() - larguraVisivel + 1);
+                    cameraX = Math.max(cameraX, sala.getX());
+                    cameraX = Math.min(cameraX, sala.getX() + sala.getLargura() - larguraVisivel + 1);
                 }
 
                 if (totalQuadrosSalaY < alturaVisivel) {
-                    cameraY = sala.getYInicial() - Math.floor((alturaVisivel - totalQuadrosSalaY) / 2);
+                    cameraY = sala.getY() - Math.floor((alturaVisivel - totalQuadrosSalaY) / 2);
                 } else {
                     cameraY = jogador.getY() - Math.floor(alturaVisivel / 2);
-                    cameraY = Math.max(cameraY, sala.getYInicial());
-                    cameraY = Math.min(cameraY, sala.getYInicial() + sala.getAltura() - alturaVisivel + 1);
+                    cameraY = Math.max(cameraY, sala.getY());
+                    cameraY = Math.min(cameraY, sala.getY() + sala.getAltura() - alturaVisivel + 1);
                 }
             } else {
                 cameraX = jogador.getX() - Math.floor(larguraVisivel / 2);
@@ -277,75 +338,36 @@ export class Mapa {
             for (let vx = 0; vx < larguraVisivel; vx++) {
                 const absX = cameraX + vx;
 
-                if (absX < 0 || absY < 0 || absX >= this.largura || absY >= this.altura) {
+                if (!this.podeVer(absX, absY, jogador)) {
                     linha += "   ";
                     continue;
                 }
 
-                const salaDoJogador = jogador ? this.getSalaDaEntidade(jogador) : null;
-
-                // 1. Limite visual da Sala do Jogador
-                if (salaDoJogador && !salaDoJogador.contem(absX, absY)) {
-                    linha += "   ";
+                const entidade = this.entidades.find(e => e.getX() === absX && e.getY() === absY);
+                if (entidade) {
+                    linha += (entidade instanceof Jogador ? "J  " : "I  ");
                     continue;
                 }
 
-                // 2. Personagens (Alta Prioridade)
-                const sniper = this.entidades.find(e => e.getX() === absX && e.getY() === absY);
-                if (sniper) {
-                    linha += (sniper instanceof Jogador ? "J  " : "I  ");
+                const espolio = this.objetos.find(o => o instanceof Espolio && o.getX() === absX && o.getY() === absY);
+                if (espolio) {
+                    linha += "$  ";
                     continue;
                 }
 
-                // 3. Obstáculos/Objetos estáticos
                 const objeto = this.objetos.find(o => o.getX() === absX && o.getY() === absY);
                 if (objeto) {
                     linha += "O  ";
                     continue;
                 }
 
-                // 4. Portas e Passagens (Interrompem as paredes estruturais)
-                if (salaDoJogador) {
-                    const conexaoPorta = salaDoJogador.getConexoes().find(c => {
-                        if ('ehPassagem' in c || 'estado' in c) {
-                            const p = c as unknown as Porta;
-                            return p.x === absX && p.y === absY;
-                        }
-                        return typeof c.contem === 'function' && c.contem(absX, absY);
-                    });
-
-                    if (conexaoPorta) {
-                        if ('getSimbolo' in conexaoPorta) {
-                            const porta = conexaoPorta as unknown as Porta;
-                            if (porta.ehPassagem) {
-                                linha += ".  "; // Renderiza como espaço livre/chão comum
-                            } else {
-                                linha += porta.getSimbolo() + "  ";
-                            }
-                        } else {
-                            linha += "+  ";
-                        }
-                        continue;
-                    }
-
-                    // 5. Paredes Perimetrais
-                    const naBordaX = absX === salaDoJogador.getXInicial() || absX === salaDoJogador.getXInicial() + salaDoJogador.getLargura() - 1;
-                    const naBordaY = absY === salaDoJogador.getYInicial() || absY === salaDoJogador.getYInicial() + salaDoJogador.getAltura() - 1;
-
-                    if (naBordaX || naBordaY) {
-                        linha += "#  ";
-                        continue;
-                    }
-                }
-
-                // 6. Espaço vazio interno comum
-                linha += ".  ";
+                linha += this.desenharTile(absX, absY) + "  ";
             }
             console.log(linha);
         }
 
         console.log("\nLegenda:");
-        console.log("J = Jogador | I = Inimigo | O = Obstáculo | + = Porta Fechada | / = Porta Aberta | X = Porta Trancada");
+        console.log("J = Jogador | I = Inimigo | $ = Espólio | O = Obstáculo | + = Porta Fechada | / = Porta Aberta | X = Porta Trancada");
         console.log(". = Espaço livre / Passagem | # = Parede da Sala");
     }
 }

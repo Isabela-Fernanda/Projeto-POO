@@ -1,6 +1,6 @@
 import { Dado } from "../dado.ts";
 import { Personagem } from "../../personagens/personagem.ts";
-import { Arma, Categoria } from "../../inventario/itens/arma.ts";
+import { Arma, Categoria } from "../../itens/arma.ts";
 import { TipoAtributo } from "../../personagens/atributos/atributos.ts";
 import { ModoAtaque } from "../testes/testeAtaque.ts";
 import { Tags } from "../../poderes/tags.ts";

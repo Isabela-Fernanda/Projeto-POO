@@ -25,6 +25,15 @@ export class SistemaEncontros {
     }
 
     private static expandirEncontro(detectados: Personagem[], mapa: Mapa): Personagem[] {
+        console.log("=== DETECTADOS ===");
+
+        for (const d of detectados) {
+            console.log(
+                d.getNome(),
+                d.getSalaAtual()?.getNome()
+            );
+        }
+
         const participantes = new Set<Personagem>();
 
         for (const detectado of detectados) {
@@ -35,23 +44,22 @@ export class SistemaEncontros {
                 detectado.entrarEmAlerta();
             }
 
-            const sala = mapa.getSalaDaEntidade(detectado);
+            let sala = detectado.getSalaAtual();
 
             if (!sala) {
-                continue;
+                sala = mapa.getSalaPorPosicao(detectado.getX(), detectado.getY());
             }
 
+            if(sala) detectado.setSalaAtual(sala);
+
+            if(!sala) continue;
+
             const aliados = mapa.getEntidades().filter(entidade => {
+                if (entidade === detectado) return false;
 
-                if (entidade === detectado) {
-                    return false;
-                }
+                if (entidade.getTime() !== detectado.getTime()) return false;
 
-                if (entidade.getTime() !== detectado.getTime()) {
-                    return false;
-                }
-
-                const salaAliado = mapa.getSalaDaEntidade(entidade);
+                const salaAliado = entidade.getSalaAtual();
 
                 return salaAliado === sala;
             });
@@ -65,6 +73,14 @@ export class SistemaEncontros {
             }
         }
 
+        console.log("=== PARTICIPANTES ===");
+
+        for (const p of participantes) {
+            console.log(
+                p.getNome(),
+                p.getSalaAtual()?.getNome()
+            );
+        }
         return [...participantes];
     }
 }

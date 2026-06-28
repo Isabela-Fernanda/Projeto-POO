@@ -1,5 +1,5 @@
 import { FacilidadeUso } from "../inventario/equipamento.ts";
-import { Arma } from "../inventario/itens/arma.ts";
+import { Arma } from "../itens/arma.ts";
 import { Personagem } from "../personagens/personagem.ts";
 
 export enum TipoAcao {

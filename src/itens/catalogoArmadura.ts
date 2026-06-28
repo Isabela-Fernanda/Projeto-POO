@@ -1,4 +1,4 @@
-import { FacilidadeUso } from "../equipamento.ts";
+import { FacilidadeUso } from "../inventario/equipamento.ts";
 import { Armadura, CategoriaArmadura, TipoProtecao } from "./armadura.ts";
 
 export class CatalogoArmaduras {

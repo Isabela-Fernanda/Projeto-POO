@@ -1,6 +1,6 @@
 import { Personagem } from "../personagens/personagem.ts";
 import { Condicao } from "../combate/tipoCondicao.ts";
-import { Item } from "../inventario/itens/item.ts";
+import { Item } from "../itens/item.ts";
 import { TagEfeito } from "./tags.ts";
 
 export abstract class Efeito {

@@ -1,4 +1,4 @@
-import { Item } from "./itens/item.ts";
+import { Item } from "../itens/item.ts";
 import { Personagem } from "../personagens/personagem.ts";
 
 export class ItemInventario {

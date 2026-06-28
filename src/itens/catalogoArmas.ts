@@ -1,6 +1,8 @@
-import { Arma, TipoAtaque, Categoria, GrupoArma, Municao, PropriedadeArma } from "./arma.ts";
-import { FacilidadeUso } from "../equipamento.ts";
-import { TipoDano } from "../../combate/tipoDano.ts";
+import { Arma, TipoAtaque, Categoria, GrupoArma, PropriedadeArma } from "./arma.ts";
+import { FacilidadeUso } from "../inventario/equipamento.ts";
+import { Municao } from "./municao.ts";
+import { CatalogoMunicao } from "./catalogoMunicao.ts";
+import { TipoDano } from "../combate/tipoDano.ts";
 
 export class CatalogoArmas {
     // Especial
@@ -35,13 +37,13 @@ export class CatalogoArmas {
     static readonly TACAPE = new Arma("Tacape", GrupoArma.NENHUM, 0, 4, "Versão maior e/ou com pregos de uma clava. Não é uma arma elegante, mas faz o serviço.", 1, 10, 20, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.IMPACTO, Categoria.DUAS_MAOS, FacilidadeUso.SIMPLES, [], [], 1.5);
 
     // Armas Simples - Ataque à Distância
-    static readonly ARCO_CURTO = new Arma("Arco curto", 30, 1, GrupoArma.ARCO, "Uma arma antiga e comum, este arco é usado primariamente como ferramenta de caça, embora seja usado como arma de guerra por milícias, bandidos e exércitos menos equipados. Exige as duas mãos, mas pode ser usado montado.", 1, 6, 20, 3, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.SIMPLES, [PropriedadeArma.MONTADA], [], 30, Municao.FLECHA);
+    static readonly ARCO_CURTO = new Arma("Arco curto", 30, 1, GrupoArma.ARCO, "Uma arma antiga e comum, este arco é usado primariamente como ferramenta de caça, embora seja usado como arma de guerra por milícias, bandidos e exércitos menos equipados. Exige as duas mãos, mas pode ser usado montado.", 1, 6, 20, 3, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.SIMPLES, [PropriedadeArma.MONTADA], [], 30, CatalogoMunicao.FLECHA);
 
-    static readonly BESTA_LEVE = new Arma("Besta leve", 35, 3, GrupoArma.BESTA, "Um arco montado sobre uma coronha de madeira com um gatilho, a besta leve é uma arma que dispara virotes com grande potência. Recarregar uma besta leve é uma ação de movimento. Exige as duas mãos.", 1, 8, 19, 2, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.SIMPLES, [], [], 30, Municao.VIROTE);
+    static readonly BESTA_LEVE = new Arma("Besta leve", 35, 3, GrupoArma.BESTA, "Um arco montado sobre uma coronha de madeira com um gatilho, a besta leve é uma arma que dispara virotes com grande potência. Recarregar uma besta leve é uma ação de movimento. Exige as duas mãos.", 1, 8, 19, 2, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.SIMPLES, [], [], 30, CatalogoMunicao.VIROTES);
 
-    static readonly AZAGAIA = new Arma("Azagaia", 1, 1, GrupoArma.NENHUM, "Uma lança leve e flexível, própria para arremesso. Pode ser usada como arma corpo a corpo, mas você sofre uma penalidade de –5 no teste de ataque.", 1, 6, 20, 2, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.SIMPLES, [], [], 30);
+    static readonly AZAGAIA = new Arma("Azagaia", 1, 1, GrupoArma.ATIRAR, "Uma lança leve e flexível, própria para arremesso. Pode ser usada como arma corpo a corpo, mas você sofre uma penalidade de –5 no teste de ataque.", 1, 6, 20, 2, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.SIMPLES, [], [], 30, CatalogoMunicao.BALAS);
 
-    static readonly FUNDA = new Arma("Funda", 0, 0.25, GrupoArma.NENHUM, "Uma simples tira de couro usada para arremessar balas de metal. Na falta de munição adequada, pode disparar pedras comuns, mas o dano é reduzido em um passo. Recarregar uma funda é uma ação de movimento. Ao contrário de outras armas de disparo, você aplica seu modificador de Força a rolagens de dano com uma funda.", 1, 4, 20, 2, [TipoAtaque.DISTANCIA], TipoDano.IMPACTO, Categoria.DISPARO, FacilidadeUso.SIMPLES, [], [], 30, Municao.BALA);
+    static readonly FUNDA = new Arma("Funda", 0, 0.25, GrupoArma.ATIRAR, "Uma simples tira de couro usada para arremessar balas de metal. Na falta de munição adequada, pode disparar pedras comuns, mas o dano é reduzido em um passo. Recarregar uma funda é uma ação de movimento. Ao contrário de outras armas de disparo, você aplica seu modificador de Força a rolagens de dano com uma funda.", 1, 4, 20, 2, [TipoAtaque.DISTANCIA], TipoDano.IMPACTO, Categoria.DISPARO, FacilidadeUso.SIMPLES, [], [], 30, CatalogoMunicao.BALAS);
 
     /* ------------------------------------------------------------ */
     /* ------------------------------------------------------------ */
@@ -86,9 +88,9 @@ export class CatalogoArmas {
     static readonly MONTANTE = new Arma("Montante", 50, 4, GrupoArma.ESPADA, "Enorme e pesada, esta espada de 1,5m de comprimento é uma arma poderosa.", 2, 6, 19, 2, [TipoAtaque.CORPO_A_CORPO], TipoDano.CORTE, Categoria.DUAS_MAOS, FacilidadeUso.MARCIAIS, [], [], 1.5);
 
     // Armas Marciais - Ataque à Distância
-    static readonly ARCO_LONGO = new Arma("Arco longo", 100, 1.5, GrupoArma.ARCO, "Este arco reforçado tem a altura de uma pessoa. Ao contrário da versão curta, é primariamente uma arma de guerra. Por ter uma puxada pesada, permite que você aplique seu modificador de Força às rolagens de dano. Exige as duas mãos e não pode ser usado se você estiver montado.", 1, 8, 20, 3, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.MARCIAIS, [], [], 30, Municao.FLECHA);
+    static readonly ARCO_LONGO = new Arma("Arco longo", 100, 1.5, GrupoArma.ARCO, "Este arco reforçado tem a altura de uma pessoa. Ao contrário da versão curta, é primariamente uma arma de guerra. Por ter uma puxada pesada, permite que você aplique seu modificador de Força às rolagens de dano. Exige as duas mãos e não pode ser usado se você estiver montado.", 1, 8, 20, 3, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.MARCIAIS, [], [], 30, CatalogoMunicao.FLECHA);
 
-    static readonly BESTA_PESADA = new Arma("Besta pesada", 50, 4, GrupoArma.BESTA, "Versão maior e mais potente da besta leve. Recarregar uma besta pesada é uma ação padrão. Exige as duas mãos.", 1, 12, 19, 2, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.MARCIAIS, [], [], 30, Municao.VIROTE);
+    static readonly BESTA_PESADA = new Arma("Besta pesada", 50, 4, GrupoArma.BESTA, "Versão maior e mais potente da besta leve. Recarregar uma besta pesada é uma ação padrão. Exige as duas mãos.", 1, 12, 19, 2, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.MARCIAIS, [], [], 30, CatalogoMunicao.VIROTES);
 
     /* ------------------------------------------------------------ */
     /* ------------------------------------------------------------ */
@@ -119,7 +121,7 @@ export class CatalogoArmas {
     /* ------------------------------------------------------------ */
 
     // Armas de Fogo
-    static readonly MOSQUETE = new Arma("Mosquete", 500, 4, GrupoArma.NENHUM, "Uma arma de fogo de uso difícil, mas com poder devastador. Recarregar um mosquete é uma ação padrão. Exige as duas mãos.", 2, 8, 19, 3, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.DE_FOGO, [], [], 30, Municao.BALA);
+    static readonly MOSQUETE = new Arma("Mosquete", 500, 4, GrupoArma.DE_FOGO, "Uma arma de fogo de uso difícil, mas com poder devastador. Recarregar um mosquete é uma ação padrão. Exige as duas mãos.", 2, 8, 19, 3, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.DE_FOGO, [], [], 30, CatalogoMunicao.MUNICAO);
 
-    static readonly PISTOLA = new Arma("Pistola", 250, 1, GrupoArma.NENHUM, "A arma de fogo mais comum. Uma pistola conta como uma arma leve para propósitos do poder Estilo de Duas Armas e similares. Recarregar uma pistola é uma ação padrão.", 2, 8, 19, 3, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.DE_FOGO, [], [], 9, Municao.BALA);
+    static readonly PISTOLA = new Arma("Pistola", 250, 1, GrupoArma.DE_FOGO, "A arma de fogo mais comum. Uma pistola conta como uma arma leve para propósitos do poder Estilo de Duas Armas e similares. Recarregar uma pistola é uma ação padrão.", 2, 8, 19, 3, [TipoAtaque.DISTANCIA], TipoDano.PERFURACAO, Categoria.DISPARO, FacilidadeUso.DE_FOGO, [], [], 9, CatalogoMunicao.MUNICAO);
 }

@@ -46,6 +46,12 @@ export class Combate {
         const derrotados = this.participantes.filter(p => !p.estaVivo());
 
         for (const morto of derrotados) {
+
+            if(morto instanceof Monstro) {
+                const loot = morto.gerarLoot();
+
+                this.mapa.criarEspolio(morto.getX(), morto.getY(), loot);
+            }
             this.mapa.removerEntidade(morto);
         }
 

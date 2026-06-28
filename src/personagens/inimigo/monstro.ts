@@ -11,10 +11,12 @@ import { Inventario } from "../../inventario/inventario.ts";
 import { Pericia, GrauTreinamento } from "../../pericias/pericia.ts";
 import { Habilidade } from "../../poderes/habilidades.ts";
 import { AtaquePossivel, ModoAtaque } from "../../combate/testes/testeAtaque.ts";
-import { Arma } from "../../inventario/itens/arma.ts";
+
+import { Arma } from "../../itens/arma.ts";
 import { ComportamentoIA } from "../../combate/IA.ts";
 import { Tamanho } from "./catalogoMonstros.ts";
 import { EstadoTurno } from "../../combate/estadoTurno.ts";
+import { Loot } from "./loot.ts";
 
 export class Monstro extends Inimigo {
 
@@ -31,12 +33,13 @@ export class Monstro extends Inimigo {
         bonusPericias: Map<Pericia, number> = new Map(),
         habilidades: Habilidade[],
         xpConcedido: number,
+        loot: Loot[],
 
         private tamanho: Tamanho,
         private alerta: boolean = false,
         private comportamento: ComportamentoIA,
     ) {
-        super(nome, nivel, time, raca, classe, atributos, inventario, equipamento, pericias, bonusPericias, habilidades, xpConcedido);
+        super(nome, nivel, time, raca, classe, atributos, inventario, equipamento, pericias, bonusPericias, habilidades, xpConcedido, loot);
     }
 
     estaEmAlerta(): boolean {

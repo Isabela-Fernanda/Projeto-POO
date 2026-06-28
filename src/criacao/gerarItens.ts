@@ -1,11 +1,12 @@
 import { Jogador } from "../personagens/jogador.ts";
 
-import { Item } from "../inventario/itens/item.ts";
-import { Arma } from "../inventario/itens/arma.ts";
-import { Armadura } from "../inventario/itens/armadura.ts";
-import { CatalogoItensDiversos } from "../inventario/itens/catalogoItensDiverso.ts";
-import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
-import { CatalogoArmaduras } from "../inventario/itens/catalogoArmadura.ts"
+import { Item } from "../itens/item.ts";
+import { Arma } from "../itens/arma.ts";
+import { Armadura } from "../itens/armadura.ts";
+import { CatalogoItensDiversos } from "../itens/catalogoItensDiverso.ts";
+import { CatalogoArmas } from "../itens/catalogoArmas.ts";
+import { CatalogoMunicao } from "../itens/catalogoMunicao.ts";
+import { CatalogoArmaduras } from "../itens/catalogoArmadura.ts"
 
 export type ItensIniciais = {
     mesa: Item[];
@@ -110,7 +111,7 @@ export class GeradorInicial {
 
         "Bucaneiro": [CatalogoItensDiversos.CORDA_10M],
 
-        "Caçador": [CatalogoItensDiversos.FLECHA_20, CatalogoItensDiversos.FLECHA_20, CatalogoItensDiversos.TRAJE_CAMUFLADO],
+        "Caçador": [CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA,CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoMunicao.FLECHA, CatalogoItensDiversos.TRAJE_CAMUFLADO],
 
         "Cavaleiro": [CatalogoItensDiversos.SELA],
 
@@ -162,14 +163,6 @@ export class GeradorInicial {
         return this.itensIniciais;
     }
 
-    private adicionarItensBasicos(itens: Item[]): void {
-        //Já adicionar nos locais devidos
-    }
-
-    private adicionarItensSorteados(itens: Item[]): void {
-        //Colocar nos lugares aleatóriamente
-    }
-
     private sortearRaca(personagem: Jogador): void {
         const raca = personagem.getRaca()?.getNome() ?? "";
 
@@ -193,15 +186,15 @@ export class GeradorInicial {
             switch (arma) {
                 case CatalogoArmas.ARCO_CURTO:
                 case CatalogoArmas.ARCO_LONGO:
-                    this.itensIniciais.bau.push(CatalogoItensDiversos.FLECHA_20);
+                    this.itensIniciais.bau.push(CatalogoMunicao.FLECHA);
                     break;
                 case CatalogoArmas.BESTA_LEVE:
                 case CatalogoArmas.BESTA_PESADA:
-                    this.itensIniciais.bau.push(CatalogoItensDiversos.VIROTES_20);
+                    this.itensIniciais.bau.push(CatalogoMunicao.VIROTES);
                     break;
                 case CatalogoArmas.PISTOLA:
                 case CatalogoArmas.MOSQUETE:
-                    this.itensIniciais.bau.push(CatalogoItensDiversos.MUNICAO_20);
+                    this.itensIniciais.bau.push(CatalogoMunicao.MUNICAO);
                     break;
             }
         }

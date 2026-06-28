@@ -1,18 +1,19 @@
 import { Personagem } from "../personagens/personagem.ts";
 import { Jogador } from "../personagens/jogador.ts";
+import { Monstro } from "../personagens/inimigo/monstro.ts";
+
 import { EstadoTurno } from "./estadoTurno.ts";
 import { RodadaIniciativa } from "./rodadaIniciativas.ts";
-
-import { Habilidade, TipoAlvo } from "../poderes/habilidades.ts";
-
-import { TipoAcao } from "../poderes/habilidades.ts";
-import { Mapa } from "../mapa/mapa.ts";
-import { CatalogoArmas } from "../inventario/itens/catalogoArmas.ts";
 import { ModoAtaque } from "./testes/testeAtaque.ts";
-import { Monstro } from "../personagens/inimigo/monstro.ts";
+
+import { Habilidade, TipoAlvo, TipoAcao } from "../poderes/habilidades.ts";
+
+import { Mapa } from "../mapa/mapa.ts";
+
 import { Time } from "../personagens/time.ts";
 
 import { MenuInventario } from "../inventario/menuInventario.ts";
+import { CatalogoArmas } from "../itens/catalogoArmas.ts";
 
 export class Turno {
     static executar(personagem: Personagem, participantes: Personagem[], mapa: Mapa): void {
@@ -174,7 +175,7 @@ export class Turno {
                     }
                     break;
                 case "4":
-                    const sala = mapa.getSalaDaEntidade(jogador);
+                    const sala = jogador.getSalaAtual();
                     console.log(sala ? `Sala: ${sala.getNome()}` : "Fora de sala");
                     console.log(`Deslocamento: ${jogador.getDeslocamento()}`)
                     console.log(`${jogador.getNome()}`);
@@ -345,18 +346,6 @@ export class Turno {
                 console.log("Ações completas ainda não implementadas.");
                 return;
         }
-    }
-
-    private static combateEncerrado(participantes: Personagem[]): boolean {
-        const jogadoresVivos = participantes.some(
-            p => p.getTime() === Time.HEROIS && p.estaVivo()
-        );
-
-        const inimigosVivos = participantes.some(
-            p => p.getTime() === Time.INIMIGOS && p.estaVivo()
-        );
-
-        return !jogadoresVivos || !inimigosVivos;
     }
 }
 
