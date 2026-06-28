@@ -19,7 +19,6 @@ import { EstadoTurno } from "../../combate/estadoTurno.ts";
 import { Loot } from "./loot.ts";
 
 export class Monstro extends Inimigo {
-
     constructor(
         nome: string,
         nivel: number,

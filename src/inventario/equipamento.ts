@@ -1,6 +1,7 @@
 import { Arma, Categoria } from "../itens/arma.ts";
 import { Armadura, TipoProtecao } from "../itens/armadura.ts";
 import { CatalogoArmas } from "../itens/catalogoArmas.ts";
+import { Item } from "../itens/item.ts";
 
 export enum FacilidadeUso {
     SIMPLES,
@@ -82,6 +83,27 @@ export class Equipamento {
         console.log(`Mão Esquerda: ${this.getArmaSecundaria().getNome()}`);
         console.log(`Armadura: ${this.getArmadura()?.getNome() ?? "Nenhuma"}`);
         console.log(`Escudo: ${this.getEscudo()?.getNome() ?? "Nenhuma"}`);
+    }
+
+    getItensEquipados(): Item[] {
+        const itens: Item[] = [];
+
+        if (this.getArmaPrincipal() !== CatalogoArmas.DESARMADO)
+            itens.push(this.getArmaPrincipal());
+
+        if (
+            this.getArmaSecundaria() !== CatalogoArmas.DESARMADO &&
+            this.getArmaSecundaria() !== this.getArmaPrincipal()
+        )
+            itens.push(this.getArmaSecundaria());
+
+        if (this.armadura)
+            itens.push(this.armadura);
+
+        if (this.escudo)
+            itens.push(this.escudo);
+
+        return itens;
     }
 
     getArmaPrincipal(): Arma {

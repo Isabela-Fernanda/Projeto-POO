@@ -83,6 +83,18 @@ export class Inventario {
         return this.itens[indice];
     }
 
+    getTodosItens(): Item[] {
+        const itens: Item[] = [];
+
+        for(const itemInventario of this.itens) {
+            for(let i =0; i < itemInventario.quantidade; i++){
+                itens.push(itemInventario.item);
+            }
+        }
+
+        return itens;
+    }
+
     possuiChave(id: string): Chave | undefined {
         for (const item of this.itens) {
             if (item.item instanceof Chave && item.item.getId() === id) {

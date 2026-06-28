@@ -34,6 +34,8 @@ import { CalculadoraDefesa } from "../combate/calcular/calcularDefesa.ts";
 import { ModoAtaque, TesteAtaque, AtaquePossivel } from "../combate/testes/testeAtaque.ts";
 import { Beneficio } from "../poderes/beneficio.ts";
 import { CatalogoPericias } from "../pericias/catalogoPericias.ts";
+import { Loot, Random } from "./inimigo/loot.ts";
+import { Item } from "../itens/item.ts";
 
 // ======================================================================
 // INTERFACES
@@ -93,6 +95,8 @@ export abstract class Personagem {
         protected pericias: Map<Pericia, GrauTreinamento>,
         protected bonusPericias: Map<Pericia, number> = new Map(),
         protected habilidades: Habilidade[],
+        protected xpConcedido: number = 0,
+        protected loot: Loot[] = [],
     ) {
         this.vidaMaxima = (classe?.getVidaInicial() ?? 10) + (((classe?.getPVPorNivel() ?? 2) + this.getBonusVidaPorNivel()) * (this.nivel - 1)) + this.getConstituicao();
         this.manaMaxima = (classe?.getManaInicial() ?? 1) * this.nivel + Math.floor(this.getBonusManaPorNivel() * this.nivel);
@@ -225,6 +229,54 @@ export abstract class Personagem {
         if (this.manaAtual > this.manaMaxima) {
             this.manaAtual = this.manaMaxima;
         }
+    }
+
+    /* ------------------------------------------------------------ */
+    /* ----------------------- LOOT E XP -------------------------- */
+    /* ------------------------------------------------------------ */
+
+    getXPConcedido(): number {
+        return this.xpConcedido;
+    }
+
+    setXPConcedido(xp: number): void {
+        this.xpConcedido = xp;
+    }
+
+    getLoot(): Loot[] {
+        return this.loot;
+    }
+
+    adicionarLoot(loot: Loot): void {
+        this.loot.push(loot);
+    }
+
+    gerarLoot(): Item[] {
+        const itens: Item[] = [];
+
+        // Loot aleatório
+        for (const loot of this.loot) {
+            if (!Random.chance(loot.chance)) {
+                continue;
+            }
+
+            const quantidade = Random.inteiro(
+                loot.quantidadeMin,
+                loot.quantidadeMax
+            );
+
+            for (let i = 0; i < quantidade; i++) {
+                itens.push(loot.item);
+            }
+        }
+
+        // Inventário
+        itens.push(...this.inventario.getTodosItens());
+
+        // Equipamentos
+        itens.push(...this.equipamento.getItensEquipados());
+
+        return itens;
     }
 
     /* ------------------------------------------------------------ */

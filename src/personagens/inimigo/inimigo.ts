@@ -10,8 +10,7 @@ import { Inventario } from "../../inventario/inventario.ts";
 import { Pericia, GrauTreinamento } from "../../pericias/pericia.ts";
 import { Habilidade } from "../../poderes/habilidades.ts";
 import { EstadoTurno } from "../../combate/estadoTurno.ts";
-import { Loot, Random } from "./loot.ts";
-import { Item } from "../../itens/item.ts";
+import { Loot } from "./loot.ts";
 
 export abstract class Inimigo extends Personagem {
     constructor(
@@ -26,40 +25,10 @@ export abstract class Inimigo extends Personagem {
         pericias: Map<Pericia, GrauTreinamento>,
         bonusPericias: Map<Pericia, number> = new Map(),
         habilidades: Habilidade[],
-
-        private xpConcedido: number,
-        private loot: Loot[],
+        xpConcedido: number,
+        loot: Loot[],
     ) {
-        super(nome, nivel, time, raca, classe, atributos, inventario, equipamento, pericias, bonusPericias, habilidades);
+        super(nome, nivel, time, raca, classe, atributos, inventario, equipamento, pericias, bonusPericias, habilidades, xpConcedido, loot);
     }
     abstract executarTurno(alvos: Personagem[], mapa: Mapa, estado: EstadoTurno): void;
-
-    getXP(): number {
-        return this.xpConcedido;
-    }
-
-    getLoot(): Loot[] {
-        return this.loot;
-    }
-
-    adicionarLoot(item: Loot): void {
-        this.loot.push(item);
-    }
-
-    gerarLoot(): Item[] {
-        const itens: Item[] = [];
-
-        for (const loot of this.getLoot()) {
-            if (!Random.chance(loot.chance)) {
-                continue;
-            }
-
-            const quantidade = Random.inteiro(loot.quantidadeMin, loot.quantidadeMax);
-
-            for (let i = 0; i < quantidade; i++) {
-                itens.push(loot.item);
-            }
-        }
-        return itens;
-    }
 }
