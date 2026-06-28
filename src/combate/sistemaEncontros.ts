@@ -25,15 +25,6 @@ export class SistemaEncontros {
     }
 
     private static expandirEncontro(detectados: Personagem[], mapa: Mapa): Personagem[] {
-        console.log("=== DETECTADOS ===");
-
-        for (const d of detectados) {
-            console.log(
-                d.getNome(),
-                d.getSalaAtual()?.getNome()
-            );
-        }
-
         const participantes = new Set<Personagem>();
 
         for (const detectado of detectados) {
@@ -71,15 +62,6 @@ export class SistemaEncontros {
                     aliado.entrarEmAlerta();
                 }
             }
-        }
-
-        console.log("=== PARTICIPANTES ===");
-
-        for (const p of participantes) {
-            console.log(
-                p.getNome(),
-                p.getSalaAtual()?.getNome()
-            );
         }
         return [...participantes];
     }
