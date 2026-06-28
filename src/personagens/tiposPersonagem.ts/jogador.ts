@@ -1,19 +1,19 @@
-import { Personagem } from "./personagem.ts";
-import { Time } from "./time.ts";
-import { Raca } from "./racas/raca.ts";
-import { Classe } from "./classes/classe.ts";
-import { Atributos } from "./atributos/atributos.ts";
-import { Inventario } from "../inventario/inventario.ts";
-import { Equipamento } from "../inventario/equipamento.ts";
-import { Pericia, GrauTreinamento } from "../pericias/pericia.ts";
+import { Personagem } from "../personagem.ts";
+import { Time } from "../time.ts";
+import { Raca } from "../racas/raca.ts";
+import { Classe } from "../classes/depois/classe.ts";
+import { Atributos } from "../atributos/atributos.ts";
+import { Inventario } from "../../inventario/inventario.ts";
+import { Equipamento } from "../../inventario/equipamento.ts";
+import { Pericia, GrauTreinamento } from "../../pericias/pericia.ts";
 
-import { Beneficio } from "../poderes/beneficio.ts";
-import { Caracteristica } from "../poderes/caracteristica.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
+import { Beneficio } from "../../poderes/beneficio.ts";
+import { Caracteristica } from "../../poderes/caracteristica.ts";
+import { Habilidade } from "../../poderes/habilidades.ts";
 
-import { AtaquePossivel, ModoAtaque } from "../combate/testes/testeAtaque.ts";
-import { Mapa } from "../mapa/mapa.ts";
-import { Arma } from "../itens/arma.ts";
+import { AtaquePossivel, ModoAtaque } from "../../combate/testes/testeAtaque.ts";
+import { Mapa } from "../../mapa/mapa.ts";
+import { Arma } from "../../itens/arma.ts";
 
 export class Jogador extends Personagem {
     protected experiencia: number = 0;

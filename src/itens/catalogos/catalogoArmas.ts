@@ -1,8 +1,8 @@
-import { Arma, TipoAtaque, Categoria, GrupoArma, PropriedadeArma } from "./arma.ts";
-import { FacilidadeUso } from "../inventario/equipamento.ts";
-import { Municao } from "./municao.ts";
+import { Arma, TipoAtaque, Categoria, GrupoArma, PropriedadeArma } from "../arma.ts";
+import { FacilidadeUso } from "../../inventario/equipamento.ts";
+import { Municao } from "../municao.ts";
 import { CatalogoMunicao } from "./catalogoMunicao.ts";
-import { TipoDano } from "../combate/tipoDano.ts";
+import { TipoDano } from "../../combate/tipoDano.ts";
 
 export class CatalogoArmas {
     // Especial

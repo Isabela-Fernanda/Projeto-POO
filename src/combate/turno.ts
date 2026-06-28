@@ -1,6 +1,6 @@
 import { Personagem } from "../personagens/personagem.ts";
-import { Jogador } from "../personagens/jogador.ts";
-import { Monstro } from "../personagens/inimigo/monstro.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
+import { Monstro } from "../personagens/tiposPersonagem/monstro.ts";
 
 import { EstadoTurno } from "./estadoTurno.ts";
 import { RodadaIniciativa } from "./rodadaIniciativas.ts";
@@ -13,7 +13,7 @@ import { Mapa } from "../mapa/mapa.ts";
 import { Time } from "../personagens/time.ts";
 
 import { MenuInventario } from "../inventario/menuInventario.ts";
-import { CatalogoArmas } from "../itens/catalogoArmas.ts";
+import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.ts";
 
 export class Turno {
     static executar(personagem: Personagem, participantes: Personagem[], mapa: Mapa): void {

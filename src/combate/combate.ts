@@ -2,7 +2,7 @@ import { Mapa } from "../mapa/mapa.ts";
 import { Personagem } from "../personagens/personagem.ts";
 import { OrdemTurnos } from "./turno.ts";
 import { Rodada } from "./rodada.ts";
-import { Monstro } from "../personagens/inimigo/monstro.ts";
+import { Monstro } from "../personagens/tiposPersonagem/monstro.ts";
 
 export class Combate {
     constructor(

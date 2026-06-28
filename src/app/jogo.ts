@@ -1,5 +1,5 @@
 import { Mapa } from "../mapa/mapa.ts";
-import { Jogador } from "../personagens/jogador.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
 
 import { CriacaoPersonagem } from "../criacao/criarPersonagem.ts";
 import { Combate } from "../combate/combate.ts";

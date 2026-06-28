@@ -3,14 +3,14 @@ import { Mapa } from "../../mapa/mapa.ts";
 
 import { Time } from "../time.ts";
 import { Raca } from "../racas/raca.ts";
-import { Classe } from "../classes/classe.ts";
+import { Classe } from "../classes/depois/classe.ts";
 import { Atributos } from "../atributos/atributos.ts";
 import { Equipamento } from "../../inventario/equipamento.ts";
 import { Inventario } from "../../inventario/inventario.ts";
 import { Pericia, GrauTreinamento } from "../../pericias/pericia.ts";
 import { Habilidade } from "../../poderes/habilidades.ts";
 import { EstadoTurno } from "../../combate/estadoTurno.ts";
-import { Loot } from "./loot.ts";
+import { Loot } from "../loot.ts";
 
 export abstract class Inimigo extends Personagem {
     constructor(

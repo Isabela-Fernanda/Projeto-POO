@@ -1,5 +1,5 @@
 import { Mapa } from "../mapa.ts";
-import { Jogador } from "../../personagens/jogador.ts";
+import { Jogador } from "../../personagens/tiposPersonagem/jogador.ts";
 
 import { SalaInicial } from "./salaInicial.ts";
 import { MasmorraTutorial } from "./masmorraTutoria.ts";

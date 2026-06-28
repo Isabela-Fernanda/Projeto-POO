@@ -54,18 +54,14 @@ export class CatalogoMagias {
         ["Amedrontar", () => new MagiaAmedrontar()],
         ["Arma Mágica", () => new MagiaArmaMagica()],
         ["Armadura Arcana", () => new MagiaArmaduraArcana()],
-        ["Aviso", () => new MagiaAviso()],
         ["Concentração de Combate", () => new MagiaConcentracaoDeCombate()],
         ["Enfeitiçar", () => new MagiaEnfeiticar()],
         ["Hipnotismo", () => new MagiaHipnotismo()],
-        ["Imagem Espelhada", () => new MagiaImagemEspelhada()],
-        ["Leque Cromático", () => new MagiaLequeCromatico()],
         ["Primor Atlético", () => new MagiaPrimorAtletico()],
         ["Raio do Enfraquecimento", () => new MagiaRaioDoEnfraquecimento()],
         ["Resistência a Energia", () => new MagiaResistenciaAEnergia()],
         ["Sono", () => new MagiaSono()],
         ["Toque Chocante", () => new MagiaToqueChocante()],
-        ["Visão Mística", () => new MagiaVisaoMistica()],
         ["Vitalidade Fantasma", () => new MagiaVitalidadeFantasma()],
         /* ["", () => new ()], */
     ]);

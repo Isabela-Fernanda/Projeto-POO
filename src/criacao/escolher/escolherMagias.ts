@@ -1,4 +1,4 @@
-import { Classe } from "../../personagens/classes/classe.ts";
+import { Classe } from "../../personagens/classes/depois/classe.ts";
 import { Habilidade } from "../../poderes/habilidades.ts";
 import { CatalogoMagias } from "../../poderes/magia/catalogoMagias.ts";
 import { CirculoMagia, EscolaMagia, TipoMagia } from "../../poderes/magia/magia.ts";

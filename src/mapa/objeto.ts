@@ -1,4 +1,4 @@
-import { Jogador } from "../personagens/jogador.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
 import { ResultadoInteracao } from "./catalogoObjetos.ts";
 
 export abstract class Objeto {

@@ -1,4 +1,4 @@
-import { Classe } from "./classe.ts";
+import { Classe } from "./depois/classe.ts";
 import { Beneficio } from "../../poderes/beneficio.ts";
 import { Caracteristica } from "../../poderes/caracteristica.ts";
 import { Habilidade } from '../../poderes/habilidades.ts';

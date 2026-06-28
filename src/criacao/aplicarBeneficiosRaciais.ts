@@ -1,4 +1,4 @@
-import { Jogador } from "../personagens/jogador.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
 import { EscolherPericia } from "./escolher/escolherPericia.ts";
 import { EscolherPoderGeral } from "./escolher/escolherPoderesGerais.ts";
 

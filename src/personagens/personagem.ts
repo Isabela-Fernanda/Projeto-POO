@@ -5,7 +5,7 @@
 // Core e Definições de Base
 import { Time } from "./time.ts";
 import { Raca } from "./racas/raca.ts";
-import { Classe } from "./classes/classe.ts";
+import { Classe } from "./classes/depois/classe.ts";
 import { Atributos, TipoAtributo } from "./atributos/atributos.ts";
 import { Mapa } from "../mapa/mapa.ts";
 import { Sala } from "../mapa/sala.ts";
@@ -15,7 +15,7 @@ import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento, FacilidadeUso } from "../inventario/equipamento.ts";
 import { Arma, Categoria } from "../itens/arma.ts";
 import { Armadura } from "../itens/armadura.ts";
-import { CatalogoArmas } from "../itens/catalogoArmas.ts";
+import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.ts";
 
 // Sistema de Perícias
 import { Pericia, GrauTreinamento } from "../pericias/pericia.ts";
@@ -34,7 +34,7 @@ import { CalculadoraDefesa } from "../combate/calcular/calcularDefesa.ts";
 import { ModoAtaque, TesteAtaque, AtaquePossivel } from "../combate/testes/testeAtaque.ts";
 import { Beneficio } from "../poderes/beneficio.ts";
 import { CatalogoPericias } from "../pericias/catalogoPericias.ts";
-import { Loot, Random } from "./inimigo/loot.ts";
+import { Loot, Random } from "./loot.ts";
 import { Item } from "../itens/item.ts";
 
 // ======================================================================

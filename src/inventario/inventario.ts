@@ -3,7 +3,7 @@ import { Personagem } from "../personagens/personagem.ts";
 import { ItemInventario } from "./itemInventario.ts";
 import { Arma } from "../itens/arma.ts";
 import { Armadura } from "../itens/armadura.ts";
-import { CatalogoArmas } from "../itens/catalogoArmas.ts";
+import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.ts";
 import { Chave } from "../itens/chave.ts";
 
 export class Inventario {

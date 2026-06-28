@@ -1,31 +1,31 @@
 import { Classe } from "./classe.ts";
-import { Beneficio } from "../../poderes/beneficio.ts";
-import { Caracteristica } from "../../poderes/caracteristica.ts";
-import { Habilidade } from '../../poderes/habilidades.ts';
-import { Pericia } from "../../pericias/pericia.ts";
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-import { TipoAtributo } from "../atributos/atributos.ts";
-import { FacilidadeUso } from "../../inventario/equipamento.ts";
+import { Beneficio } from "../../../poderes/beneficio.ts";
+import { Caracteristica } from "../../../poderes/caracteristica.ts";
+import { Habilidade } from '../../../poderes/habilidades.ts';
+import { Pericia } from "../../../pericias/pericia.ts";
+import { CatalogoPericias } from "../../../pericias/catalogoPericias.ts";
+import { TipoAtributo } from "../../atributos/atributos.ts";
+import { FacilidadeUso } from "../../../inventario/equipamento.ts";
 
-export class Bucaneiro extends Classe {
+export class Ladino extends Classe {
     constructor() {
-        super("Bucaneiro");
+        super("Ladino");
         this.proficiencias.push(FacilidadeUso.MARCIAIS);
     }
     getVidaInicial(): number {
-        return 16;
+        return 12;
     }
 
     getPVPorNivel(): number {
-        return 4;
-    }
-
-    getManaInicial(): number {
         return 3;
     }
 
-    getPericiasTreinadas(): number {
+    getManaInicial(): number {
         return 4;
+    }
+
+    getPericiasTreinadas(): number {
+        return 8;
     }
 
     getBeneficios(): Beneficio[] {
@@ -46,8 +46,7 @@ export class Bucaneiro extends Classe {
 
     getPericiasClasse(): Pericia[] {
         return [
-            CatalogoPericias.LUTA,
-            CatalogoPericias.PONTARIA,
+            CatalogoPericias.LADINAGEM,
             CatalogoPericias.REFLEXOS
         ]
     }
@@ -57,15 +56,21 @@ export class Bucaneiro extends Classe {
             CatalogoPericias.ACROBACIA,
             CatalogoPericias.ATLETISMO,
             CatalogoPericias.ATUACAO,
+            CatalogoPericias.CAVALGAR,
+            CatalogoPericias.CONHECIMENTO,
+            CatalogoPericias.DIPLOMACIA,
             CatalogoPericias.ENGANACAO,
-            CatalogoPericias.FORTITUDE,
             CatalogoPericias.FURTIVIDADE,
             CatalogoPericias.INICIATIVA,
             CatalogoPericias.INTIMIDACAO,
+            CatalogoPericias.INTUICAO,
+            CatalogoPericias.INVESTIGACAO,
             CatalogoPericias.JOGATINA,
+            CatalogoPericias.LUTA,
             CatalogoPericias.OFICIO,
             CatalogoPericias.PERCEPCAO,
             CatalogoPericias.PILOTAGEM,
+            CatalogoPericias.PONTARIA
         ]
     }
 

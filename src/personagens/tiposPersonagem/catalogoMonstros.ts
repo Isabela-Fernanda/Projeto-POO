@@ -6,14 +6,12 @@ import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
 import { Habilidade } from "../../poderes/habilidades.ts";
 
 import { Arma } from "../../itens/arma.ts";
-import { CatalogoArmas } from "../../itens/catalogoArmas.ts";
+import { CatalogoArmas } from "../../itens/catalogos/catalogoArmas.ts";
 
 import { Armadura } from "../../itens/armadura.ts";
-import { CatalogoArmaduras } from "../../itens/catalogoArmadura.ts";
+import { CatalogoArmaduras } from "../../itens/catalogos/catalogoArmadura.ts";
 
 import { ComportamentoIA, IAAgressiva, IAArqueira, IAConjuradora } from "../../combate/IA.ts";
-
-import { Loot } from "./loot.ts";
 
 export enum Tamanho {
     PEQUENO,

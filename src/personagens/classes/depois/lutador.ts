@@ -1,23 +1,21 @@
 import { Classe } from "./classe.ts";
-import { Beneficio } from "../../poderes/beneficio.ts";
-import { Caracteristica } from "../../poderes/caracteristica.ts";
-import { Habilidade } from '../../poderes/habilidades.ts';
-import { Pericia } from "../../pericias/pericia.ts";
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-import { TipoAtributo } from "../atributos/atributos.ts";
-import { FacilidadeUso } from "../../inventario/equipamento.ts";
+import { Beneficio } from "../../../poderes/beneficio.ts";
+import { Caracteristica } from "../../../poderes/caracteristica.ts";
+import { Habilidade } from '../../../poderes/habilidades.ts';
+import { Pericia } from "../../../pericias/pericia.ts";
+import { CatalogoPericias } from "../../../pericias/catalogoPericias.ts";
+import { TipoAtributo } from "../../atributos/atributos.ts";
 
-export class Barbaro extends Classe {
+export class Lutador extends Classe {
     constructor() {
-        super("Bárbaro");
-        this.proficiencias.push(FacilidadeUso.MARCIAIS, FacilidadeUso.ESCUDO);
+        super("Lutador");
     }
     getVidaInicial(): number {
-        return 24;
+        return 20;
     }
 
     getPVPorNivel(): number {
-        return 6;
+        return 5;
     }
 
     getManaInicial(): number {
@@ -35,7 +33,7 @@ export class Barbaro extends Classe {
     getCaracteristicas(): Caracteristica[] {
         return [];
     }
-
+    
     getHabilidades(): Habilidade[] {
         return [];
     }
@@ -53,16 +51,17 @@ export class Barbaro extends Classe {
 
     getPericiasDisponiveis(): Pericia[] {
         return [
+            CatalogoPericias.ACROBACIA,
             CatalogoPericias.ADESTRAMENTO,
             CatalogoPericias.ATLETISMO,
-            CatalogoPericias.CAVALGAR,
+            CatalogoPericias.ENGANACAO,
+            CatalogoPericias.FURTIVIDADE,
             CatalogoPericias.INICIATIVA,
             CatalogoPericias.INTIMIDACAO,
             CatalogoPericias.OFICIO,
             CatalogoPericias.PERCEPCAO,
             CatalogoPericias.PONTARIA,
-            CatalogoPericias.SOBREVIVENCIA,
-            CatalogoPericias.VONTADE
+            CatalogoPericias.REFLEXOS
         ]
     }
 

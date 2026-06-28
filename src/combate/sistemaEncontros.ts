@@ -1,6 +1,6 @@
-import { Jogador } from "../personagens/jogador.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
 import { Personagem } from "../personagens/personagem.ts";
-import { Monstro } from "../personagens/inimigo/monstro.ts";
+import { Monstro } from "../personagens/tiposPersonagem/monstro.ts";
 import { Mapa } from "../mapa/mapa.ts";
 
 export class SistemaEncontros {

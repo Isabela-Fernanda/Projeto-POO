@@ -1,11 +1,11 @@
 import { Classe } from "./classe.ts";
-import { Beneficio } from "../../poderes/beneficio.ts";
-import { Caracteristica } from "../../poderes/caracteristica.ts";
-import { Habilidade } from '../../poderes/habilidades.ts';
-import { Pericia } from "../../pericias/pericia.ts";
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-import { TipoAtributo } from "../atributos/atributos.ts";
-import { FacilidadeUso } from "../../inventario/equipamento.ts";
+import { Beneficio } from "../../../poderes/beneficio.ts";
+import { Caracteristica } from "../../../poderes/caracteristica.ts";
+import { Habilidade } from '../../../poderes/habilidades.ts';
+import { Pericia } from "../../../pericias/pericia.ts";
+import { CatalogoPericias } from "../../../pericias/catalogoPericias.ts";
+import { TipoAtributo } from "../../atributos/atributos.ts";
+import { FacilidadeUso } from "../../../inventario/equipamento.ts";
 
 export class Druida extends Classe {
     constructor() {

@@ -1,6 +1,6 @@
 import { Arma, Categoria } from "../itens/arma.ts";
 import { Armadura, TipoProtecao } from "../itens/armadura.ts";
-import { CatalogoArmas } from "../itens/catalogoArmas.ts";
+import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.ts";
 import { Item } from "../itens/item.ts";
 
 export enum FacilidadeUso {

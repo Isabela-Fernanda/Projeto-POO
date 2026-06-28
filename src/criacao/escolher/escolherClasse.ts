@@ -1,4 +1,4 @@
-import { Classe } from "../../personagens/classes/classe.ts";
+import { Classe } from "../../personagens/classes/depois/classe.ts";
 import { Arcanista } from "../../personagens/classes/arcanista.ts";
 import { Cacador } from "../../personagens/classes/cacador.ts";
 import { Guerreiro } from "../../personagens/classes/guerreiro.ts";

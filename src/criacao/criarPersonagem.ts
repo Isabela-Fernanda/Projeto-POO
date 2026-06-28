@@ -1,4 +1,4 @@
-import { Jogador } from "../personagens/jogador.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
 
 // Atributos
 import { Atributos, TipoAtributo } from "../personagens/atributos/atributos.ts";
@@ -8,7 +8,7 @@ import { GeradorAtributos } from "./geradorAtributos.ts";
 import { Raca } from "../personagens/racas/raca.ts";
 
 // Classes
-import { Classe } from "../personagens/classes/classe.ts";
+import { Classe } from "../personagens/classes/depois/classe.ts";
 
 // Beneficios, Caracteristicas e Habilidades
 import { Beneficio } from "../poderes/beneficio.ts";

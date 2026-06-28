@@ -8,7 +8,7 @@ import { Portal } from "../catalogoObjetos.ts";
 
 import { GeradorInicial } from "../../criacao/gerarItens.ts";
 
-import { Jogador } from "../../personagens/jogador.ts";
+import { Jogador } from "../../personagens/tiposPersonagem/jogador.ts";
 
 export class SalaInicial {
     construir(mapa: Mapa, jogador: Jogador): void {

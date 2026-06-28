@@ -1,6 +1,6 @@
 import { Time } from "../personagens/time.ts";
-import { Monstro } from "../personagens/inimigo/monstro.ts";
-import { DadosMonstro } from "../personagens/inimigo/catalogoMonstros.ts";
+import { Monstro } from "../personagens/tiposPersonagem/monstro.ts";
+import { DadosMonstro } from "../personagens/tiposPersonagem/catalogoMonstros.ts";
 
 import { Monstruosa } from "../personagens/racas/monstruosa.ts";
 
@@ -8,7 +8,7 @@ import { Inventario } from "../inventario/inventario.ts";
 import { Equipamento } from "../inventario/equipamento.ts";
 
 import { GrauTreinamento } from "../pericias/pericia.ts";
-import { Loot } from "../personagens/inimigo/loot.ts";
+import { Loot } from "../personagens/loot.ts";
 
 export class FabricaMonstros {
     static criar(dados: DadosMonstro, loot: Loot[] = []): Monstro {

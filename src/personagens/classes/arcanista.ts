@@ -1,4 +1,4 @@
-import { Classe } from "./classe.ts";
+import { Classe } from "./depois/classe.ts";
 import { Habilidade } from '../../poderes/habilidades.ts';
 import { Pericia } from "../../pericias/pericia.ts";
 import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";

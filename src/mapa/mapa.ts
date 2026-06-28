@@ -1,4 +1,4 @@
-import { Jogador } from "../personagens/jogador.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
 import { Personagem } from "../personagens/personagem.ts";
 import { EfeitoArea } from "../poderes/efeitoArea.ts";
 import { Objeto } from "./objeto.ts";

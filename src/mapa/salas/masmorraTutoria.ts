@@ -1,5 +1,5 @@
 import { GeradorEncontros } from "../../criacao/geradorEncontros.ts";
-import { Jogador } from "../../personagens/jogador.ts";
+import { Jogador } from "../../personagens/tiposPersonagem/jogador.ts";
 import { Mapa } from "../mapa.ts";
 import { Luminosidade, Sala, TipoAmbiente, LadoSala } from "../sala.ts";
 import { Porta, EstadoPorta, Passagem } from "../porta.ts";
