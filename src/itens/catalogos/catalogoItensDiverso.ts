@@ -1,6 +1,6 @@
-import { Personagem } from "../../personagens/personagem.ts";
-import { AcaoItem, Item } from "../item.ts";
-import { Municao } from "../municao.ts";
+import { Personagem } from "../../personagens/personagem.js";
+import { AcaoItem, Item } from "../item.js";
+import { Municao } from "../municao.js";
 
 export class Diverso extends Item {
     constructor(

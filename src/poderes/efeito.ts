@@ -1,7 +1,7 @@
-import { Personagem } from "../personagens/personagem.ts";
-import { Condicao } from "../combate/tipoCondicao.ts";
-import { Item } from "../itens/item.ts";
-import { TagEfeito } from "./tags.ts";
+import { Personagem } from "../personagens/personagem.js";
+import { Condicao } from "../combate/tipoCondicao.js";
+import { Item } from "../itens/item.js";
+import { TagEfeito } from "./tags.js";
 
 export abstract class Efeito {
     constructor(

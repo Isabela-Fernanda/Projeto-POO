@@ -1,12 +1,12 @@
-import { Personagem } from "../../../personagens/personagem.ts";
+import { Personagem } from "../../../personagens/personagem.js";
 
-import { MagiaArea } from "../magiaArea.ts";
-import { EfeitoArea } from "../../efeitoArea.ts";
-import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
+import { MagiaArea } from "../magiaArea.js";
+import { EfeitoArea } from "../../efeitoArea.js";
+import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.js";
+import { TipoAcao, TipoAlvo } from "../../habilidades.js";
 
-import { AreaCircular } from "../utilitarios.ts";
-import { EfeitoNevoa } from "../../efeitos/efeitoArea/efeitoNevoa.ts";
+import { AreaCircular } from "../utilitarios.js";
+import { EfeitoNevoa } from "../../efeitos/efeitoArea/efeitoNevoa.js";
 
 export class MagiaNevoa extends MagiaArea {
     constructor() {

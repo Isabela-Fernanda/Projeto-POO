@@ -1,8 +1,8 @@
-import { Personagem } from "../../../personagens/personagem.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
-import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, Magia, TipoMagia } from "../magia.ts";
+import { Personagem } from "../../../personagens/personagem.js";
+import { TipoAcao, TipoAlvo } from "../../habilidades.js";
+import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, Magia, TipoMagia } from "../magia.js";
 
-import { EfeitoImagemEspelhada } from "../../efeitos/efeitoImagemEspelhada.ts";
+import { EfeitoImagemEspelhada } from "../../efeitos/efeitoImagemEspelhada.js";
 
 export class MagiaImagemEspelhada extends Magia {
     constructor() {

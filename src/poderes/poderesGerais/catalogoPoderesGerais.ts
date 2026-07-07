@@ -1,5 +1,5 @@
-import { Habilidade } from "../habilidades.ts";
-import { AcuidadeComArma, AtaquePoderoso, CombateDefensivo, Esquiva, FocoEmArma, ReflexosDeCombate, SaqueRapido, Vitalidade, VontadeDeFerro } from "./PoderGeral.ts";
+import { Habilidade } from "../habilidades.js";
+import { AcuidadeComArma, AtaquePoderoso, CombateDefensivo, Esquiva, FocoEmArma, ReflexosDeCombate, SaqueRapido, Vitalidade, VontadeDeFerro } from "./PoderGeral.js";
 
 export interface OpcaoPoder {
     nome: string;

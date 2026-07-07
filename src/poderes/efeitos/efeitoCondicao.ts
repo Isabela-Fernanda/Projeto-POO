@@ -1,6 +1,6 @@
-import { Personagem } from "../../personagens/personagem.ts";
-import { Efeito } from "../efeito.ts";
-import { Condicao } from "../../combate/tipoCondicao.ts";
+import { Personagem } from "../../personagens/personagem.js";
+import { Efeito } from "../efeito.js";
+import { Condicao } from "../../combate/tipoCondicao.js";
 
 export class EfeitoAbalado extends Efeito {
     constructor(rodadas: number) {

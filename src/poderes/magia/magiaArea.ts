@@ -1,8 +1,8 @@
-import { Mapa } from "../../mapa/mapa.ts";
-import { Personagem } from "../../personagens/personagem.ts";
-import { Magia } from "./magia.ts";
-import { AreaCircular } from "./utilitarios.ts";
-import { EfeitoArea } from "../efeitoArea.ts";
+import { Mapa } from "../../mapa/mapa.js";
+import { Personagem } from "../../personagens/personagem.js";
+import { Magia } from "./magia.js";
+import { AreaCircular } from "./utilitarios.js";
+import { EfeitoArea } from "../efeitoArea.js";
 
 export abstract class MagiaArea extends Magia {
     protected abstract afetarAlvo(usuario: Personagem, alvo: Personagem): void;

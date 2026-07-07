@@ -1,11 +1,11 @@
-import { Efeito } from "../efeito.ts";
-import { Condicao } from "../../combate/tipoCondicao.ts";
+import { Efeito } from "../efeito.js";
+import { Condicao } from "../../combate/tipoCondicao.js";
 
-export class EfeitoTeia extends Efeito {
+export class EfeitoControlarPlantas extends Efeito {
     constructor(
         duracao: number
     ) {
-        super("Teia", duracao, [Condicao.ENREDADO]);
+        super("Controlar Plantas", duracao, [Condicao.ENREDADO]);
     }
 
     override getBonusDeslocamento(): number {

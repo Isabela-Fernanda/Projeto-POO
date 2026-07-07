@@ -1,5 +1,5 @@
-import { Personagem } from "../personagens/personagem.ts";
-import { ItemInventario } from "./itemInventario.ts";
+import { Personagem } from "../personagens/personagem.js";
+import { ItemInventario } from "./itemInventario.js";
 
 export class MenuItem {
     static abrir(personagem: Personagem, item: ItemInventario) {

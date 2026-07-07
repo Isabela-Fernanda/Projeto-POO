@@ -1,5 +1,5 @@
-import { Efeito } from "../efeito.ts";
-import { TagEfeito } from "../tags.ts";
+import { Efeito } from "../efeito.js";
+import { TagEfeito } from "../tags.js";
 
 export class EfeitoEscuridaoArcana extends Efeito {
     constructor() {

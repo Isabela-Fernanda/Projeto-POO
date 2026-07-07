@@ -1,5 +1,5 @@
-import { Personagem } from "../../../personagens/personagem.ts";
-import { Caracteristica } from "../../../poderes/caracteristica.ts";
+import { Personagem } from "../../../personagens/personagem.js";
+import { Caracteristica } from "../../../poderes/caracteristica.js";
 
 /* ------------------------------------------------------------------- */
 /* ---------------------------- BUCANEIRO ---------------------------- */
@@ -46,19 +46,6 @@ export class SimboloSagrado extends Caracteristica {
 export class AspectoDaNatureza extends Caracteristica {
     constructor() {
         super("Aspecto da Natureza", "Concede um aspecto escolhido pelo druida.");
-    }
-
-    aplicar(personagem: Personagem): void {
-        personagem.adicionarCaracteristica(this);
-    }
-}
-
-/* ------------------------------------------------------------------- */
-/* ---------------------------- GUERREIRO ---------------------------- */
-/* ------------------------------------------------------------------- */
-export class AtaqueEspecial extends Caracteristica {
-    constructor() {
-        super("Ataque Especial", "Quando faz um ataque, você pode gastar 1 PM para receber +4 no teste de ataque ou na rolagem de dano. A cada quatro níveis, pode gastar +1 PM para aumentar o bônus em +4. Você pode dividir os bônus igualmente. Por exemplo, no 17º nível, pode gastar 5 PM para receber +20 no ataque, +20 no dano ou +10 no ataque e +10 no dano.");
     }
 
     aplicar(personagem: Personagem): void {

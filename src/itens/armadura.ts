@@ -1,6 +1,6 @@
-import { Personagem } from "../personagens/personagem.ts";
-import { FacilidadeUso } from "../inventario/equipamento.ts";
-import { AcaoItem, Item, Modificacoes } from "./item.ts"
+import { Personagem } from "../personagens/personagem.js";
+import { FacilidadeUso } from "../inventario/equipamento.js";
+import { AcaoItem, Item, Modificacoes } from "./item.js"
 
 export enum CategoriaArmadura {
     LEVE,

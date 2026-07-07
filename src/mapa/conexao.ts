@@ -1,6 +1,6 @@
-import { Personagem } from "../personagens/personagem.ts";
-import { TileMapa } from "./tileMapa.ts"
-import { Sala, LadoSala } from "./sala.ts";
+import { Personagem } from "../personagens/personagem.js";
+import { TileMapa } from "./tileMapa.js"
+import { Sala, LadoSala } from "./sala.js";
 
 export abstract class Conexao {
     constructor(

@@ -1,6 +1,6 @@
-import { FacilidadeUso } from "../inventario/equipamento.ts";
-import { Arma } from "../itens/arma.ts";
-import { Personagem } from "../personagens/personagem.ts";
+import { FacilidadeUso } from "../inventario/equipamento.js";
+import { Arma } from "../itens/arma.js";
+import { Personagem } from "../personagens/personagem.js";
 
 export enum TipoAcao {
     LIVRE,

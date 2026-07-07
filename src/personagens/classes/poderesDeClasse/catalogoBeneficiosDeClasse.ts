@@ -1,35 +1,6 @@
-import { Personagem } from "../../../personagens/personagem.ts";
+import { Personagem } from "../../../personagens/personagem.js";
 
-import { Beneficio } from "../../../poderes/beneficio.ts";
-
-/* ------------------------------------------------------------------- */
-/* ---------------------------- ARCANISTA ---------------------------- */
-/* ------------------------------------------------------------------- */
-export class MagiasAprendidas extends Beneficio {
-    constructor() {
-        super(
-            "Magias",
-            "Você conhece três magias de 1º círculo."
-        );
-    }
-
-    aplicar(personagem: Personagem): void {
-        // escolher magias durante criação
-    }
-}
-
-export class MagiasArcanas extends Beneficio {
-    constructor() {
-        super(
-            "Magias",
-            "Você conhece três magias arcanas."
-        );
-    }
-
-    aplicar(personagem: Personagem): void {
-        // seleção de magias na criação
-    }
-}
+import { Beneficio } from "../../../poderes/beneficio.js";
 
 /* ------------------------------------------------------------------- */
 /* ----------------------------- BARBARO ----------------------------- */
@@ -78,22 +49,6 @@ export class Audacia extends Beneficio {
 
     aplicar(personagem: Personagem): void {
         // implementar quando existir sistema de testes
-    }
-}
-
-/* ------------------------------------------------------------------- */
-/* ----------------------------- CAÇADOR ----------------------------- */
-/* ------------------------------------------------------------------- */
-export class Explorador extends Beneficio {
-    constructor() {
-        super(
-            "Explorador",
-            "Recebe bônus em seu terreno favorito."
-        );
-    }
-
-    aplicar(personagem: Personagem): void {
-        // implementar futuramente
     }
 }
 

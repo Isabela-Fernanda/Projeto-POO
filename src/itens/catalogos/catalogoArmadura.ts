@@ -1,5 +1,5 @@
-import { FacilidadeUso } from "../../inventario/equipamento.ts";
-import { Armadura, CategoriaArmadura, TipoProtecao } from "../armadura.ts";
+import { FacilidadeUso } from "../../inventario/equipamento.js";
+import { Armadura, CategoriaArmadura, TipoProtecao } from "../armadura.js";
 
 export class CatalogoArmaduras {
     // Armaduras Leves

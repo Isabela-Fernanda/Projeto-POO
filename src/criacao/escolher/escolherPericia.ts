@@ -1,7 +1,7 @@
-import { Classe } from "../../personagens/classes/depois/classe.ts";
-import { Pericia, GrauTreinamento } from "../../pericias/pericia.ts";
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-import { Jogador } from "../../personagens/tiposPersonagem/jogador.ts";
+import { Classe } from "@personagens/classes/classe.js";
+import { Pericia, GrauTreinamento } from "../../pericias/pericia.js";
+import { CatalogoPericias } from "../../pericias/catalogoPericias.js";
+import { Jogador } from "../../personagens/tiposPersonagem/jogador.js";
 
 export class EscolherPericia {
     escolher(classe: Classe): Map<Pericia, GrauTreinamento> {

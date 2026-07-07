@@ -1,7 +1,7 @@
-import { Objeto } from "./objeto.ts";
-import { Item } from "../itens/item.ts";
-import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
-import { Inventario } from "../inventario/inventario.ts";
+import { Objeto } from "./objeto.js";
+import { Item } from "../itens/item.js";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.js";
+import { Inventario } from "../inventario/inventario.js";
 
 export class Mesa extends Objeto {
     private itens: Item[];

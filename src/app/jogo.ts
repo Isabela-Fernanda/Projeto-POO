@@ -1,39 +1,63 @@
-import { Mapa } from "../mapa/mapa.ts";
-import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
+import { Combate } from "@combate/combate.js";
+import { GerenciadorTutorial } from "@mapa/salas/gerenciadorTutorial.js";
+import { Espolio, ResultadoInteracao } from "@mapa/catalogoObjetos.js";
 
-import { CriacaoPersonagem } from "../criacao/criarPersonagem.ts";
-import { Combate } from "../combate/combate.ts";
-import { GerenciadorTutorial } from "../mapa/salas/gerenciadorTutorial.ts";
-import { Espolio, ResultadoInteracao } from "../mapa/catalogoObjetos.ts";
+import { ResultadoJogo } from "@save/menuInicial.js";
 
-import { SistemaEncontros } from "../combate/sistemaEncontros.ts";
-import { MenuInventario } from "../inventario/menuInventario.ts";
-import { Objeto } from "../mapa/objeto.ts";
+import { SistemaEncontros } from "@combate/sistemaEncontros.js";
+import { MenuInventario } from "@inventario/menuInventario.js";
+import { Objeto } from "@mapa/objeto.js";
+import { Campanha } from "@save/campanha.js";
+import { Save } from "@save/save.js";
+import { SaveManager } from "@save/saveManager.js";
+import { Jogador } from "@personagens/tiposPersonagem/jogador.js";
 
 export class Jogo {
     private tutorial!: GerenciadorTutorial;
 
-    async iniciar() {
-        console.clear();
-        console.log("=== RPG TORMENTA ===");
+    constructor(
+        private readonly campanha: Campanha,
+        private readonly save: Save
+    ) { }
 
-        console.log("\nCriando Personagem 1");
-        const jogador = CriacaoPersonagem.criar();
-
-        const mapa = new Mapa();
-
-        this.tutorial = new GerenciadorTutorial(mapa, jogador);
-        this.tutorial.iniciar();
-
-        this.loopDeExploracao(mapa, jogador);
+    private async salvar() {
+        await SaveManager.salvar(this.save);
     }
 
-    private loopDeExploracao(mapa: Mapa, jogador: Jogador,): void {
-        let jogando = true;
-        while (jogando) {
+    async iniciar(): Promise<ResultadoJogo> {
+        console.clear();
+
+        this.tutorial = new GerenciadorTutorial(this.campanha.mapa, this.campanha.jogador);
+        if (!this.campanha.foiIniciada()) {
+            this.tutorial.iniciar();
+            this.campanha.marcarIniciada();
+        }
+
+        this.campanha.jogador.setSalaAtual(
+            this.campanha.mapa.getSalaPorPosicao(
+                this.campanha.jogador.getX(),
+                this.campanha.jogador.getY()
+            )!
+        );
+
+        const resultado = await this.loopDeExploracao();
+        return resultado;
+    }
+
+    private async loopDeExploracao(): Promise<ResultadoJogo> {
+        let mapa = this.campanha.mapa;
+        let jogador = this.campanha.jogador;
+
+        console.log(
+            this.save.campanha!.jogador ===
+            this.save.campanha!.mapa.getEntidades()
+                .find(e => e instanceof Jogador)
+        );
+
+        while (true) {
             console.clear();
 
-            mapa.renderizar();
+            mapa.renderizar(jogador);
 
             console.log("\n=== AÇÕES ===");
             console.log("W/A/S/D - Mover");
@@ -49,15 +73,19 @@ export class Jogo {
             switch (acao) {
                 case "W":
                     mapa.moverEntidade(jogador, xAtual, yAtual - 1);
+                    await this.salvar();
                     break;
                 case "S":
                     mapa.moverEntidade(jogador, xAtual, yAtual + 1);
+                    await this.salvar();
                     break;
                 case "A":
                     mapa.moverEntidade(jogador, xAtual - 1, yAtual);
+                    await this.salvar();
                     break;
                 case "D":
                     mapa.moverEntidade(jogador, xAtual + 1, yAtual);
+                    await this.salvar();
                     break;
                 case "E":
                     const objetosAdjacentes = mapa.getObjetos().filter(obj => {
@@ -99,14 +127,16 @@ export class Jogo {
                         }
                         prompt("\nPressione Enter para continuar...");
                     }
+                    await this.salvar();
                     break;
                 case "I":
                     MenuInventario.abrir(jogador);
+                    await this.salvar();
                     break;
                 case "Q":
-                    jogando = false;
                     console.log("Saindo do jogo...");
-                    break;
+                    await this.salvar();
+                    return ResultadoJogo.SAIU;
                 default:
                     console.log("Ação inválida!");
                     prompt("\nPressione Enter para continuar...");
@@ -118,11 +148,11 @@ export class Jogo {
                 const participantes = [jogador, ...inimigos];
                 const combate = new Combate(mapa, participantes);
                 combate.iniciar();
+                await this.salvar();
                 if (!jogador.estaVivo()) {
                     console.log("Game Over");
-                    return;
+                    return ResultadoJogo.MORREU;
                 }
-
             }
         }
     }

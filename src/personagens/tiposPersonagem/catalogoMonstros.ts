@@ -1,17 +1,17 @@
-import { Atributos } from "../atributos/atributos.ts";
+import { Atributos } from "../atributos/atributos.js";
 
-import { Pericia } from "../../pericias/pericia.ts";
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
+import { Pericia } from "../../pericias/pericia.js";
+import { CatalogoPericias } from "../../pericias/catalogoPericias.js";
 
-import { Habilidade } from "../../poderes/habilidades.ts";
+import { Habilidade } from "../../poderes/habilidades.js";
 
-import { Arma } from "../../itens/arma.ts";
-import { CatalogoArmas } from "../../itens/catalogos/catalogoArmas.ts";
+import { Arma } from "../../itens/arma.js";
+import { CatalogoArmas } from "../../itens/catalogos/catalogoArmas.js";
 
-import { Armadura } from "../../itens/armadura.ts";
-import { CatalogoArmaduras } from "../../itens/catalogos/catalogoArmadura.ts";
+import { Armadura } from "../../itens/armadura.js";
+import { CatalogoArmaduras } from "../../itens/catalogos/catalogoArmadura.js";
 
-import { ComportamentoIA, IAAgressiva, IAArqueira, IAConjuradora } from "../../combate/IA.ts";
+import { ComportamentoIA, IAAgressiva, IAArqueira, IAConjuradora } from "../../combate/IA.js";
 
 export enum Tamanho {
     PEQUENO,

@@ -1,8 +1,8 @@
-import { Arma, TipoAtaque, Categoria, GrupoArma, PropriedadeArma } from "../arma.ts";
-import { FacilidadeUso } from "../../inventario/equipamento.ts";
-import { Municao } from "../municao.ts";
-import { CatalogoMunicao } from "./catalogoMunicao.ts";
-import { TipoDano } from "../../combate/tipoDano.ts";
+import { Arma, TipoAtaque, Categoria, GrupoArma, PropriedadeArma } from "../arma.js";
+import { FacilidadeUso } from "../../inventario/equipamento.js";
+import { Municao } from "../municao.js";
+import { CatalogoMunicao } from "./catalogoMunicao.js";
+import { TipoDano } from "../../combate/tipoDano.js";
 
 export class CatalogoArmas {
     // Especial

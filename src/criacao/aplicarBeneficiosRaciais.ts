@@ -1,6 +1,6 @@
-import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
-import { EscolherPericia } from "./escolher/escolherPericia.ts";
-import { EscolherPoderGeral } from "./escolher/escolherPoderesGerais.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.js";
+import { EscolherPericia } from "./escolher/escolherPericia.js";
+import { EscolherPoderGeral } from "./escolher/escolherPoderesGerais.js";
 
 export class AplicarBeneficioRacial {
     static aplicarVersatil(jogador: Jogador): void {

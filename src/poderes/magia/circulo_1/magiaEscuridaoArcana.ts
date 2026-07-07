@@ -1,9 +1,10 @@
-import { Personagem } from "../../../personagens/personagem.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
-import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, Magia, TipoMagia } from "../magia.ts";
+import { Personagem } from "../../../personagens/personagem.js";
+import { TipoAcao, TipoAlvo } from "../../habilidades.js";
+import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, Magia, TipoMagia } from "../magia.js";
 
-import { Inventario } from "../../../inventario/inventario.ts";
-import { EfeitoEscuridaoArcana } from "../../efeitos/efeitoEscuridao.ts";
+import { Inventario } from "../../../inventario/inventario.js";
+import { EfeitoEscuridaoArcana } from "../../efeitos/efeitoEscuridao.js";
+import { MenuInventario } from "@inventario/menuInventario.js";
 
 export class MagiaEscuridaoArcana extends Magia {
     constructor() {
@@ -17,11 +18,11 @@ export class MagiaEscuridaoArcana extends Magia {
             const escolha = prompt("Escolha:");
 
             if (escolha === "1") {
-                const objeto = Inventario.escolherObjetoInventario(usuario);
+                const objeto = MenuInventario.escolherObjetoInventario(usuario);;
 
-                objeto.adicionarEfeito(new EfeitoEscuridaoArcana());
+                objeto.item.adicionarEfeito(new EfeitoEscuridaoArcana());
 
-                console.log(`${objeto.getNome()} passa a emitir luz em um raio de 6m.`);
+                console.log(`${objeto.item.getNome()} passa a emitir luz em um raio de 6m.`);
                 break;
             }
 

@@ -1,6 +1,6 @@
-import { Personagem } from "../personagens/personagem.ts";
-import { MenuItem } from "./menuItem.ts";
-import { ItemInventario } from "./itemInventario.ts";
+import { Personagem } from "../personagens/personagem.js";
+import { MenuItem } from "./menuItem.js";
+import { ItemInventario } from "./itemInventario.js";
 
 export class MenuInventario {
     static abrir(personagem: Personagem): boolean {

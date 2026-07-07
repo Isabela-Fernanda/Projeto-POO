@@ -1,12 +1,12 @@
-import { Personagem } from "../../../personagens/personagem.ts";
+import { Personagem } from "../../../personagens/personagem.js";
 
-import { Magia, CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
-import { TipoDano } from "../../../combate/tipoDano.ts";
+import { Magia, CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.js";
+import { TipoAcao, TipoAlvo } from "../../habilidades.js";
+import { TipoDano } from "../../../combate/tipoDano.js";
 
-import { UtilitarioCondicao,UtilitarioResistencia } from "../utilitarios.ts";
+import { UtilitarioCondicao,UtilitarioResistencia } from "../utilitarios.js";
 
-import { Condicao } from "../../../combate/tipoCondicao.ts";
+import { Condicao } from "../../../combate/tipoCondicao.js";
 
 export class MagiaHipnotismo extends Magia {
     constructor() {

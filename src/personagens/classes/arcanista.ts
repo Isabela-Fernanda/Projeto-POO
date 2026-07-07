@@ -1,10 +1,10 @@
-import { Classe } from "./depois/classe.ts";
-import { Habilidade } from '../../poderes/habilidades.ts';
-import { Pericia } from "../../pericias/pericia.ts";
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-import { TipoAtributo } from "../atributos/atributos.ts";
-import { Beneficio } from "../../poderes/beneficio.ts";
-import { Caracteristica } from "../../poderes/caracteristica.ts";
+import { Classe } from "./classe.js";
+import { Habilidade } from "@poderes/habilidades.js";
+import { Pericia } from "@pericias/pericia.js";
+import { CatalogoPericias } from "@pericias/catalogoPericias.js";
+import { TipoAtributo } from "../atributos/atributos.js";
+import { Beneficio } from "@poderes/beneficio.js";
+import { Caracteristica } from "@poderes/caracteristica.js";
 
 export class Arcanista extends Classe {
     constructor() {

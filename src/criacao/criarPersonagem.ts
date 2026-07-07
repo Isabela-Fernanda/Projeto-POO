@@ -1,29 +1,29 @@
-import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.js";
 
 // Atributos
-import { Atributos, TipoAtributo } from "../personagens/atributos/atributos.ts";
-import { GeradorAtributos } from "./geradorAtributos.ts";
+import { Atributos, TipoAtributo } from "../personagens/atributos/atributos.js";
+import { GeradorAtributos } from "./geradorAtributos.js";
 
 // Raças
-import { Raca } from "../personagens/racas/raca.ts";
+import { Raca } from "../personagens/racas/raca.js";
 
 // Classes
-import { Classe } from "../personagens/classes/depois/classe.ts";
+import { Classe } from "../personagens/classes/classe.js";
 
 // Beneficios, Caracteristicas e Habilidades
-import { Beneficio } from "../poderes/beneficio.ts";
-import { Caracteristica } from "../poderes/caracteristica.ts";
-import { Habilidade } from "../poderes/habilidades.ts";
+import { Beneficio } from "../poderes/beneficio.js";
+import { Caracteristica } from "../poderes/caracteristica.js";
+import { Habilidade } from "../poderes/habilidades.js";
 
 // Inventario
-import { Inventario } from "../inventario/inventario.ts";
-import { Equipamento } from "../inventario/equipamento.ts";
+import { Inventario } from "../inventario/inventario.js";
+import { Equipamento } from "../inventario/equipamento.js";
 
-import { SelecionarRaca } from "./escolher/escolherRaca.ts";
-import { EscolherClasse } from "./escolher/escolherClasse.ts";
-import { EscolherPericia } from "./escolher/escolherPericia.ts";
-import { EscolherMagias } from "./escolher/escolherMagias.ts";
-import { AplicarBeneficioRacial } from "./aplicarBeneficiosRaciais.ts";
+import { SelecionarRaca } from "./escolher/escolherRaca.js";
+import { EscolherClasse } from "./escolher/escolherClasse.js";
+import { EscolherPericia } from "./escolher/escolherPericia.js";
+import { EscolherMagias } from "./escolher/escolherMagias.js";
+import { AplicarBeneficioRacial } from "./aplicarBeneficiosRaciais.js";
 
 export class CriacaoPersonagem {
     static criar(): Jogador {
@@ -46,6 +46,14 @@ export class CriacaoPersonagem {
         if (classe.getNome() === "Arcanista" || classe.getNome() === "Bardo" || classe.getNome() === "Clérigo" || classe.getNome() === "Druida") {
             const magias = new EscolherMagias().escolher(classe);
             habilidades.push(...magias);
+        }
+
+        for (const h of habilidades) {
+            console.log(
+                "CRIAÇÃO:",
+                h.constructor.name,
+                h instanceof Habilidade
+            );
         }
 
         const jogador = new Jogador(nome, 1, raca, classe, atributos, new Inventario(), new Equipamento(), pericias, new Map(), beneficios, caracteristicas, habilidades);

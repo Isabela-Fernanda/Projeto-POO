@@ -1,5 +1,5 @@
-import { GrupoArma } from "../arma.ts";
-import { Municao } from "../municao.ts";
+import { GrupoArma } from "../arma.js";
+import { Municao } from "../municao.js";
 
 export class CatalogoMunicao {
     static readonly FLECHA= new Municao("Flechas", 1/20, 15/200, "Hastes de madeira com ponta metálica e penas para estabilizar o voo, flechas são vendidas em aljavas com 20 unidades. Recarregar um arco com uma flecha é uma ação livre.", GrupoArma.ARCO, []);

@@ -1,11 +1,11 @@
-import { Raca } from "./raca.ts";
+import { Raca } from "./raca.js";
 
-import { TipoAtributo } from "../atributos/atributos.ts";
+import { TipoAtributo } from "../atributos/atributos.js";
 
-import { Caracteristica } from "../../poderes/caracteristica.ts";
-import { Beneficio } from "../../poderes/beneficio.ts";
-import { Habilidade } from "../../poderes/habilidades.ts";
-import { GracaDeGlorienn, HerancaFeerica, SentidosElficos } from "./poderesRaciais.ts";
+import { Caracteristica } from "../../poderes/caracteristica.js";
+import { Beneficio } from "../../poderes/beneficio.js";
+import { Habilidade } from "../../poderes/habilidades.js";
+import { GracaDeGlorienn, HerancaFeerica, SentidosElficos } from "./poderesRaciais.js";
 
 export class Elfo extends Raca {
     constructor() {

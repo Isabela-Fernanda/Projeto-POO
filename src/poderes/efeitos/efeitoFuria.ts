@@ -1,9 +1,8 @@
-import { Efeito } from "../efeito.ts";
+import { Efeito } from "../efeito.js";
 
 export class EfeitoFuria extends Efeito {
     constructor(nivel: number) {
         super("Fúria", 999);
-        this.pvTemp = nivel * 2;
     }
 
     override getBonusAtaque(): number {

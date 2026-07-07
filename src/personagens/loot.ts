@@ -1,4 +1,4 @@
-import { Item } from "../itens/item.ts";
+import { Item } from "../itens/item.js";
 
 export interface Loot {
     item: Item;

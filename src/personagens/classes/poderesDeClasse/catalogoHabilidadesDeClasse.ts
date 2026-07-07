@@ -1,10 +1,10 @@
-import { Personagem } from "../../../personagens/personagem.ts";
-import { Habilidade, TipoAcao, TipoAlvo } from "../../../poderes/habilidades.ts";
+import { Personagem } from "../../../personagens/personagem.js";
+import { Habilidade, TipoAcao, TipoAlvo } from "../../../poderes/habilidades.js";
 
-import { EfeitoFuria } from "../../../poderes/efeitos/efeitoFuria.ts";
-import { EfeitoInspiracao } from "../../../poderes/efeitos/efeitoInspiracao.ts";
-import { EfeitoMarcaDaPresa } from "../../../poderes/efeitos/efeitoMarcaDaPresa.ts";
-import { EfeitoDesafio } from "../../../poderes/efeitos/efeitoDesafio.ts";
+import { EfeitoFuria } from "../../../poderes/efeitos/efeitoFuria.js";
+import { EfeitoInspiracao } from "../../../poderes/efeitos/efeitoInspiracao.js";
+import { EfeitoMarcaDaPresa } from "../../../poderes/efeitos/efeitoMarcaDaPresa.js";
+import { EfeitoDesafio } from "../../../poderes/efeitos/efeitoDesafio.js";
 
 /* ------------------------------------------------------------------- */
 /* ----------------------------- BARBARO ----------------------------- */
@@ -44,29 +44,6 @@ export class Inspiracao extends Habilidade {
 
         alvo.adicionarEfeito(
             new EfeitoInspiracao()
-        );
-    }
-}
-
-/* ------------------------------------------------------------------- */
-/* ----------------------------- CAÇADOR ----------------------------- */
-/* ------------------------------------------------------------------- */
-export class MarcaDaPresa extends Habilidade {
-    constructor() {
-        super(
-            "Marca da Presa",
-            "...",
-            1,
-            TipoAcao.MOVIMENTO,
-            TipoAlvo.INIMIGO
-        );
-    }
-
-    usar(usuario: Personagem, alvo?: Personagem): void {
-        if (!alvo) return;
-
-        alvo.adicionarEfeito(
-            new EfeitoMarcaDaPresa()
         );
     }
 }

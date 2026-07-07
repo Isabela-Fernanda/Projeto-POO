@@ -1,7 +1,7 @@
-import { Dado } from "./dado.ts";
-import { Personagem } from "../personagens/personagem.ts";
-import { CatalogoPericias } from "../pericias/catalogoPericias.ts";
-import { CalculadoraPericia } from "./calcular/calculadoraPericia.ts";
+import { Dado } from "./dado.js";
+import { Personagem } from "../personagens/personagem.js";
+import { CatalogoPericias } from "../pericias/catalogoPericias.js";
+import { CalculadoraPericia } from "./calcular/calculadoraPericia.js";
 
 export class RodadaIniciativa {
     static rolar(personagem: Personagem): number {

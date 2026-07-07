@@ -1,7 +1,7 @@
-import { Classe } from "../../personagens/classes/depois/classe.ts";
-import { Habilidade } from "../../poderes/habilidades.ts";
-import { CatalogoMagias } from "../../poderes/magia/catalogoMagias.ts";
-import { CirculoMagia, EscolaMagia, TipoMagia } from "../../poderes/magia/magia.ts";
+import { Classe } from "@personagens/classes/classe.js";
+import { Habilidade } from "../../poderes/habilidades.js";
+import { CatalogoMagias } from "../../poderes/magia/catalogoMagias.js";
+import { CirculoMagia, EscolaMagia, TipoMagia } from "../../poderes/magia/magia.js";
 
 export class EscolherMagias {
     escolher(classe: Classe): Habilidade[] {

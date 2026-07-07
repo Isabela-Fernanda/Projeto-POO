@@ -1,6 +1,6 @@
-import { GrupoArma } from "./arma.ts";
-import { Item, Modificacoes, AcaoItem } from "./item.ts";
-import { Personagem } from "../personagens/personagem.ts";
+import { GrupoArma } from "./arma.js";
+import { Item, Modificacoes, AcaoItem } from "./item.js";
+import { Personagem } from "../personagens/personagem.js";
 
 export class Municao extends Item {
     constructor(

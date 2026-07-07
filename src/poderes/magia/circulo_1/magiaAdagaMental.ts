@@ -1,13 +1,13 @@
-import { Personagem } from "../../../personagens/personagem.ts";
-import { Dado } from "../../../combate/dado.ts";
+import { Personagem } from "../../../personagens/personagem.js";
+import { Dado } from "../../../combate/dado.js";
 
-import { Magia,CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.ts";
-import { UtilitarioMagia, UtilitarioResistencia, UtilitarioCondicao } from "../utilitarios.ts";
+import { Magia,CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.js";
+import { UtilitarioMagia, UtilitarioResistencia, UtilitarioCondicao } from "../utilitarios.js";
 
-import { TipoDano } from "../../../combate/tipoDano.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
+import { TipoDano } from "../../../combate/tipoDano.js";
+import { TipoAcao, TipoAlvo } from "../../habilidades.js";
 
-import { Condicao } from "../../../combate/tipoCondicao.ts";
+import { Condicao } from "../../../combate/tipoCondicao.js";
 
 export class MagiaAdagaMental extends Magia {
     constructor() {

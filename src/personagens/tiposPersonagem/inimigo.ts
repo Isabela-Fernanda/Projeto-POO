@@ -1,16 +1,16 @@
-import { Personagem } from "../personagem.ts";
-import { Mapa } from "../../mapa/mapa.ts";
+import { Personagem } from "../personagem.js";
+import { Mapa } from "@mapa/mapa.js";
 
-import { Time } from "../time.ts";
-import { Raca } from "../racas/raca.ts";
-import { Classe } from "../classes/depois/classe.ts";
-import { Atributos } from "../atributos/atributos.ts";
-import { Equipamento } from "../../inventario/equipamento.ts";
-import { Inventario } from "../../inventario/inventario.ts";
-import { Pericia, GrauTreinamento } from "../../pericias/pericia.ts";
-import { Habilidade } from "../../poderes/habilidades.ts";
-import { EstadoTurno } from "../../combate/estadoTurno.ts";
-import { Loot } from "../loot.ts";
+import { Time } from "../time.js";
+import { Raca } from "../racas/raca.js";
+import { Classe } from "../classes/classe.js";
+import { Atributos } from "../atributos/atributos.js";
+import { Equipamento } from "@inventario/equipamento.js";
+import { Inventario } from "@inventario/inventario.js";
+import { Pericia, GrauTreinamento } from "@pericias/pericia.js";
+import { Habilidade } from "@poderes/habilidades.js";
+import { EstadoTurno } from "@combate/estadoTurno.js";
+import { Loot } from "../loot.js";
 
 export abstract class Inimigo extends Personagem {
     constructor(

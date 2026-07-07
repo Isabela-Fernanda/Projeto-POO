@@ -1,12 +1,12 @@
-import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.js";
 
-import { Item } from "../itens/item.ts";
-import { Arma } from "../itens/arma.ts";
-import { Armadura } from "../itens/armadura.ts";
-import { CatalogoItensDiversos } from "../itens/catalogos/catalogoItensDiverso.ts";
-import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.ts";
-import { CatalogoMunicao } from "../itens/catalogos/catalogoMunicao.ts";
-import { CatalogoArmaduras } from "../itens/catalogos/catalogoArmadura.ts"
+import { Item } from "../itens/item.js";
+import { Arma } from "../itens/arma.js";
+import { Armadura } from "../itens/armadura.js";
+import { CatalogoItensDiversos } from "../itens/catalogos/catalogoItensDiverso.js";
+import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.js";
+import { CatalogoMunicao } from "../itens/catalogos/catalogoMunicao.js";
+import { CatalogoArmaduras } from "../itens/catalogos/catalogoArmadura.js"
 
 export type ItensIniciais = {
     mesa: Item[];

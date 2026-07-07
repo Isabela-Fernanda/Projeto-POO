@@ -1,6 +1,6 @@
-import { Mapa } from "../mapa/mapa.ts";
-import { Personagem } from "../personagens/personagem.ts";
-import { Turno } from "./turno.ts";
+import { Mapa } from "../mapa/mapa.js";
+import { Personagem } from "../personagens/personagem.js";
+import { Turno } from "./turno.js";
 
 export class Rodada {
     constructor(

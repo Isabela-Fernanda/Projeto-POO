@@ -1,11 +1,11 @@
-import { Personagem } from "../personagem.ts";
+import { Personagem } from "../personagem.js";
 
-import { Beneficio } from "../../poderes/beneficio.ts";
-import { Caracteristica } from "../../poderes/caracteristica.ts";
-import { Habilidade } from "../../poderes/habilidades.ts";
+import { Beneficio } from "../../poderes/beneficio.js";
+import { Caracteristica } from "../../poderes/caracteristica.js";
+import { Habilidade } from "../../poderes/habilidades.js";
 
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-import { Tags } from "../../poderes/tags.ts";
+import { CatalogoPericias } from "../../pericias/catalogoPericias.js";
+import { Tags } from "../../poderes/tags.js";
 
 // ===================================================================== 
 // Anão  

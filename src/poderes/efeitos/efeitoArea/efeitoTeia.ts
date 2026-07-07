@@ -1,9 +1,9 @@
-import { Condicao } from "../../../combate/tipoCondicao.ts";
-import { EfeitoArea } from "../../efeitoArea.ts";
-import { Personagem } from "../../../personagens/personagem.ts";
-import { EfeitoCondicao } from "../efeitoCondicao.ts";
-import { TipoDano } from "../../../combate/tipoDano.ts";
-import { UtilitarioResistencia } from "../../magia/utilitarios.ts";
+import { Condicao } from "../../../combate/tipoCondicao.js";
+import { EfeitoArea } from "../../efeitoArea.js";
+import { Personagem } from "../../../personagens/personagem.js";
+import { EfeitoEnredado } from "../efeitoCondicao.js";
+import { TipoDano } from "../../../combate/tipoDano.js";
+import { UtilitarioResistencia } from "../../magia/utilitarios.js";
 
 export class EfeitoTeia extends EfeitoArea {
     constructor( 
@@ -19,7 +19,7 @@ export class EfeitoTeia extends EfeitoArea {
         const sucesso = UtilitarioResistencia.testar(alvo, TipoDano.RESTRICAO, this.cd);
 
     if (!sucesso) {
-        alvo.adicionarEfeito(new EfeitoCondicao("Teia", 1, Condicao.ENREDADO));
+        alvo.adicionarEfeito(new EfeitoEnredado(1));
     }
     }
 }

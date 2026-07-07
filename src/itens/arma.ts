@@ -1,8 +1,8 @@
-import { AcaoItem, Item, Modificacoes } from "./item.ts"
-import { TipoDano } from "../combate/tipoDano.ts";
-import { FacilidadeUso } from "../inventario/equipamento.ts";
-import { Personagem } from "../personagens/personagem.ts";
-import { Municao } from "./municao.ts";
+import { AcaoItem, Item, Modificacoes } from "./item.js"
+import { TipoDano } from "../combate/tipoDano.js";
+import { FacilidadeUso } from "../inventario/equipamento.js";
+import { Personagem } from "../personagens/personagem.js";
+import { Municao } from "./municao.js";
 
 export enum TipoAtaque {
     CORPO_A_CORPO,

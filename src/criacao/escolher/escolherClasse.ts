@@ -1,7 +1,7 @@
-import { Classe } from "../../personagens/classes/depois/classe.ts";
-import { Arcanista } from "../../personagens/classes/arcanista.ts";
-import { Cacador } from "../../personagens/classes/cacador.ts";
-import { Guerreiro } from "../../personagens/classes/guerreiro.ts";
+import { Classe } from "@personagens/classes/classe.js";
+import { Arcanista } from "../../personagens/classes/arcanista.js";
+import { Cacador } from "../../personagens/classes/cacador.js";
+import { Guerreiro } from "../../personagens/classes/guerreiro.js";
 
 export class EscolherClasse {
     static escolher(): Classe {

@@ -1,5 +1,5 @@
-import { Personagem } from "../../../personagens/personagem.ts";
-import { EfeitoArea } from "../../efeitoArea.ts";
+import { Personagem } from "../../../personagens/personagem.js";
+import { EfeitoArea } from "../../efeitoArea.js";
 
 export class EfeitoAlarme extends EfeitoArea {
     constructor(

@@ -3,39 +3,39 @@
 // ======================================================================
 
 // Core e Definições de Base
-import { Time } from "./time.ts";
-import { Raca } from "./racas/raca.ts";
-import { Classe } from "./classes/depois/classe.ts";
-import { Atributos, TipoAtributo } from "./atributos/atributos.ts";
-import { Mapa } from "../mapa/mapa.ts";
-import { Sala } from "../mapa/sala.ts";
+import { Time } from "./time.js";
+import { Raca } from "./racas/raca.js";
+import { Classe } from "./classes/classe.js";
+import { Atributos, TipoAtributo } from "./atributos/atributos.js";
+import { Mapa } from "../mapa/mapa.js";
+import { Sala } from "../mapa/sala.js";
 
 // Sistema de Inventário e Itens
-import { Inventario } from "../inventario/inventario.ts";
-import { Equipamento, FacilidadeUso } from "../inventario/equipamento.ts";
-import { Arma, Categoria } from "../itens/arma.ts";
-import { Armadura } from "../itens/armadura.ts";
-import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.ts";
+import { Inventario } from "../inventario/inventario.js";
+import { Equipamento, FacilidadeUso } from "../inventario/equipamento.js";
+import { Arma, Categoria } from "../itens/arma.js";
+import { Armadura } from "../itens/armadura.js";
+import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.js";
 
 // Sistema de Perícias
-import { Pericia, GrauTreinamento } from "../pericias/pericia.ts";
+import { Pericia, GrauTreinamento } from "../pericias/pericia.js";
 
 // Poderes, Condições e Estados
-import { Habilidade } from "../poderes/habilidades.ts";
-import { Caracteristica } from "../poderes/caracteristica.ts";
-import { Efeito } from "../poderes/efeito.ts";
-import { Condicao } from "../combate/tipoCondicao.ts";
-import { Tags } from "../poderes/tags.ts";
-import { TipoEnergia } from "../poderes/tipoEnergia.ts";
+import { Habilidade } from "../poderes/habilidades.js";
+import { Caracteristica } from "../poderes/caracteristica.js";
+import { Efeito } from "../poderes/efeito.js";
+import { Condicao } from "../combate/tipoCondicao.js";
+import { Tags } from "../poderes/tags.js";
+import { TipoEnergia } from "../poderes/tipoEnergia.js";
 
 // Motores de Combate e Mecânica
-import { TipoDano } from "../combate/tipoDano.ts";
-import { CalculadoraDefesa } from "../combate/calcular/calcularDefesa.ts";
-import { ModoAtaque, TesteAtaque, AtaquePossivel } from "../combate/testes/testeAtaque.ts";
-import { Beneficio } from "../poderes/beneficio.ts";
-import { CatalogoPericias } from "../pericias/catalogoPericias.ts";
-import { Loot, Random } from "./loot.ts";
-import { Item } from "../itens/item.ts";
+import { TipoDano } from "../combate/tipoDano.js";
+import { CalculadoraDefesa } from "../combate/calcular/calcularDefesa.js";
+import { ModoAtaque, TesteAtaque, AtaquePossivel } from "../combate/testes/testeAtaque.js";
+import { Beneficio } from "../poderes/beneficio.js";
+import { CatalogoPericias } from "../pericias/catalogoPericias.js";
+import { Loot, Random } from "./loot.js";
+import { Item } from "../itens/item.js";
 
 // ======================================================================
 // INTERFACES

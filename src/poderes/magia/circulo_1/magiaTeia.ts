@@ -1,15 +1,15 @@
-import { Personagem } from "../../../personagens/personagem.ts";
+import { Personagem } from "../../../personagens/personagem.js";
 
-import { MagiaArea } from "../magiaArea.ts";
-import { EfeitoArea } from "../../efeitoArea.ts";
-import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
-import { TipoDano } from "../../../combate/tipoDano.ts";
+import { MagiaArea } from "../magiaArea.js";
+import { EfeitoArea } from "../../efeitoArea.js";
+import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.js";
+import { TipoAcao, TipoAlvo } from "../../habilidades.js";
+import { TipoDano } from "../../../combate/tipoDano.js";
 
-import { AreaCircular, UtilitarioResistencia, UtilitarioCondicao } from "../utilitarios.ts";
-import { Condicao } from "../../../combate/tipoCondicao.ts";
+import { AreaCircular, UtilitarioResistencia, UtilitarioCondicao } from "../utilitarios.js";
+import { Condicao } from "../../../combate/tipoCondicao.js";
 
-import { EfeitoTeia } from "../../efeitos/efeitoArea/efeitoTeia.ts";
+import { EfeitoTeia } from "../../efeitos/efeitoArea/efeitoTeia.js";
 
 export class MagiaTeia extends MagiaArea {
     constructor() {

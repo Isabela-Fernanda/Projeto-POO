@@ -1,5 +1,6 @@
 # Dependências
 node_modules/
+dados/
 
 # Arquivos compilados
 dist/

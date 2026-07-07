@@ -1,13 +1,13 @@
-import { Personagem } from "../../personagens/personagem.ts";
-import { TipoDano } from "../../combate/tipoDano.ts";
-import { TipoAtributo } from "../../personagens/atributos/atributos.ts";
+import { Personagem } from "../../personagens/personagem.js";
+import { TipoDano } from "../../combate/tipoDano.js";
+import { TipoAtributo } from "../../personagens/atributos/atributos.js";
 
-import { CalcularResistencia } from "../../combate/calcular/calcularResistencia.ts"
+import { CalcularResistencia } from "../../combate/calcular/calcularResistencia.js"
 
-import { Condicao } from "../../combate/tipoCondicao.ts";
+import { Condicao } from "../../combate/tipoCondicao.js";
 
-import { Efeito } from "../efeito.ts";
-import { EfeitoAbalado, EfeitoAmedrontado, EfeitoApavorado, EfeitoAtordoado, EfeitoCaido, EfeitoCamuflado, EfeitoCego, EfeitoDesequilibrado, EfeitoEnredado, EfeitoEnvenenado, EfeitoFatigado, EfeitoFascinado, EfeitoInconsciente, EfeitoOfuscado, EfeitoParalisado, EfeitoPasmo, EfeitoQueimando, EfeitoSangrando, EfeitoVulneravel } from "../efeitos/efeitoCondicao.ts"
+import { Efeito } from "../efeito.js";
+import { EfeitoAbalado, EfeitoAmedrontado, EfeitoApavorado, EfeitoAtordoado, EfeitoCaido, EfeitoCamuflado, EfeitoCego, EfeitoDesequilibrado, EfeitoEnredado, EfeitoEnvenenado, EfeitoFatigado, EfeitoFascinado, EfeitoInconsciente, EfeitoOfuscado, EfeitoParalisado, EfeitoPasmo, EfeitoQueimando, EfeitoSangrando, EfeitoVulneravel } from "../efeitos/efeitoCondicao.js"
 
 export class UtilitarioMagia {
     static causarDano(alvo: Personagem, dano: number, tipo: TipoDano): void {

@@ -1,7 +1,7 @@
-import { Personagem } from "../personagens/personagem.ts";
-import { Mapa } from "../mapa/mapa.ts";
-import { EstadoTurno } from "./estadoTurno.ts";
-import { AtaquePossivel, ModoAtaque } from "./testes/testeAtaque.ts";
+import { Personagem } from "../personagens/personagem.js";
+import { Mapa } from "../mapa/mapa.js";
+import { EstadoTurno } from "./estadoTurno.js";
+import { AtaquePossivel, ModoAtaque } from "./testes/testeAtaque.js";
 
 /* 
 IMPLEMENTAR DEPOIS

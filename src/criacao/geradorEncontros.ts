@@ -1,9 +1,9 @@
-import { Mapa } from "../mapa/mapa.ts";
+import { Mapa } from "../mapa/mapa.js";
 
-import { FabricaMonstros } from "./fabricaDeMonstros.ts";
-import { CatalogoMonstros } from "../personagens/tiposPersonagem/catalogoMonstros.ts";
-import { CatalogoChaves } from "../itens/catalogos/catalogoChaves.ts";
-import { CatalogoItensDiversos } from "../itens/catalogos/catalogoItensDiverso.ts";
+import { FabricaMonstros } from "./fabricaDeMonstros.js";
+import { CatalogoMonstros } from "../personagens/tiposPersonagem/catalogoMonstros.js";
+import { CatalogoChaves } from "../itens/catalogos/catalogoChaves.js";
+import { CatalogoItensDiversos } from "../itens/catalogos/catalogoItensDiverso.js";
 
 export class GeradorEncontros {
     static criarEntrada(mapa: Mapa): void {

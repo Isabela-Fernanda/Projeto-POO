@@ -1,7 +1,7 @@
-import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
-import { Personagem } from "../personagens/personagem.ts";
-import { Monstro } from "../personagens/tiposPersonagem/monstro.ts";
-import { Mapa } from "../mapa/mapa.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.js";
+import { Personagem } from "../personagens/personagem.js";
+import { Monstro } from "../personagens/tiposPersonagem/monstro.js";
+import { Mapa } from "../mapa/mapa.js";
 
 export class SistemaEncontros {
     static verificarEncontro(jogador: Jogador, mapa: Mapa): Personagem[] | null {

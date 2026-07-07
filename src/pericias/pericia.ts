@@ -1,4 +1,4 @@
-import { TipoAtributo } from "../personagens/atributos/atributos.ts";
+import { TipoAtributo } from "../personagens/atributos/atributos.js";
 
 export enum GrauTreinamento {
     DESTREINADO = 0,

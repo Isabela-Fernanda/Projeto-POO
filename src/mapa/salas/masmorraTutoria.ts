@@ -1,9 +1,9 @@
-import { GeradorEncontros } from "../../criacao/geradorEncontros.ts";
-import { Jogador } from "../../personagens/tiposPersonagem/jogador.ts";
-import { Mapa } from "../mapa.ts";
-import { Luminosidade, Sala, TipoAmbiente, LadoSala } from "../sala.ts";
-import { Porta, EstadoPorta, Passagem } from "../porta.ts";
-import { Bau, Portal, ResultadoInteracao } from "../catalogoObjetos.ts";
+import { GeradorEncontros } from "../../criacao/geradorEncontros.js";
+import { Jogador } from "../../personagens/tiposPersonagem/jogador.js";
+import { Mapa } from "../mapa.js";
+import { Luminosidade, Sala, TipoAmbiente, LadoSala } from "../sala.js";
+import { Porta, EstadoPorta, Passagem } from "../porta.js";
+import { Bau, Portal, ResultadoInteracao } from "../catalogoObjetos.js";
 
 export class MasmorraTutorial {
     construir(mapa: Mapa, jogador: Jogador): void {
@@ -39,8 +39,6 @@ export class MasmorraTutorial {
         jogador.setPosicao(3, 4);
         jogador.setSalaAtual(entrada);
         entrada.descobrir();
-
-        mapa.adicionarEntidade(jogador);
 
         GeradorEncontros.criarEntrada(mapa);
         GeradorEncontros.criarSalaGoblins(mapa);

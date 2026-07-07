@@ -1,8 +1,8 @@
-import { Personagem } from "../../personagens/personagem.ts";
-import { ResultadoTeste } from "../resultados/resultadoTeste.ts";
-import { TestePericia } from "../testes/testePericia.ts";
-import { TipoDano } from "../tipoDano.ts";
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
+import { Personagem } from "../../personagens/personagem.js";
+import { ResultadoTeste } from "../resultados/resultadoTeste.js";
+import { TestePericia } from "../testes/testePericia.js";
+import { TipoDano } from "../tipoDano.js";
+import { CatalogoPericias } from "../../pericias/catalogoPericias.js";
 
 export class CalcularResistencia {
     static executarCalculo(personagem: Personagem, tipoDano: TipoDano, cd: number): ResultadoTeste {

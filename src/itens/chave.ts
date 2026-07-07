@@ -1,6 +1,6 @@
-import { Item } from "./item.ts";
-import { Personagem } from "../personagens/personagem.ts";
-import { AcaoItem } from "./item.ts";
+import { Item } from "./item.js";
+import { Personagem } from "../personagens/personagem.js";
+import { AcaoItem } from "./item.js";
 
 export class Chave extends Item {
     constructor(

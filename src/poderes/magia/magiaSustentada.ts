@@ -1,4 +1,4 @@
-import { Magia } from "./magia.ts";
+import { Magia } from "./magia.js";
 
 export abstract class MagiaSustentada extends Magia {
     private ativa = true;

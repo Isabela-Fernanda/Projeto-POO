@@ -1,7 +1,7 @@
-import { Raca } from "../../personagens/racas/raca.ts";
-import { Anao } from "../../personagens/racas/anao.ts";
-import { Elfo } from "../../personagens/racas/elfo.ts";
-import { Humano } from "../../personagens/racas/humano.ts";
+import { Raca } from "../../personagens/racas/raca.js";
+import { Anao } from "../../personagens/racas/anao.js";
+import { Elfo } from "../../personagens/racas/elfo.js";
+import { Humano } from "../../personagens/racas/humano.js";
 
 export class SelecionarRaca {
     static escolherRaca(): Raca {

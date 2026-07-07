@@ -1,4 +1,4 @@
-import { Personagem } from "../personagens/personagem.ts";
+import { Personagem } from "../personagens/personagem.js";
 
 export abstract class Caracteristica {
     constructor(

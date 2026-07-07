@@ -1,5 +1,5 @@
-import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
-import { ResultadoInteracao } from "./catalogoObjetos.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.js";
+import { ResultadoInteracao } from "./catalogoObjetos.js";
 
 export abstract class Objeto {
     constructor(

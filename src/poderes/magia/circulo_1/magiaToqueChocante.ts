@@ -1,10 +1,10 @@
-import { Personagem } from "../../../personagens/personagem.ts";
-import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia, Magia } from "../magia.ts";
+import { Personagem } from "../../../personagens/personagem.js";
+import { CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia, Magia } from "../magia.js";
 
-import { TipoDano } from "../../../combate/tipoDano.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
-import { UtilitarioMagia } from "../utilitarios.ts";
-import { Dado } from "../../../combate/dado.ts";
+import { TipoDano } from "../../../combate/tipoDano.js";
+import { TipoAcao, TipoAlvo } from "../../habilidades.js";
+import { UtilitarioMagia } from "../utilitarios.js";
+import { Dado } from "../../../combate/dado.js";
 
 export class MagiaToqueChocante extends Magia {
     constructor() {

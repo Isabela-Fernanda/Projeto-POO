@@ -1,14 +1,15 @@
-import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
-import { Personagem } from "../personagens/personagem.ts";
-import { EfeitoArea } from "../poderes/efeitoArea.ts";
-import { Objeto } from "./objeto.ts";
-import { Sala } from "./sala.ts";
-import { Conexao } from "./conexao.ts";
-import { Espolio } from "./catalogoObjetos.ts";
-import { Inventario } from "../inventario/inventario.ts";
-import { Item } from "../itens/item.ts";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.js";
+import { Personagem } from "../personagens/personagem.js";
+import { EfeitoArea } from "../poderes/efeitoArea.js";
+import { Objeto } from "./objeto.js";
+import { Sala } from "./sala.js";
+import { Conexao } from "./conexao.js";
+import { Espolio } from "./catalogoObjetos.js";
+import { Inventario } from "../inventario/inventario.js";
+import { Item } from "../itens/item.js";
 
-import { TileMapa } from "./tileMapa.ts";
+import { TileMapa } from "./tileMapa.js";
+import { Inimigo } from "@personagens/tiposPersonagem/inimigo.js";
 
 export class Mapa {
     private entidades: Personagem[] = [];
@@ -44,7 +45,7 @@ export class Mapa {
         entidade.setPosicao(x, y);
 
         const sala = this.encontrarSala(x, y);
-        if(sala) entidade.setSalaAtual(sala);
+        if (sala) entidade.setSalaAtual(sala);
 
         this.adicionarEntidade(entidade);
 
@@ -215,6 +216,10 @@ export class Mapa {
 
     limparSalas(): void { this.salas = []; }
 
+    possuiSalas(): boolean {
+        return this.salas.length > 0;
+    }
+
     private getTile(x: number, y: number): TileMapa {
         // existe alguma conexão?
         const conexao = this.getConexao(x, y);
@@ -251,8 +256,8 @@ export class Mapa {
             case TileMapa.PASSAGEM: return ".";
             case TileMapa.PORTA: {
                 const porta = this.getConexao(x, y);
-                if(!porta) return "+";
-                if(!porta.deveDesenhar(x, y)) return ".";
+                if (!porta) return "+";
+                if (!porta.deveDesenhar(x, y)) return ".";
                 return porta?.getSimbolo() ?? "+";
             }
         }
@@ -260,6 +265,7 @@ export class Mapa {
 
     private podeVer(x: number, y: number, personagem: Personagem) {
         const sala = this.getSalaPorPosicao(x, y);
+
         if (!sala) return false;
 
         const salaJogador = personagem.getSalaAtual();
@@ -272,11 +278,10 @@ export class Mapa {
         return this.salas.find(s => s.contem(x, y)) ?? null;
     }
 
-    renderizar(): void {
+    renderizar(jogador: Jogador): void {
         const larguraVisivel = 20;
         const alturaVisivel = 15;
 
-        const jogador = this.entidades.find(e => e instanceof Jogador);
         if (!jogador) {
             console.log("Nenhum jogador encontrado.");
             return;
@@ -343,9 +348,16 @@ export class Mapa {
                     continue;
                 }
 
+                if (jogador.getX() === absX &&
+                    jogador.getY() === absY) {
+
+                    linha += "J  ";
+                    continue;
+                }
+
                 const entidade = this.entidades.find(e => e.getX() === absX && e.getY() === absY);
                 if (entidade) {
-                    linha += (entidade instanceof Jogador ? "J  " : "I  ");
+                    linha += (entidade instanceof Inimigo ? "I  " : "J  ");
                     continue;
                 }
 

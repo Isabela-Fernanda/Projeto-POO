@@ -1,8 +1,8 @@
-import { Personagem } from "../../../personagens/personagem.ts";
-import { EfeitoArea } from "../../efeitoArea.ts";
-import { Condicao } from "../../../combate/tipoCondicao.ts";
-import { EfeitoCondicao } from "../efeitoCondicao.ts";
-import { EfeitoTerrenoEscorregadio } from "../efeitoTerrenoEscorregadio.ts";
+import { Personagem } from "../../../personagens/personagem.js";
+import { EfeitoArea } from "../../efeitoArea.js";
+import { Condicao } from "../../../combate/tipoCondicao.js";
+import {EfeitoDesequilibrado } from "../efeitoCondicao.js";
+import { EfeitoTerrenoEscorregadio } from "../efeitoTerrenoEscorregadio.js";
 
 export class EfeitoAreaEscorregadia extends EfeitoArea {
     constructor(
@@ -17,7 +17,7 @@ export class EfeitoAreaEscorregadia extends EfeitoArea {
 
     afetar(alvo: Personagem): void {
         if (!alvo.possuiCondicao(Condicao.DESEQUILIBRADO)) {
-            alvo.adicionarEfeito(new EfeitoCondicao("Área Escorregadia", 1, Condicao.DESEQUILIBRADO));
+            alvo.adicionarEfeito(new EfeitoDesequilibrado(1));
         }
         
         const jaTem = alvo.getEfeitos().some(e => e.getNome() === "Terreno Escorregadio");

@@ -1,7 +1,7 @@
-import { Personagem } from "../../personagens/personagem.ts";
-import { ResultadoTeste } from "../resultados/resultadoTeste.ts";
-import { CalcularResistencia } from "../calcular/calcularResistencia.ts";
-import { TipoDano } from "../tipoDano.ts";
+import { Personagem } from "../../personagens/personagem.js";
+import { ResultadoTeste } from "../resultados/resultadoTeste.js";
+import { CalcularResistencia } from "../calcular/calcularResistencia.js";
+import { TipoDano } from "../tipoDano.js";
 
 export class TesteResistencia {
     executarResistencia(personagem: Personagem, tipoDano: TipoDano, cd: number): ResultadoTeste{

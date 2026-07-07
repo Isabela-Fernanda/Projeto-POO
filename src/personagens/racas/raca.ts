@@ -1,7 +1,7 @@
-import { Habilidade } from "../../poderes/habilidades.ts"
-import { Caracteristica } from "../../poderes/caracteristica.ts";
-import { TipoAtributo } from "../atributos/atributos.ts";
-import { Beneficio } from "../../poderes/beneficio.ts";
+import { Habilidade } from "../../poderes/habilidades.js"
+import { Caracteristica } from "../../poderes/caracteristica.js";
+import { TipoAtributo } from "../atributos/atributos.js";
+import { Beneficio } from "../../poderes/beneficio.js";
 
 export abstract class Raca {
     constructor(

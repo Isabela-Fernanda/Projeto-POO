@@ -1,5 +1,5 @@
-import { Atributos } from "../personagens/atributos/atributos.ts";
-import { Dado } from "../combate/dado.ts";
+import { Atributos } from "../personagens/atributos/atributos.js";
+import { Dado } from "../combate/dado.js";
 
 export class GeradorAtributos {
     static gerarAtributos(): Atributos {

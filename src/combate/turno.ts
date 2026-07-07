@@ -1,19 +1,19 @@
-import { Personagem } from "../personagens/personagem.ts";
-import { Jogador } from "../personagens/tiposPersonagem/jogador.ts";
-import { Monstro } from "../personagens/tiposPersonagem/monstro.ts";
+import { Personagem } from "../personagens/personagem.js";
+import { Jogador } from "../personagens/tiposPersonagem/jogador.js";
+import { Monstro } from "../personagens/tiposPersonagem/monstro.js";
 
-import { EstadoTurno } from "./estadoTurno.ts";
-import { RodadaIniciativa } from "./rodadaIniciativas.ts";
-import { ModoAtaque } from "./testes/testeAtaque.ts";
+import { EstadoTurno } from "./estadoTurno.js";
+import { RodadaIniciativa } from "./rodadaIniciativas.js";
+import { ModoAtaque } from "./testes/testeAtaque.js";
 
-import { Habilidade, TipoAlvo, TipoAcao } from "../poderes/habilidades.ts";
+import { Habilidade, TipoAlvo, TipoAcao } from "../poderes/habilidades.js";
 
-import { Mapa } from "../mapa/mapa.ts";
+import { Mapa } from "../mapa/mapa.js";
 
-import { Time } from "../personagens/time.ts";
+import { Time } from "../personagens/time.js";
 
-import { MenuInventario } from "../inventario/menuInventario.ts";
-import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.ts";
+import { MenuInventario } from "../inventario/menuInventario.js";
+import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.js";
 
 export class Turno {
     static executar(personagem: Personagem, participantes: Personagem[], mapa: Mapa): void {
@@ -50,7 +50,7 @@ export class Turno {
     }
 
     private static executarJogador(jogador: Jogador, participantes: Personagem[], mapa: Mapa, estado: EstadoTurno) {
-        mapa.renderizar();
+        mapa.renderizar(jogador);
 
         const salaAtual = jogador.getSalaAtual();
 

@@ -1,25 +1,28 @@
-import { Mapa } from "../mapa.ts";
-import { Luminosidade, Sala, TipoAmbiente } from "../sala.ts";
+import { Mapa } from "../mapa.js";
+import { Luminosidade, Sala, TipoAmbiente } from "../sala.js";
 
-import { Mesa, ResultadoInteracao } from "../catalogoObjetos.ts";
-import { Bau } from "../catalogoObjetos.ts";
-import { Estante } from "../catalogoObjetos.ts";
-import { Portal } from "../catalogoObjetos.ts";
+import { Mesa, ResultadoInteracao } from "../catalogoObjetos.js";
+import { Bau } from "../catalogoObjetos.js";
+import { Estante } from "../catalogoObjetos.js";
+import { Portal } from "../catalogoObjetos.js";
 
-import { GeradorInicial } from "../../criacao/gerarItens.ts";
+import { GeradorInicial } from "../../criacao/gerarItens.js";
 
-import { Jogador } from "../../personagens/tiposPersonagem/jogador.ts";
+import { Jogador } from "../../personagens/tiposPersonagem/jogador.js";
 
 export class SalaInicial {
     construir(mapa: Mapa, jogador: Jogador): void {
-        const sala = new Sala("Câmara do Despertar", TipoAmbiente.NORMAL, Luminosidade.ILUMINADO, 0, 0, 10, 10)
+        const sala = new Sala("Câmara do Despertar", TipoAmbiente.NORMAL, Luminosidade.ILUMINADO, 0, 0, 10, 10);
+        
+        sala.descobrir();
+
         mapa.adicionarSala(sala);
 
         const gerador = new GeradorInicial();
         const itens = gerador.gerar(jogador);
 
-        mapa.posicionarEntidade(jogador, 5, 7);
         jogador.setSalaAtual(sala)
+        jogador.setPosicao(5, 7);
 
         mapa.adicionarObjeto(new Mesa(3, 3, itens.mesa));
 

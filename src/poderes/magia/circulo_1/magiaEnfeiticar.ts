@@ -1,12 +1,12 @@
-import { Personagem } from "../../../personagens/personagem.ts";
+import { Personagem } from "../../../personagens/personagem.js";
 
-import { Magia, CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
-import { TipoDano } from "../../../combate/tipoDano.ts";
+import { Magia, CirculoMagia, TipoMagia, EscolaMagia, AlcanceMagia, DuracaoMagia } from "../magia.js";
+import { TipoAcao, TipoAlvo } from "../../habilidades.js";
+import { TipoDano } from "../../../combate/tipoDano.js";
 
-import { UtilitarioResistencia } from "../utilitarios.ts"
+import { UtilitarioResistencia } from "../utilitarios.js"
 
-import { EfeitoEnfeiticado } from "../../efeitos/efeitoEnfeiticado.ts";
+import { EfeitoEnfeiticado } from "../../efeitos/efeitoEnfeiticado.js";
 
 export class MagiaEnfeiticar extends Magia {
     constructor() {

@@ -1,10 +1,9 @@
-import { Personagem } from "../../personagem.ts";
-import { Habilidade } from "../../../poderes/habilidades.ts";
-import { Pericia } from "../../../pericias/pericia.ts";
-import { FacilidadeUso } from "../../../inventario/equipamento.ts";
-import { TipoAtributo } from "../../atributos/atributos.ts";
-import { Beneficio } from "../../../poderes/beneficio.ts";
-import { Caracteristica } from "../../../poderes/caracteristica.ts";
+import { Habilidade } from "@poderes/habilidades.js";
+import { Pericia } from "@pericias/pericia.js";
+import { FacilidadeUso } from "@inventario/equipamento.js";
+import { TipoAtributo } from "../atributos/atributos.js";
+import { Beneficio } from "@poderes/beneficio.js";
+import { Caracteristica } from "@poderes/caracteristica.js";
 
 enum Deus {
     ALLIHANNA,

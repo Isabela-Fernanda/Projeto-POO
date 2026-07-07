@@ -1,11 +1,11 @@
-import { Dado } from "../dado.ts";
-import { Pericia } from "../../pericias/pericia.ts";
-import { Personagem } from "../../personagens/personagem.ts";
-import { CalculadoraPericia } from "../calcular/calculadoraPericia.ts";
-import { ResultadoTeste } from "../resultados/resultadoTeste.ts";
-import { Tags } from "../../poderes/tags.ts";
-import { Luminosidade, Sala } from "../../mapa/sala.ts";
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
+import { Dado } from "../dado.js";
+import { Pericia } from "../../pericias/pericia.js";
+import { Personagem } from "../../personagens/personagem.js";
+import { CalculadoraPericia } from "../calcular/calculadoraPericia.js";
+import { ResultadoTeste } from "../resultados/resultadoTeste.js";
+import { Tags } from "../../poderes/tags.js";
+import { Luminosidade, Sala } from "../../mapa/sala.js";
+import { CatalogoPericias } from "../../pericias/catalogoPericias.js";
 
 export class TestePericia {
     static executar(personagem: Personagem, pericia: Pericia, cd: number, bonusEfeitoResistencia: number): ResultadoTeste {

@@ -1,5 +1,5 @@
-import { TipoAtributo } from "../../personagens/atributos/atributos.ts";
-import { Personagem } from "../../personagens/personagem.ts";
+import { TipoAtributo } from "../../personagens/atributos/atributos.js";
+import { Personagem } from "../../personagens/personagem.js";
 
 export class CalculadoraDefesa {
     static calcular(personagem: Personagem): number {

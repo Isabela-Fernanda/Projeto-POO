@@ -1,10 +1,10 @@
-import { Classe } from "./depois/classe.ts";
-import { Beneficio } from "../../poderes/beneficio.ts";
-import { Caracteristica } from "../../poderes/caracteristica.ts";
-import { Habilidade } from '../../poderes/habilidades.ts';
-import { Pericia } from "../../pericias/pericia.ts";
-import { CatalogoPericias } from "../../pericias/catalogoPericias.ts";
-import { FacilidadeUso } from "../../inventario/equipamento.ts";
+import { Classe } from "./classe.js";
+import { Beneficio } from "@poderes/beneficio.js";
+import { Caracteristica } from "@poderes/caracteristica.js";
+import { Habilidade } from '@poderes/habilidades.js';
+import { Pericia } from "@pericias/pericia.js";
+import { CatalogoPericias } from "@pericias/catalogoPericias.js";
+import { FacilidadeUso } from "@inventario/equipamento.js";
 
 export class Guerreiro extends Classe {
     constructor() {

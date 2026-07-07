@@ -1,8 +1,8 @@
-import { Mapa } from "../mapa/mapa.ts";
-import { Personagem } from "../personagens/personagem.ts";
-import { OrdemTurnos } from "./turno.ts";
-import { Rodada } from "./rodada.ts";
-import { Monstro } from "../personagens/tiposPersonagem/monstro.ts";
+import { Mapa } from "../mapa/mapa.js";
+import { Personagem } from "../personagens/personagem.js";
+import { OrdemTurnos } from "./turno.js";
+import { Rodada } from "./rodada.js";
+import { Monstro } from "../personagens/tiposPersonagem/monstro.js";
 
 export class Combate {
     constructor(

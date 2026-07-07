@@ -1,9 +1,9 @@
-import { Personagem } from "../../../personagens/personagem.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
-import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, Magia, TipoMagia } from "../magia.ts";
+import { Personagem } from "../../../personagens/personagem.js";
+import { TipoAcao, TipoAlvo } from "../../habilidades.js";
+import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, Magia, TipoMagia } from "../magia.js";
 
-import { CatalogoArmas } from "../../../itens/catalogos/catalogoArmas.ts";
-import { EfeitoArmaMagica } from "../../efeitos/efeitoArmaMagica.ts";
+import { CatalogoArmas } from "../../../itens/catalogos/catalogoArmas.js";
+import { EfeitoArmaMagica } from "../../efeitos/efeitoArmaMagica.js";
 
 export class MagiaArmaMagica extends Magia {
     constructor() {

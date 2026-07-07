@@ -1,4 +1,4 @@
-import { AlcanceMagia } from "../poderes/magia/magia.ts";
+import { AlcanceMagia } from "../poderes/magia/magia.js";
 
 export class CalcularAlcance {
     static obter(alcace: AlcanceMagia): number {

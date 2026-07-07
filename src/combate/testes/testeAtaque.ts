@@ -1,8 +1,8 @@
-import { Personagem } from "../../personagens/personagem.ts";
-import { ResultadoAtaque, ResultadoAtaques } from "../resultados/resultadoAtaque.ts";
-import { CalcularDano } from "../calcular/calcularDano.ts";
-import { CalcularAtaque } from "../calcular/calcularAtaque.ts"; 
-import { Arma } from "../../itens/arma.ts";
+import { Personagem } from "../../personagens/personagem.js";
+import { ResultadoAtaque, ResultadoAtaques } from "../resultados/resultadoAtaque.js";
+import { CalcularDano } from "../calcular/calcularDano.js";
+import { CalcularAtaque } from "../calcular/calcularAtaque.js"; 
+import { Arma } from "../../itens/arma.js";
 
 export enum ModoAtaque {
     CORPO_A_CORPO,

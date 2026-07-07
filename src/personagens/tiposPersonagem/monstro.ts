@@ -1,22 +1,22 @@
-import { Personagem } from "../personagem.ts";
-import { Inimigo } from "./inimigo.ts";
-import { Mapa } from "../../mapa/mapa.ts";
+import { Personagem } from "../personagem.js";
+import { Inimigo } from "./inimigo.js";
+import { Mapa } from "@mapa/mapa.js";
 
-import { Time } from "../time.ts";
-import { Raca } from "../racas/raca.ts";
-import { Classe } from "../classes/depois/classe.ts";
-import { Atributos } from "../atributos/atributos.ts";
-import { Equipamento } from "../../inventario/equipamento.ts";
-import { Inventario } from "../../inventario/inventario.ts";
-import { Pericia, GrauTreinamento } from "../../pericias/pericia.ts";
-import { Habilidade } from "../../poderes/habilidades.ts";
-import { AtaquePossivel, ModoAtaque } from "../../combate/testes/testeAtaque.ts";
+import { Time } from "../time.js";
+import { Raca } from "../racas/raca.js";
+import { Classe } from "../classes/classe.js";
+import { Atributos } from "../atributos/atributos.js";
+import { Equipamento } from "@inventario/equipamento.js";
+import { Inventario } from "@inventario/inventario.js";
+import { Pericia, GrauTreinamento } from "@pericias/pericia.js";
+import { Habilidade } from "@poderes/habilidades.js";
+import { AtaquePossivel, ModoAtaque } from "@combate/testes/testeAtaque.js";
 
-import { Arma } from "../../itens/arma.ts";
-import { ComportamentoIA } from "../../combate/IA.ts";
-import { Tamanho } from "./catalogoMonstros.ts";
-import { EstadoTurno } from "../../combate/estadoTurno.ts";
-import { Loot } from "../loot.ts";
+import { Arma } from "@itens/arma.js";
+import { ComportamentoIA } from "@combate/IA.js";
+import { Tamanho } from "./catalogoMonstros.js";
+import { EstadoTurno } from "@combate/estadoTurno.js";
+import { Loot } from "../loot.js";
 
 export class Monstro extends Inimigo {
     constructor(

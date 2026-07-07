@@ -1,5 +1,9 @@
-import { Jogo } from "../app/jogo.ts";
+import { Bootstrap } from "./bootstrap.js";
+import { MenuInicial } from "@save/menuInicial.js";
 
-const jogo = new Jogo();
+Bootstrap.iniciar();
 
-await jogo.iniciar();
+const menu = new MenuInicial();
+
+await menu.abrir();
+

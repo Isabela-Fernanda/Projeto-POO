@@ -1,4 +1,4 @@
-import { Efeito } from "../efeito.ts";
+import { Efeito } from "../efeito.js";
 
 export class EfeitoVisaoMistica extends Efeito {
 

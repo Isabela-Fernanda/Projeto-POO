@@ -1,6 +1,6 @@
-import { Personagem } from "../../personagens/personagem.ts";
-import { Habilidade, TipoAcao, TipoAlvo } from "../habilidades.ts";
-import { Arma } from "../../itens/arma.ts";
+import { Personagem } from "../../personagens/personagem.js";
+import { Habilidade, TipoAcao, TipoAlvo } from "../habilidades.js";
+import { Arma } from "../../itens/arma.js";
 
 // ======================================================================
 // Primeiro

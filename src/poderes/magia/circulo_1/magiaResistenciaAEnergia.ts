@@ -1,9 +1,9 @@
-import { Personagem } from "../../../personagens/personagem.ts";
-import { TipoAcao, TipoAlvo } from "../../habilidades.ts";
-import { TipoEnergia } from "../../tipoEnergia.ts";
-import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, Magia, TipoMagia } from "../magia.ts";
+import { Personagem } from "../../../personagens/personagem.js";
+import { TipoAcao, TipoAlvo } from "../../habilidades.js";
+import { TipoEnergia } from "../../tipoEnergia.js";
+import { AlcanceMagia, CirculoMagia, DuracaoMagia, EscolaMagia, Magia, TipoMagia } from "../magia.js";
 
-import { EfeitoResistenciaEnergia } from "../../efeitos/efeitoResistenciaEnergia.ts";
+import { EfeitoResistenciaEnergia } from "../../efeitos/efeitoResistenciaEnergia.js";
 
 export class MagiaResistenciaAEnergia extends Magia {
     constructor() {

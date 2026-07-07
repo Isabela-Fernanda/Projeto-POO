@@ -1,5 +1,5 @@
-import { Personagem } from "../personagens/personagem.ts";
-import { Efeito } from "../poderes/efeito.ts";
+import { Personagem } from "../personagens/personagem.js";
+import { Efeito } from "../poderes/efeito.js";
 
 export enum Modificacoes {
     //ARMAS

@@ -1,10 +1,10 @@
-import { Item } from "../itens/item.ts";
-import { Personagem } from "../personagens/personagem.ts";
-import { ItemInventario } from "./itemInventario.ts";
-import { Arma } from "../itens/arma.ts";
-import { Armadura } from "../itens/armadura.ts";
-import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.ts";
-import { Chave } from "../itens/chave.ts";
+import { Item } from "../itens/item.js";
+import { Personagem } from "../personagens/personagem.js";
+import { ItemInventario } from "./itemInventario.js";
+import { Arma } from "../itens/arma.js";
+import { Armadura } from "../itens/armadura.js";
+import { CatalogoArmas } from "../itens/catalogos/catalogoArmas.js";
+import { Chave } from "../itens/chave.js";
 
 export class Inventario {
     private itens: ItemInventario[] = [];

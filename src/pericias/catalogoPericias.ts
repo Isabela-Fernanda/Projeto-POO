@@ -1,5 +1,5 @@
-import { TipoAtributo } from "../personagens/atributos/atributos.ts";
-import { Pericia } from "./pericia.ts";
+import { TipoAtributo } from "../personagens/atributos/atributos.js";
+import { Pericia } from "./pericia.js";
 
 export class CatalogoPericias {
     static readonly ACROBACIA = new Pericia("Acrobacia", TipoAtributo.DESTREZA);

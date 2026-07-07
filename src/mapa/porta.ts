@@ -1,8 +1,7 @@
-import { LadoSala, Sala } from "./sala.ts";
-import { Conexao } from "./conexao.ts";
-import { Chave } from "../itens/chave.ts";
-import { Personagem } from "../personagens/personagem.ts";
-import { TileMapa } from "./tileMapa.ts";
+import { LadoSala, Sala } from "./sala.js";
+import { Conexao } from "./conexao.js";
+import { Personagem } from "../personagens/personagem.js";
+import { TileMapa } from "./tileMapa.js";
 
 export enum EstadoPorta {
     ABERTA,

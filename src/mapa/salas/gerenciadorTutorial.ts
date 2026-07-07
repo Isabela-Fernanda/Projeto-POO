@@ -1,9 +1,9 @@
-import { Mapa } from "../mapa.ts";
-import { Jogador } from "../../personagens/tiposPersonagem/jogador.ts";
+import { Mapa } from "../mapa.js";
+import { Jogador } from "@personagens/tiposPersonagem/jogador.js";
 
-import { SalaInicial } from "./salaInicial.ts";
-import { MasmorraTutorial } from "./masmorraTutoria.ts";
-import { ResultadoInteracao } from "../catalogoObjetos.ts";
+import { SalaInicial } from "./salaInicial.js";
+import { MasmorraTutorial } from "./masmorraTutoria.js";
+import { ResultadoInteracao } from "../catalogoObjetos.js";
 
 export enum EstadoTutorial {
     SALA_INICIAL,
@@ -22,9 +22,10 @@ export class GerenciadorTutorial {
     }
 
     iniciar(): void {
-        const salaInicial = new SalaInicial();
-
-        salaInicial.construir(this.mapa, this.jogador);
+        if (!this.mapa.possuiSalas()) {
+            const salaInicial = new SalaInicial();
+            salaInicial.construir(this.mapa, this.jogador);
+        }
     }
 
     processarInteracao(resultado: ResultadoInteracao): void {

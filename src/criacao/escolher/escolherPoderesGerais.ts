@@ -1,5 +1,5 @@
-import { Habilidade } from "../../poderes/habilidades.ts";
-import { CatalogoPoderesGerais } from "../../poderes/poderesGerais/catalogoPoderesGerais.ts";
+import { Habilidade } from "../../poderes/habilidades.js";
+import { CatalogoPoderesGerais } from "../../poderes/poderesGerais/catalogoPoderesGerais.js";
 
 export class EscolherPoderGeral {
     escolher(quantidade: number = 1): Habilidade[] {

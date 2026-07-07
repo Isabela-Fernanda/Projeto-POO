@@ -1,8 +1,8 @@
-import { Dado } from "../dado.ts";
-import { Personagem } from "../../personagens/personagem.ts";
-import { TipoAtributo } from "../../personagens/atributos/atributos.ts";
-import { Arma } from "../../itens/arma.ts";
-import { ModoAtaque } from "../testes/testeAtaque.ts";
+import { Dado } from "../dado.js";
+import { Personagem } from "../../personagens/personagem.js";
+import { TipoAtributo } from "../../personagens/atributos/atributos.js";
+import { Arma } from "../../itens/arma.js";
+import { ModoAtaque } from "../testes/testeAtaque.js";
 
 export class CalcularDano {
     static calcularDano(atacante: Personagem, arma: Arma, modoAtaque: ModoAtaque, critico: boolean = false): number {

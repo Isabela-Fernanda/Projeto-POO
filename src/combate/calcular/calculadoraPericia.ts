@@ -1,6 +1,6 @@
-import { Pericia, GrauTreinamento } from "../../pericias/pericia.ts";
+import { Pericia, GrauTreinamento } from "../../pericias/pericia.js";
 
-import { Personagem } from "../../personagens/personagem.ts";
+import { Personagem } from "../../personagens/personagem.js";
 
 
 export class CalculadoraPericia {

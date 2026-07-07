@@ -1,4 +1,4 @@
-import { Habilidade, TipoAcao, TipoAlvo } from "../habilidades.ts";
+import { Habilidade, TipoAcao, TipoAlvo } from "../habilidades.js";
 
 export enum EscolaMagia {
     ABJURACAO,
