@@ -2,7 +2,7 @@
 
 Um RPG de turno desenvolvido em TypeScript inspirado nas mecânicas de sistemas de fantasia medieval, com foco em criação de personagens, exploração, combate e gerenciamento de campanha.
 
-O projeto busca simular uma experiência de RPG de mesa adaptada para o terminal, implementando sistemas como atributos, raças, classes, perícias, equipamentos, magias, monstros e progressão de aventura.
+Atualmente na versão demo, o projeto busca simular uma experiência de RPG de mesa adaptada para o terminal, implementando sistemas como atributos, raças, classes, perícias, equipamentos, magias, monstros e progressão de aventura para um unico jogador/personagem.
 
 ## Funcionalidades
 
@@ -62,7 +62,6 @@ Os arquivos de salvamento são gerados localmente e não fazem parte do controle
 ## Tecnologias utilizadas
 
 * TypeScript
-* Deno
 * Node.js
 * Git
 
@@ -92,7 +91,7 @@ npm install
 Execute o jogo:
 
 ```bash
-deno run ./src/app/main.ts
+npm run dev
 ```
 
 ## Objetivo do Projeto
