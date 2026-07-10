@@ -36,8 +36,8 @@ export class MasmorraTutorial {
         mapa.adicionarConexao(new Passagem(sala3, corredor3, LadoSala.LESTE, 14, 21));
         mapa.adicionarConexao(new Porta(sala3, tesouro, LadoSala.LESTE, 14, 24, EstadoPorta.TRANCADA, "Tesouro do Chefe"));
 
-        jogador.setPosicao(3, 4);
         jogador.setSalaAtual(entrada);
+        mapa.posicionarEntidade(jogador, 3, 4);
         entrada.descobrir();
 
         GeradorEncontros.criarEntrada(mapa);

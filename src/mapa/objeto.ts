@@ -1,5 +1,5 @@
 import { Jogador } from "../personagens/tiposPersonagem/jogador.js";
-import { ResultadoInteracao } from "./catalogoObjetos.js";
+import { ResultadoObjeto } from "./resultadoInteracao.js";
 
 export abstract class Objeto {
     constructor(
@@ -35,5 +35,5 @@ export abstract class Objeto {
         return this.bloqueiaVisao;
     }
 
-    abstract interagir(jogador: Jogador): ResultadoInteracao;
+    abstract interagir(jogador: Jogador): ResultadoObjeto;
 }

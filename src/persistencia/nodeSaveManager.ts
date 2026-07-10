@@ -1,8 +1,8 @@
 import { access, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 
-import { Save } from "./save.js";
-import {Serializer} from "./serializer.js";
+import { Save } from "../save/save.js";
+import {Serializer} from "../save/serializer.js";
 
 export class SaveManager {
 

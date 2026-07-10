@@ -5,7 +5,7 @@ import { Jogo } from "@app/jogo.js";
 
 import { Campanha } from "@save/campanha.js";
 import { Save } from "@save/save.js";
-import { SaveManager } from "./saveManager.js";
+import { SaveManager } from "../persistencia/nodeSaveManager.js";
 
 export enum ResultadoJogo {
     SAIU,
@@ -64,7 +64,7 @@ export class MenuInicial {
         console.log("====== RPG TORMENTA ======");
 
         if (this.save.possuiCampanhaAtiva()) {
-            const jogador = this.save.getCampanha()!.jogador;
+            const jogador = this.save.getCampanha()!.getJogador();
 
             console.log("1 - Continuar Jornada");
             console.log('   Personagem: ' + jogador.getNome());

@@ -2,6 +2,7 @@ import { Objeto } from "./objeto.js";
 import { Item } from "../itens/item.js";
 import { Jogador } from "../personagens/tiposPersonagem/jogador.js";
 import { Inventario } from "../inventario/inventario.js";
+import { ResultadoObjeto } from "./resultadoInteracao.js";
 
 export class Mesa extends Objeto {
     private itens: Item[];
@@ -21,13 +22,22 @@ export class Mesa extends Objeto {
         console.log("Você pegou os itens da mesa.");
     }
 
-    interagir(jogador: Jogador): ResultadoInteracao {
+    interagir(jogador: Jogador): ResultadoObjeto {
         if (this.itens.length === 0) {
-            console.log("Não há nada aqui.");
-            return ResultadoInteracao.NENHUM;;
+            return new ResultadoObjeto(ResultadoInteracao.NENHUM, ["Não há nada aqui."]);
         }
-        this.coletar(jogador);
-        return ResultadoInteracao.NENHUM;
+        
+        const mensagens: string[] = [];
+        mensagens.push("Você pegou os itens da mesa.");
+
+        for (const item of this.itens) {
+            jogador.getInventario().adicionar(item);
+            mensagens.push(`${item.getNome()} obtido.`);
+        }
+
+        this.itens = [];
+
+        return new ResultadoObjeto(ResultadoInteracao.NENHUM, mensagens);
     }
 }
 
@@ -49,13 +59,22 @@ export class Bau extends Objeto {
         console.log("Você abriu o baú e pegou os itens.");
     }
 
-    interagir(jogador: Jogador): ResultadoInteracao {
-        if (this.itens.length === 0) {
-            console.log("Não há nada aqui.");
-            return ResultadoInteracao.NENHUM;;
+    interagir(jogador: Jogador): ResultadoObjeto {
+        if (this.itens.length == 0) {
+            return new ResultadoObjeto(ResultadoInteracao.NENHUM, ["O baú está vazio."]);
         }
-        this.abrir(jogador);
-        return ResultadoInteracao.NENHUM;
+
+        const mensagens: string[] = [];
+        mensagens.push("Você abriu o baú.");
+
+        for (const item of this.itens) {
+            jogador.getInventario().adicionar(item);
+            mensagens.push(`${item.getNome()} obtido.`);
+        }
+
+        this.itens = [];
+
+        return new ResultadoObjeto(ResultadoInteracao.NENHUM, mensagens);
     }
 }
 
@@ -77,13 +96,22 @@ export class Estante extends Objeto {
         console.log("Você pegou os itens da estante.");
     }
 
-    interagir(jogador: Jogador): ResultadoInteracao {
+    interagir(jogador: Jogador): ResultadoObjeto {
         if (this.itens.length === 0) {
-            console.log("Não há nada aqui.");
-            return ResultadoInteracao.NENHUM;;
+            return new ResultadoObjeto(ResultadoInteracao.NENHUM, ["Não há nada aqui."]);
         }
-        this.coletar(jogador);
-        return ResultadoInteracao.NENHUM;
+
+        const mensagens: string[] = [];
+        mensagens.push("Você pegou os itens da estante.");
+
+        for (const item of this.itens) {
+            jogador.getInventario().adicionar(item);
+            mensagens.push(`${item.getNome()} obtido.`);
+        }
+
+        this.itens = [];
+
+        return new ResultadoObjeto(ResultadoInteracao.NENHUM, mensagens);
     }
 }
 
@@ -119,13 +147,12 @@ export class Portal extends Objeto {
         return this.ativo;
     }
 
-    interagir(jogador: Jogador): ResultadoInteracao {
+    interagir(jogador: Jogador): ResultadoObjeto {
         if (!this.ativo) {
-            console.log(`O ${this.nome} está inativo.`);
-            return ResultadoInteracao.NENHUM;
+            return new ResultadoObjeto(ResultadoInteracao.NENHUM, ["O portal está inativo."]);
         }
 
-        return this.resultado;
+        return new ResultadoObjeto(ResultadoInteracao.ENTRAR_MASMORRA, ["Você atravessa o portal."]);
     }
 }
 
@@ -146,21 +173,21 @@ export class Espolio extends Objeto {
         return !this.inventario.estaVazio();
     }
 
-    interagir(jogador: Jogador): ResultadoInteracao {
-        if(!this.possuiItens()) {
-            console.log("Isso não deveria aparecer.")
-            return ResultadoInteracao.NENHUM;
+    interagir(jogador: Jogador): ResultadoObjeto {
+        if (!this.possuiItens()) {
+            return new ResultadoObjeto(ResultadoInteracao.NENHUM, ["Não há nada aqui."]);
         }
-        
+
+        const mensagens: string[] = [];
+        mensagens.push("Você recolheu o espólio.");
+
         for (const item of this.inventario.getItens()) {
             jogador.getInventario().adicionar(item.item);
+            mensagens.push(`${item.item.getNome()} obtido.`);
         }
 
         this.inventario.limpar();
-
-        console.log("Você recolheu o espólio.");
-
-        return ResultadoInteracao.NENHUM;
+        return new ResultadoObjeto(ResultadoInteracao.NENHUM, mensagens);
     }
 }
 
