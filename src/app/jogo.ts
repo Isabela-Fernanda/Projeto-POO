@@ -9,7 +9,7 @@ import { MenuInventario } from "@inventario/menuInventario.js";
 import { Objeto } from "@mapa/objeto.js";
 import { Campanha } from "@save/campanha.js";
 import { Save } from "@save/save.js";
-import { SaveManager } from "@save/saveManager.js";
+import { SaveManager } from "persistencia/nodeSaveManager.js";
 import { Jogador } from "@personagens/tiposPersonagem/jogador.js";
 
 export class Jogo {
@@ -27,16 +27,16 @@ export class Jogo {
     async iniciar(): Promise<ResultadoJogo> {
         console.clear();
 
-        this.tutorial = new GerenciadorTutorial(this.campanha.mapa, this.campanha.jogador);
+        this.tutorial = new GerenciadorTutorial(this.campanha.getMapa(), this.campanha.getJogador());
         if (!this.campanha.foiIniciada()) {
             this.tutorial.iniciar();
             this.campanha.marcarIniciada();
         }
 
-        this.campanha.jogador.setSalaAtual(
-            this.campanha.mapa.getSalaPorPosicao(
-                this.campanha.jogador.getX(),
-                this.campanha.jogador.getY()
+        this.campanha.getJogador().setSalaAtual(
+            this.campanha.getMapa().getSalaPorPosicao(
+                this.campanha.getJogador().getX(),
+                this.campanha.getJogador().getY()
             )!
         );
 
@@ -45,12 +45,12 @@ export class Jogo {
     }
 
     private async loopDeExploracao(): Promise<ResultadoJogo> {
-        let mapa = this.campanha.mapa;
-        let jogador = this.campanha.jogador;
+        let mapa = this.campanha.getMapa();
+        let jogador = this.campanha.getJogador();
 
         console.log(
-            this.save.campanha!.jogador ===
-            this.save.campanha!.mapa.getEntidades()
+            this.save.campanha!.getJogador() ===
+            this.save.campanha!.getMapa().getEntidades()
                 .find(e => e instanceof Jogador)
         );
 

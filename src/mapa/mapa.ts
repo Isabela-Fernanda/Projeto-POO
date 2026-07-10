@@ -11,6 +11,9 @@ import { Item } from "../itens/item.js";
 import { TileMapa } from "./tileMapa.js";
 import { Inimigo } from "@personagens/tiposPersonagem/inimigo.js";
 
+import { CalculadoraCamera } from "./calcularCamera.js"
+import { VisibilidadeMapa } from "./visibilidadeMapa.js";
+
 export class Mapa {
     private entidades: Personagem[] = [];
     private efeitosArea: EfeitoArea[] = [];
@@ -105,6 +108,14 @@ export class Mapa {
             }
             return entidade.estaAdjacente(e);
         });
+    }
+
+    getEntidadeEm(x: number, y: number): Personagem | undefined {
+        return this.entidades.find(
+            entidade =>
+                entidade.getX() === x &&
+                entidade.getY() === y
+        );
     }
 
     getEntidadesEmRaio(x: number, y: number, raio: number): Personagem[] {
@@ -220,7 +231,7 @@ export class Mapa {
         return this.salas.length > 0;
     }
 
-    private getTile(x: number, y: number): TileMapa {
+    getTile(x: number, y: number): TileMapa {
         // existe alguma conexão?
         const conexao = this.getConexao(x, y);
 
@@ -246,6 +257,18 @@ export class Mapa {
         return TileMapa.CHAO;
     }
 
+    getLargura(): number {
+        return this.largura;
+    }
+
+    getAltura(): number {
+        return this.altura;
+    }
+
+    getSalas(): Sala[] {
+        return this.salas;
+    }
+
     private desenharTile(x: number, y: number): string {
         const tile = this.getTile(x, y);
 
@@ -263,17 +286,6 @@ export class Mapa {
         }
     }
 
-    private podeVer(x: number, y: number, personagem: Personagem) {
-        const sala = this.getSalaPorPosicao(x, y);
-
-        if (!sala) return false;
-
-        const salaJogador = personagem.getSalaAtual();
-        if (sala == salaJogador) return true;
-
-        return sala.foiDescoberta();
-    }
-
     private encontrarSala(x: number, y: number): Sala | null {
         return this.salas.find(s => s.contem(x, y)) ?? null;
     }
@@ -287,41 +299,13 @@ export class Mapa {
             return;
         }
 
-        let cameraX = 0;
-        let cameraY = 0;
-
-        if (jogador) {
-            const sala = jogador.getSalaAtual();
-            if (sala) {
-                const totalQuadrosSalaX = sala.getLargura() + 1;
-                const totalQuadrosSalaY = sala.getAltura() + 1;
-
-                if (totalQuadrosSalaX < larguraVisivel) {
-                    cameraX = sala.getX() - Math.floor((larguraVisivel - totalQuadrosSalaX) / 2);
-                } else {
-                    cameraX = jogador.getX() - Math.floor(larguraVisivel / 2);
-                    cameraX = Math.max(cameraX, sala.getX());
-                    cameraX = Math.min(cameraX, sala.getX() + sala.getLargura() - larguraVisivel + 1);
-                }
-
-                if (totalQuadrosSalaY < alturaVisivel) {
-                    cameraY = sala.getY() - Math.floor((alturaVisivel - totalQuadrosSalaY) / 2);
-                } else {
-                    cameraY = jogador.getY() - Math.floor(alturaVisivel / 2);
-                    cameraY = Math.max(cameraY, sala.getY());
-                    cameraY = Math.min(cameraY, sala.getY() + sala.getAltura() - alturaVisivel + 1);
-                }
-            } else {
-                cameraX = jogador.getX() - Math.floor(larguraVisivel / 2);
-                cameraY = Math.floor(larguraVisivel / 2);
-            }
-        }
+        const camera = CalculadoraCamera.calcular(jogador, larguraVisivel, alturaVisivel);
 
         console.log("\n=== MAPA ===");
 
         let cabecalho = "   ";
         for (let vx = 0; vx < larguraVisivel; vx++) {
-            const absX = cameraX + vx;
+            const absX = camera.getX() + vx;
             if (absX < 0 || absX >= this.largura) {
                 cabecalho += "   ";
             } else {
@@ -331,7 +315,7 @@ export class Mapa {
         console.log(cabecalho);
 
         for (let vy = 0; vy < alturaVisivel; vy++) {
-            const absY = cameraY + vy;
+            const absY = camera.getY() + vy;
             let linha = "";
 
             if (absY < 0 || absY >= this.altura) {
@@ -341,9 +325,9 @@ export class Mapa {
             }
 
             for (let vx = 0; vx < larguraVisivel; vx++) {
-                const absX = cameraX + vx;
+                const absX = camera.getX() + vx;
 
-                if (!this.podeVer(absX, absY, jogador)) {
+                if (!VisibilidadeMapa.podeVer(this, jogador, absX, absY)) {
                     linha += "   ";
                     continue;
                 }

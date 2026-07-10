@@ -2,12 +2,30 @@ import { Mapa } from "@mapa/mapa.js";
 import { Jogador } from "@personagens/tiposPersonagem/jogador.js";
 
 export class Campanha {
-    constructor(jogador: Jogador){
+    private readonly jogador: Jogador;
+    private readonly mapa: Mapa;
+
+    private iniciada = false;
+
+    private nivelAtual = 1;
+    private tempoJogado = 0;
+    private salasVisitadas = 0;
+    private inimigosMortos = 0;
+    private tesourosEncontrados = 0;
+
+    constructor(jogador: Jogador) {
         this.jogador = jogador;
         this.mapa = new Mapa();
     }
 
-    private iniciada = false;
+    getJogador(): Jogador {
+        return this.jogador;
+    }
+
+    getMapa(): Mapa {
+        return this.mapa;
+    }
+
 
     foiIniciada(): boolean {
         return this.iniciada
@@ -16,12 +34,4 @@ export class Campanha {
     marcarIniciada(): void {
         this.iniciada = true;
     }
-    
-    jogador!: Jogador;
-    mapa!: Mapa;
-    nivelAtual = 1;
-    tempoJogado = 0;
-    salasVisitadas = 0;
-    inimigosMortos = 0;
-    tesourosEncontrados = 0;
 }

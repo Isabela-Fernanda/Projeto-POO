@@ -32,7 +32,10 @@
             "@personagens/*": ["personagens/*"],
             "@poderes/*": ["poderes/*"],
             "@save/*": ["save/*"],
-            "@mapa/*": ["mapa/*"]
+            "@persistencia/*": ["persistencia/*"],
+            "@mapa/*": ["mapa/*"],
+
+            "@ui/*": ["ui/*"]
         }
     },
 

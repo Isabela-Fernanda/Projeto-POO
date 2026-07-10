@@ -22,7 +22,7 @@ export class SalaInicial {
         const itens = gerador.gerar(jogador);
 
         jogador.setSalaAtual(sala)
-        jogador.setPosicao(5, 7);
+        mapa.posicionarEntidade(jogador, 5, 7);
 
         mapa.adicionarObjeto(new Mesa(3, 3, itens.mesa));
 

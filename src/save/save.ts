@@ -24,7 +24,7 @@ export class Save {
     }
 
     iniciarCampanha(campanha: Campanha) {
-        this.removerPersonagem(campanha.jogador);
+        this.removerPersonagem(campanha.getJogador());
         this.campanha = campanha;
     }
 
