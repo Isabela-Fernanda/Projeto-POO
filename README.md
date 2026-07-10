@@ -2,7 +2,7 @@
 
 Um RPG de turno desenvolvido em TypeScript inspirado nas mecânicas de sistemas de fantasia medieval, com foco em criação de personagens, exploração, combate e gerenciamento de campanha.
 
-Atualmente na versão demo, o projeto busca simular uma experiência de RPG de mesa adaptada para o terminal, implementando sistemas como atributos, raças, classes, perícias, equipamentos, magias, monstros e progressão de aventura para um unico jogador/personagem.
+Atualmente na versão demo, o projeto busca simular uma experiência de RPG de mesa adaptada para o terminal, implementando sistemas como atributos, raças, classes, perícias, equipamentos, magias, monstros e progressão de aventura para um unico jogador/personagem.    nnn
 
 ## Funcionalidades
 
