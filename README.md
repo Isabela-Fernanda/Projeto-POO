@@ -2,7 +2,7 @@
 
 Um RPG de turno desenvolvido em TypeScript inspirado nas mecânicas de sistemas de fantasia medieval, com foco em criação de personagens, exploração, combate e gerenciamento de campanha.
 
-Atualmente na versão demo, o projeto busca simular uma experiência de RPG de mesa adaptada para o terminal, implementando sistemas como atributos, raças, classes, perícias, equipamentos, magias, monstros e progressão de aventura para um unico jogador/personagem.    nnn
+Atualmente na versão demo, o projeto busca simular uma experiência de RPG de mesa adaptada para o terminal, implementando sistemas como atributos, raças, classes, perícias, equipamentos, magias, monstros e progressão de aventura para um unico jogador/personagem.  
 
 ## Funcionalidades
 
@@ -77,7 +77,7 @@ src/
 ├── monstros/         # Criaturas e encontros
 ├── mapas/            # Exploração e masmorras
 ├── save/             # Sistema de salvamento
-└── utils/            # Classes auxiliares
+└── ui/               # Sistema de renderização em 2d e interação no navegador
 ```
 
 ## Como executar
@@ -88,7 +88,13 @@ Instale as dependências:
 npm install
 ```
 
-Execute o jogo:
+Execute o jogo no terminal:
+
+```bash
+npm run terminal
+```
+
+Execute o jogo no navegador:
 
 ```bash
 npm run dev
@@ -117,6 +123,7 @@ O projeto possui uma base funcional contendo:
 * Monstros e encontros;
 * Masmorra tutorial;
 * Inventário;
-* Salvamento de campanha.
+* Salvamento de campanha;
+* Implentação de gráficos 2d básicos.
 
 Novos sistemas podem ser adicionados futuramente, como evolução de personagens, novas aventuras, NPCs e melhorias na interface.
