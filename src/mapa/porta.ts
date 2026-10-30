@@ -24,16 +24,37 @@ export class Passagem extends Conexao {
 }
 
 export class Porta extends Conexao {
-    constructor(
-        origem: Sala,
-        destino: Sala,
-        ladoA: LadoSala,
-        x: number,
-        y: number,
+    constructor(origem: Sala, destino: Sala, ladoA: LadoSala, x: number, y: number,
         private estado = EstadoPorta.FECHADA,
-        private idFechadura: string | "",
-    ) {
+        private idFechadura: string | "",) {
         super(origem, destino, ladoA, x, y);
+    }
+
+    interagir(personagem: Personagem): boolean {
+        if (this.estado === EstadoPorta.ABERTA) {
+            this.estado = EstadoPorta.FECHADA;
+            console.log("Você fechou a porta.");
+            return true;
+        }
+
+        if (this.estado === EstadoPorta.FECHADA) {
+            this.estado = EstadoPorta.ABERTA;
+            console.log("Você abriu a porta.");
+            return true;
+        }
+
+        const chave = personagem.getInventario().possuiChave(
+            this.idFechadura
+        );
+
+        if (chave) {
+            this.estado = EstadoPorta.ABERTA;
+            console.log(`Você destrancou a porta com ${chave.getNome()}.`);
+            return true;
+        }
+
+        console.log("A porta está trancada.");
+        return false;
     }
 
     podeAtravessar(personagem: Personagem): boolean {
@@ -69,6 +90,10 @@ export class Porta extends Conexao {
 
     getTipo(): TileMapa {
         return TileMapa.PORTA;
+    }
+
+    getEstado(): EstadoPorta {
+        return this.estado;
     }
 }
 

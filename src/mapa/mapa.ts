@@ -24,6 +24,34 @@ export class Mapa {
     private largura = 100;
     private altura = 100;
 
+    private posicaoInicialX = 3;
+    private posicaoInicialY = 4;
+    private rotacaoInicial = 0;
+
+    definirPosicaoInicial(x: number, y: number): void {
+        if (!this.posicaoValida(x, y)) {
+            throw new Error("Posição inicial fora dos limites do mapa.");
+        }
+
+        this.posicaoInicialX = x;
+        this.posicaoInicialY = y;
+    }
+
+    getPosicaoInicial(): { x: number; y: number } {
+        return {
+            x: this.posicaoInicialX,
+            y: this.posicaoInicialY,
+        };
+    }
+
+    definirRotacaoInicial(rotacao: number): void {
+        this.rotacaoInicial = rotacao;
+    }
+
+    getRotacaoInicial(): number {
+        return this.rotacaoInicial;
+    }
+
     calcularDistancia(x1: number, y1: number, x2: number, y2: number): number {
         const dx = x2 - x1;
         const dy = y2 - y1;
