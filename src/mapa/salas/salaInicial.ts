@@ -21,7 +21,9 @@ export class SalaInicial {
         const gerador = new GeradorInicial();
         const itens = gerador.gerar(jogador);
 
-        jogador.setSalaAtual(sala)
+        jogador.setSalaAtual(sala);
+        mapa.definirPosicaoInicial(5, 7);
+        mapa.definirRotacaoInicial(Math.PI);
         mapa.posicionarEntidade(jogador, 5, 7);
 
         mapa.adicionarObjeto(new Mesa(3, 3, itens.mesa));

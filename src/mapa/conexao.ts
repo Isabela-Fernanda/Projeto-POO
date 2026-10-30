@@ -1,6 +1,6 @@
 import { Personagem } from "../personagens/personagem.js";
 import { TileMapa } from "./tileMapa.js"
-import { Sala, LadoSala } from "./sala.js";
+import { Sala, LadoSala, TipoSala } from "./sala.js";
 
 export abstract class Conexao {
     constructor(
@@ -33,6 +33,8 @@ export abstract class Conexao {
     getX(): number { return this.x; }
 
     getY(): number { return this.y; }
+
+    getLadoA(): LadoSala { return this.ladoA; }
 
     getLargura(): number { return this.largura; }
 
